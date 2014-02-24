@@ -1,0 +1,25 @@
+{
+    "name": "sandello-alkr/cmsbundle",
+    "type": "symfony-bundle",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "~2.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Krichko",
+            "email": "sandello.alkr@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@bitbucket.org/sandello-alkr/CMSBundle.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "sandello-alkr\\CMSBundle": "" }
+    },
+    "target-dir": "sandello-alkr/CMSBundle"
+}
