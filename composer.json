@@ -15,7 +15,7 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@bitbucket.org/sandello-alkr/CMSBundle.git"
+            "url": "git://github.com/sandello-alkr/CMSBundle.git"
         }
     ],
     "autoload": {
