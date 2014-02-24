@@ -1,0 +1,10 @@
+{% extends "CMSBundle:Templates:"~template %}
+{% block body %}
+{% for page in pages %}
+<div class="row">
+	<div class="col-md-12">
+		<a href="{{ path('page_show',{'url':page.url}) }}">{{page.title}}</a>
+	</div>
+</div>
+{% endfor %}
+{% endblock %}

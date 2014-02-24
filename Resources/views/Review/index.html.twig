@@ -1,0 +1,26 @@
+{% extends "CMSBundle:Templates:"~template|default('one_sidebar.html.twig') %}
+
+{% block body -%}
+    <h1>Отзывы</h1>
+
+    {{ form(form,{'style':'horizontal'})}}
+
+    <div class="reviews">
+    {% for entity in entities %}
+    {% if is_granted('ROLE_USER') or entity.enabled %}
+        <div class="review">
+            <div class="name">{{entity.name}}{% if is_granted('ROLE_USER') %} {{entity.email}}{% endif %}</div>
+            <div class="date">{{entity.date|date('d.m.Y H:i')}}</div>
+            <div class="text">{{entity.review}}</div>
+            {% if is_granted('ROLE_USER') %}
+                {{form(entity.editForm,{'style':'horizontal'})}}
+                {{form(entity.deleteForm,{'style':'horizontal'})}}
+            {% elseif entity.answer is defined %}
+                <div class="answer">{{entity.answer}}</div>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock %}

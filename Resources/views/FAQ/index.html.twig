@@ -1,0 +1,43 @@
+{% extends 'CMSBundle:Default:manager.html.twig' %}
+
+{% block body -%}
+    <h1>FAQ list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('manager_faq_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.question }}</td>
+                <td>{{ entity.answer }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('manager_faq_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('manager_faq_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('manager_faq_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

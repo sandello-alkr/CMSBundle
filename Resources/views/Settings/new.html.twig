@@ -1,0 +1,15 @@
+{% extends 'CMSBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Settings creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_settings') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

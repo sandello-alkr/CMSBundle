@@ -1,0 +1,21 @@
+{% extends "CMSBundle:Templates:"~template %}
+{% block body %}
+<ul>
+{% for cat in categories %}
+<li>
+	{{cat.title}}{% if cat.children|length > 0 %}
+	<ul>
+		{% for child in cat.children %}
+		<li>{{child.title}}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+</li>
+{% endfor %}
+</ul>
+{{ include('CMSBundle:Blocks:blocks.html.twig',{'items':news}) }}
+{% set options = {'type':'news','class':['new'],'carousel':'true','slides':2} %}
+{{ include('CMSBundle:Blocks:blocks.html.twig',{'items':news}) }}
+{% set options = {'type':'gallery'} %}
+{{ include('CMSBundle:Blocks:blocks.html.twig',{'items':news}) }}
+{% endblock %}

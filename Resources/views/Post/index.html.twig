@@ -1,0 +1,36 @@
+{% extends 'CMSBundle:Default:manager.html.twig' %}
+
+{% block body -%}
+    <h1>Post list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Заголовок</th>
+                <th>Дата</th>
+                <th>Аннотация</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.title }}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.annotation }}</td>
+                <td>
+                    <a href="{{ path('manager_post_edit', { 'id': entity.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('manager_post_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'CMSBundle:Default:manager.html.twig' %}
+
+{% block body -%}
+    <h1>Post creation</h1>
+
+    {{ form(form,{'style':'horizontal'}) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('manager_post') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+<script type="text/javascript">
+$('#alkr_cmsbundle_post_title').blur(function(){
+	$('#alkr_cmsbundle_post_url').val($(this).val().replace(/ /g,'-').replace(/[^-а-яА-Я0-9\w]/g,'').toLowerCase())
+})
+</script>
+{% endblock %}

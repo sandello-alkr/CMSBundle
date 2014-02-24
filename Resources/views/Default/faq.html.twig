@@ -1,0 +1,11 @@
+{% extends 'CMSBundle::base.html.twig' %}
+{% block title %}FAQ{% endblock %}
+{% block body %}
+    <h1>FAQ</h1>
+    {% for q in faq %}
+    <div class="row-fluid">
+        <div class="question">{{q.question}}</div>
+        <div class="answer">{{q.answer}}</div>
+    </div>
+    {% endfor %}
+{% endblock %}

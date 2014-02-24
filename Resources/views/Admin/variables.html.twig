@@ -1,0 +1,1360 @@
+{% extends 'CMSBundle::base.html.twig' %}
+
+{% block body -%}
+<form method="POST">
+  <div class="bs-docs-section" id="less-variables-section">
+    <div class="page-header">
+      <input class="btn" type="reset"/>
+      <h1 id="less-variables">LESS variables</h1>
+    </div>
+
+    <h2 id="variables-basics">Basics</h2>
+
+    <h3>Color system</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@brand-primary</label>
+        <input type="text" class="form-control" data-placeholder="#428bca" name="brand-primary" placeholder="{{variables['brand-primary']}}">
+        <label>@brand-success</label>
+        <input type="text" class="form-control" data-placeholder="#5cb85c" name="brand-success" placeholder="{{variables['brand-success']}}">
+        <label>@brand-warning</label>
+        <input type="text" class="form-control" data-placeholder="#f0ad4e" name="brand-warning" placeholder="{{variables['brand-warning']}}">
+      </div>
+      <div class="col-md-6">
+        <label>@brand-danger</label>
+        <input type="text" class="form-control" data-placeholder="#d9534f" name="brand-danger" placeholder="{{variables['brand-danger']}}">
+        <label>@brand-info</label>
+        <input type="text" class="form-control" data-placeholder="#5bc0de" name="brand-info" placeholder="{{variables['brand-info']}}">
+      </div>
+    </div>
+
+
+    <h3>Body scaffolding</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@body-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="body-bg" placeholder="{{variables['body-bg']}}">
+        <p class="help-block">Background color for <code>&lt;body&gt;</code>.</p>
+        <label>@text-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-dark" name="text-color" placeholder="{{variables['text-color']}}">
+        <p class="help-block">Global text color on <code>&lt;body&gt;</code>.</p>
+      </div>
+      <div class="col-md-6">
+        <label>@link-color</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="link-color" placeholder="{{variables['link-color']}}">
+        <p class="help-block">Global textual link color</p>
+        <label>@link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="darken(@link-color, 15%)" name="link-hover-color" placeholder="{{variables['link-hover-color']}}">
+        <p class="help-block">Link hover color set via <code>darken()</code> function</p>
+      </div>
+    </div>
+
+
+    <h3>Typography</h3>
+    <div class="row">
+      <div class="col-lg-6">
+        <h4>Generic font variables</h4>
+        <label>@font-family-sans-serif</label>
+        <input type="text" class="form-control" data-placeholder="'Helvetica Neue', Helvetica, Arial, sans-serif" name="font-family-sans-serif" placeholder="{{variables['font-family-sans-serif']}}">
+        <p class="help-block">Default sans-serif fonts.</p>
+        <label>@font-family-serif</label>
+        <input type="text" class="form-control" data-placeholder="Georgia, 'Times New Roman', Times, serif" name="font-family-serif" placeholder="{{variables['font-family-serif']}}">
+        <p class="help-block">Default serif fonts.</p>
+        <label>@font-family-monospace</label>
+        <input type="text" class="form-control" data-placeholder="Menlo, Monaco, Consolas, 'Courier New', monospace" name="font-family-monospace" placeholder="{{variables['font-family-monospace']}}">
+        <p class="help-block">Default monospace fonts for <code>&lt;code&gt;</code> and <code>&lt;pre&gt;</code>.</p>
+
+        <h4>Base type styes</h4>
+        <label>@font-family-base</label>
+        <input type="text" class="form-control" data-placeholder="@font-family-sans-serif" name="font-family-base" placeholder="{{variables['font-family-base']}}">
+        <label>@font-size-base</label>
+        <input type="text" class="form-control" data-placeholder="14px" name="font-size-base" placeholder="{{variables['font-size-base']}}">
+        <label>@line-height-base</label>
+        <input type="text" class="form-control" data-placeholder="1.428571429" name="line-height-base" placeholder="{{variables['line-height-base']}}">
+        <label>@line-height-large</label>
+        <input type="text" class="form-control" data-placeholder="1.33" name="line-height-large" placeholder="{{variables['line-height-large']}}">
+        <label>@line-height-small</label>
+        <input type="text" class="form-control" data-placeholder="1.5" name="line-height-small" placeholder="{{variables['line-height-small']}}">
+      </div>
+      <div class="col-lg-6">
+        <h4>Heading font sizes</h4>
+        <label>@font-size-h1</label>
+        <input type="text" class="form-control" data-placeholder="floor(@font-size-base * 2.6)" name="font-size-h1" placeholder="{{variables['font-size-h1']}}">
+        <label>@font-size-h2</label>
+        <input type="text" class="form-control" data-placeholder="floor(@font-size-base * 2.15)" name="font-size-h2" placeholder="{{variables['font-size-h2']}}">
+        <label>@font-size-h3</label>
+        <input type="text" class="form-control" data-placeholder="ceil(@font-size-base * 1.7)" name="font-size-h3" placeholder="{{variables['font-size-h3']}}">
+        <label>@font-size-h4</label>
+        <input type="text" class="form-control" data-placeholder="ceil(@font-size-base * 1.25)" name="font-size-h4" placeholder="{{variables['font-size-h4']}}">
+        <label>@font-size-h5</label>
+        <input type="text" class="form-control" data-placeholder="@font-size-base" name="font-size-h5" placeholder="{{variables['font-size-h5']}}">
+        <label>@font-size-h6</label>
+        <input type="text" class="form-control" data-placeholder="ceil(@font-size-base * 0.85)" name="font-size-h6" placeholder="{{variables['font-size-h6']}}">
+      </div>
+    </div>
+
+
+    <h3>Headings</h3>
+    <div class="row">
+      <div class="col-lg-6">
+        <label>@headings-font-family</label>
+        <input type="text" class="form-control" data-placeholder="@font-family-base" name="headings-font-family" placeholder="{{variables['headings-font-family']}}">
+        <label>@headings-font-weight</label>
+        <input type="text" class="form-control" data-placeholder="500" name="headings-font-weight" placeholder="{{variables['headings-font-weight']}}">
+      </div>
+      <div class="col-lg-6">
+        <label>@headings-line-height</label>
+        <input type="text" class="form-control" data-placeholder="1.1" name="headings-line-height" placeholder="{{variables['headings-line-height']}}">
+        <label>@headings-color</label>
+        <input type="text" class="form-control" data-placeholder="inherit" name="headings-color" placeholder="{{variables['headings-color']}}">
+      </div>
+    </div>
+
+
+    <h3>Code blocks</h3>
+    <div class="row">
+      <div class="col-lg-6">
+        <label>@code-color</label>
+        <input type="text" class="form-control" data-placeholder="#c7254e" name="code-color" placeholder="{{variables['code-color']}}">
+        <label>@code-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f9f2f4" name="code-bg" placeholder="{{variables['code-bg']}}">
+      </div>
+      <div class="col-lg-6">
+        <label>@pre-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-dark" name="pre-color" placeholder="{{variables['pre-color']}}">
+        <label>@pre-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="pre-bg" placeholder="{{variables['pre-bg']}}">
+        <label>@pre-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="pre-border-color" placeholder="{{variables['pre-border-color']}}">
+      </div>
+    </div>
+
+
+    <h3>Media queries breakpoints</h3>
+    <div class="row">
+      <div class="col-xs-6 col-md-3">
+        <label>@screen-xs-min</label>
+        <input type="text" class="form-control" data-placeholder="480px" name="screen-xs-min" placeholder="{{variables['screen-xs-min']}}">
+      </div>
+      <div class="col-xs-6 col-md-3">
+        <label>@screen-sm-min</label>
+        <input type="text" class="form-control" data-placeholder="768px" name="screen-sm-min" placeholder="{{variables['screen-sm-min']}}">
+      </div>
+      <div class="col-xs-6 col-md-3">
+        <label>@screen-md-min</label>
+        <input type="text" class="form-control" data-placeholder="992px" name="screen-md-min" placeholder="{{variables['screen-md-min']}}">
+      </div>
+      <div class="col-xs-6 col-md-3">
+        <label>@screen-lg-min</label>
+        <input type="text" class="form-control" data-placeholder="1200px" name="screen-lg-min" placeholder="{{variables['screen-lg-min']}}">
+      </div>
+    </div>
+
+    <h3>Layout and grid system</h3>
+    <div class="row">
+      <div class="col-xs-6 col-sm-4">
+        <label>@container-sm</label>
+        <input type="text" class="form-control" data-placeholder="((720px + @grid-gutter-width))" name="container-sm" placeholder="{{variables['container-sm']}}">
+        <p class="help-block">For <code>@screen-sm-min</code> and up.</p>
+      </div>
+      <div class="col-xs-6 col-sm-4">
+        <label>@container-md</label>
+        <input type="text" class="form-control" data-placeholder="((940px + @grid-gutter-width))" name="container-md" placeholder="{{variables['container-md']}}">
+        <p class="help-block">For <code>@screen-md-min</code> and up.</p>
+      </div>
+      <div class="clearfix visible-xs"></div>
+      <div class="col-xs-6 col-sm-4">
+        <label>@container-lg</label>
+        <input type="text" class="form-control" data-placeholder="((1140px + @grid-gutter-width))" name="container-lg" placeholder="{{variables['container-lg']}}">
+        <p class="help-block">For <code>@screen-lg-min</code> and up.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6 col-sm-4">
+        <label>@grid-columns</label>
+        <input type="text" class="form-control" data-placeholder="12" name="grid-columns" placeholder="{{variables['grid-columns']}}">
+        <p class="help-block">Number of columns in the grid.</p>
+      </div>
+      <div class="col-xs-6 col-sm-4">
+        <label>@grid-gutter-width</label>
+        <input type="text" class="form-control" data-placeholder="30px" name="grid-gutter-width" placeholder="{{variables['grid-gutter-width']}}">
+        <p class="help-block">Padding between columns.</p>
+      </div>
+      <div class="clearfix visible-xs"></div>
+      <div class="col-xs-6 col-sm-4">
+        <label>@grid-float-breakpoint</label>
+        <input type="text" class="form-control" data-placeholder="@screen-sm-min" name="grid-float-breakpoint" placeholder="{{variables['grid-float-breakpoint']}}">
+        <p class="help-block">Point at which the navbar stops collapsing.</p>
+      </div>
+    </div>
+
+
+    <h3>Components</h3>
+
+    <h4>Padding</h4>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@padding-base-vertical</label>
+        <input type="text" class="form-control" data-placeholder="6px" name="padding-base-vertical" placeholder="{{variables['padding-base-vertical']}}">
+        <label>@padding-base-horizontal</label>
+        <input type="text" class="form-control" data-placeholder="12px" name="padding-base-horizontal" placeholder="{{variables['padding-base-horizontal']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@padding-large-vertical</label>
+        <input type="text" class="form-control" data-placeholder="10px" name="padding-large-vertical" placeholder="{{variables['padding-large-vertical']}}">
+        <label>@padding-large-horizontal</label>
+        <input type="text" class="form-control" data-placeholder="16px" name="padding-large-horizontal" placeholder="{{variables['padding-large-horizontal']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@padding-small-vertical</label>
+        <input type="text" class="form-control" data-placeholder="5px" name="padding-small-vertical" placeholder="{{variables['padding-small-vertical']}}">
+        <label>@padding-small-horizontal</label>
+        <input type="text" class="form-control" data-placeholder="10px" name="padding-small-horizontal" placeholder="{{variables['padding-small-horizontal']}}">
+      </div>
+    </div>
+
+    <h4>Rounded corners</h4>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@border-radius-base</label>
+        <input type="text" class="form-control" data-placeholder="4px" name="border-radius-base" placeholder="{{variables['border-radius-base']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@border-radius-large</label>
+        <input type="text" class="form-control" data-placeholder="6px" name="border-radius-large" placeholder="{{variables['border-radius-large']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@border-radius-small</label>
+        <input type="text" class="form-control" data-placeholder="3px" name="border-radius-small" placeholder="{{variables['border-radius-small']}}">
+      </div>
+    </div>
+
+    <h4>Component active state</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@component-active-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="component-active-color" placeholder="{{variables['component-active-color']}}">
+        <p class="help-block">Global color for active items (e.g., navs or dropdowns)</p>
+      </div>
+      <div class="col-md-6">
+        <label>@component-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="component-active-bg" placeholder="{{variables['component-active-bg']}}">
+        <p class="help-block">Global background color for active items (e.g., navs or dropdowns)</p>
+      </div>
+    </div>
+
+    <h4>Carets</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@caret-width-base</label>
+        <input type="text" class="form-control" data-placeholder="4px" name="caret-width-base" placeholder="{{variables['caret-width-base']}}">
+      </div>
+      <div class="col-md-6">
+        <label>@caret-width-large</label>
+        <input type="text" class="form-control" data-placeholder="5px" name="caret-width-large" placeholder="{{variables['caret-width-large']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-buttons">Buttons</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@btn-font-weight</label>
+        <input type="text" class="form-control" data-placeholder="normal" name="btn-font-weight" placeholder="{{variables['btn-font-weight']}}">
+      </div>
+      <div class="col-md-6">
+        <label>@btn-link-disabled-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="btn-link-disabled-color" placeholder="{{variables['btn-link-disabled-color']}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Default</h4>
+        <label>@btn-default-color</label>
+        <input type="text" class="form-control" data-placeholder="#333" name="btn-default-color" placeholder="{{variables['btn-default-color']}}">
+        <label>@btn-default-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="btn-default-bg" placeholder="{{variables['btn-default-bg']}}">
+        <label>@btn-default-border</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="btn-default-border" placeholder="{{variables['btn-default-border']}}">
+        <h4>Primary</h4>
+        <label>@btn-primary-color</label>
+        <input type="text" class="form-control" data-placeholder="@btn-default-color" name="btn-primary-color" placeholder="{{variables['btn-primary-color']}}">
+        <label>@btn-primary-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="btn-primary-bg" placeholder="{{variables['btn-primary-bg']}}">
+        <label>@btn-primary-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(@btn-primary-bg, 5%)" name="btn-primary-border" placeholder="{{variables['btn-primary-border']}}">
+        <h4>Info</h4>
+        <label>@btn-info-color</label>
+        <input type="text" class="form-control" data-placeholder="@btn-default-color" name="btn-info-color" placeholder="{{variables['btn-info-color']}}">
+        <label>@btn-info-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-info" name="btn-info-bg" placeholder="{{variables['btn-info-bg']}}">
+        <label>@btn-info-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(@btn-info-bg, 5%)" name="btn-info-border" placeholder="{{variables['btn-info-border']}}">
+      </div>
+      <div class="col-md-6">
+        <h4>Success</h4>
+        <label>@btn-success-color</label>
+        <input type="text" class="form-control" data-placeholder="@btn-default-color" name="btn-success-color" placeholder="{{variables['btn-success-color']}}">
+        <label>@btn-success-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-success" name="btn-success-bg" placeholder="{{variables['btn-success-bg']}}">
+        <label>@btn-success-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(@btn-success-bg, 5%);" name="btn-success-border" placeholder="{{variables['btn-success-border']}}">
+        <h4>Warning</h4>
+        <label>@btn-warning-color</label>
+        <input type="text" class="form-control" data-placeholder="@btn-default-color" name="btn-warning-color" placeholder="{{variables['btn-warning-color']}}">
+        <label>@btn-warning-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-warning" name="btn-warning-bg" placeholder="{{variables['btn-warning-bg']}}">
+        <label>@btn-warning-border</label>
+        <input type="text" class="form-control" data-placeholder=" darken(@btn-warning-bg, 5%)" name="btn-warning-border" placeholder="{{variables['btn-warning-border']}}">
+        <h4>Danger</h4>
+        <label>@btn-danger-color</label>
+        <input type="text" class="form-control" data-placeholder="@btn-default-color" name="btn-danger-color" placeholder="{{variables['btn-danger-color']}}">
+        <label>@btn-danger-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-danger" name="btn-danger-bg" placeholder="{{variables['btn-danger-bg']}}">
+        <label>@btn-danger-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(@btn-danger-bg, 5%)" name="btn-danger-border" placeholder="{{variables['btn-danger-border']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-form-states">Form states and alerts</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Success</h4>
+        <label>@state-success-text</label>
+        <input type="text" class="form-control" data-placeholder="#468847" name="state-success-text" placeholder="{{variables['state-success-text']}}">
+        <label>@state-success-bg</label>
+        <input type="text" class="form-control" data-placeholder="#dff0d8" name="state-success-bg" placeholder="{{variables['state-success-bg']}}">
+        <label>@state-success-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(spin(@state-success-bg, -10), 5%)" name="state-success-border" placeholder="{{variables['state-success-border']}}">
+        <h4>Warning</h4>
+        <label>@state-warning-text</label>
+        <input type="text" class="form-control" data-placeholder="#c09853" name="state-warning-text" placeholder="{{variables['state-warning-text']}}">
+        <label>@state-warning-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fcf8e3" name="state-warning-bg" placeholder="{{variables['state-warning-bg']}}">
+        <label>@state-warning-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(spin(@state-warning-bg, -10), 3%)" name="state-warning-border" placeholder="{{variables['state-warning-border']}}">
+      </div>
+      <div class="col-md-6">
+        <h4>Danger</h4>
+        <label>@state-danger-text</label>
+        <input type="text" class="form-control" data-placeholder="#b94a48" name="state-danger-text" placeholder="{{variables['state-danger-text']}}">
+        <label>@state-danger-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f2dede" name="state-danger-bg" placeholder="{{variables['state-danger-bg']}}">
+        <label>@state-danger-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(spin(@state-danger-bg, -10), 3%)" name="state-danger-border" placeholder="{{variables['state-danger-border']}}">
+        <h4>Info</h4>
+        <label>@state-info-text</label>
+        <input type="text" class="form-control" data-placeholder="#3a87ad" name="state-info-text" placeholder="{{variables['state-info-text']}}">
+        <label>@state-info-bg</label>
+        <input type="text" class="form-control" data-placeholder="#d9edf7" name="state-info-bg" placeholder="{{variables['state-info-bg']}}">
+        <label>@state-info-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(spin(@state-info-bg, -10), 7%)" name="state-info-border" placeholder="{{variables['state-info-border']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-alerts">Alerts</h2>
+
+    <h4>Base styles</h4>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@alert-padding</label>
+        <input type="text" class="form-control" data-placeholder="15px" name="alert-padding" placeholder="{{variables['alert-padding']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@alert-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="@border-radius-base" name="alert-border-radius" placeholder="{{variables['alert-border-radius']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@alert-link-font-weight</label>
+        <input type="text" class="form-control" data-placeholder="bold" name="alert-link-font-weight" placeholder="{{variables['alert-link-font-weight']}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h4>Warning</h4>
+        <label>@alert-warning-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-warning-text" name="alert-warning-text" placeholder="{{variables['alert-warning-text']}}">
+        <label>@alert-warning-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-warning-bg" name="alert-warning-bg" placeholder="{{variables['alert-warning-bg']}}">
+        <label>@alert-warning-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-warning-border" name="alert-warning-border" placeholder="{{variables['alert-warning-border']}}">
+
+        <h4>Success</h4>
+        <label>@alert-success-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-success-text" name="alert-success-text" placeholder="{{variables['alert-success-text']}}">
+        <label>@alert-success-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-success-bg" name="alert-success-bg" placeholder="{{variables['alert-success-bg']}}">
+        <label>@alert-success-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-success-border" name="alert-success-border" placeholder="{{variables['alert-success-border']}}">
+      </div>
+      <div class="col-lg-6">
+        <h4>Danger</h4>
+        <label>@alert-danger-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-danger-text" name="alert-danger-text" placeholder="{{variables['alert-danger-text']}}">
+        <label>@alert-danger-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-danger-bg" name="alert-danger-bg" placeholder="{{variables['alert-danger-bg']}}">
+        <label>@alert-danger-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-danger-border" name="alert-danger-border" placeholder="{{variables['alert-danger-border']}}">
+
+        <h4>Info</h4>
+        <label>@alert-info-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-info-text" name="alert-info-text" placeholder="{{variables['alert-info-text']}}">
+        <label>@alert-info-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-info-bg" name="alert-info-bg" placeholder="{{variables['alert-info-bg']}}">
+        <label>@alert-info-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-info-border" name="alert-info-border" placeholder="{{variables['alert-info-border']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-navbar">Navbar</h2>
+
+    <h3>Base styles</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@navbar-height</label>
+        <input type="text" class="form-control" data-placeholder="50px" name="navbar-height" placeholder="{{variables['navbar-height']}}">
+        <label>@navbar-margin-bottom</label>
+        <input type="text" class="form-control" data-placeholder="@line-height-computed" name="navbar-margin-bottom" placeholder="{{variables['navbar-margin-bottom']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@navbar-padding-horizontal</label>
+        <input type="text" class="form-control" data-placeholder="floor(@grid-gutter-width / 2)" name="navbar-padding-horizontal" placeholder="{{variables['navbar-padding-horizontal']}}">
+        <label>@navbar-padding-vertical</label>
+        <input type="text" class="form-control" data-placeholder="((@navbar-height - @line-height-computed) / 2)" name="navbar-padding-vertical" placeholder="{{variables['navbar-padding-vertical']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@navbar-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="@border-radius-base" name="navbar-border-radius" placeholder="{{variables['navbar-border-radius']}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>Default navbar</h3>
+        <h4>Basics</h4>
+        <label>@navbar-default-color</label>
+        <input type="text" class="form-control" data-placeholder="#777" name="navbar-default-color" placeholder="{{variables['navbar-default-color']}}">
+        <label>@navbar-default-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f8f8f8" name="navbar-default-bg" placeholder="{{variables['navbar-default-bg']}}">
+        <label>@navbar-default-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(@navbar-default-bg, 6.5%)" name="navbar-default-border" placeholder="{{variables['navbar-default-border']}}">
+
+        <h4>Links</h4>
+        <label>@navbar-default-link-color</label>
+        <input type="text" class="form-control" data-placeholder="#777" name="navbar-default-link-color" placeholder="{{variables['navbar-default-link-color']}}">
+        <label>@navbar-default-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="#333" name="navbar-default-link-hover-color" placeholder="{{variables['navbar-default-link-hover-color']}}">
+        <label>@navbar-default-link-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="transparent" name="navbar-default-link-hover-bg" placeholder="{{variables['navbar-default-link-hover-bg']}}">
+        <label>@navbar-default-link-active-color</label>
+        <input type="text" class="form-control" data-placeholder="#555" name="navbar-default-link-active-color" placeholder="{{variables['navbar-default-link-active-color']}}">
+        <label>@navbar-default-link-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="darken(@navbar-default-bg, 6.5%)" name="navbar-default-link-active-bg" placeholder="{{variables['navbar-default-link-active-bg']}}">
+        <label>@navbar-default-link-disabled-color</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="navbar-default-link-disabled-color" placeholder="{{variables['navbar-default-link-disabled-color']}}">
+        <label>@navbar-default-link-disabled-bg</label>
+        <input type="text" class="form-control" data-placeholder="transparent" name="navbar-default-link-disabled-bg" placeholder="{{variables['navbar-default-link-disabled-bg']}}">
+
+        <h4>Brand</h4>
+        <label>@navbar-default-brand-color</label>
+        <input type="text" class="form-control" data-placeholder="@navbar-default-link-color" name="navbar-default-brand-color" placeholder="{{variables['navbar-default-brand-color']}}">
+        <label>@navbar-default-brand-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="darken(@navbar-default-brand-color, 10%)" name="navbar-default-brand-hover-color" placeholder="{{variables['navbar-default-brand-hover-color']}}">
+        <label>@navbar-default-brand-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="transparent" name="navbar-default-brand-hover-bg" placeholder="{{variables['navbar-default-brand-hover-bg']}}">
+
+        <h4>Toggle</h4>
+        <label>@navbar-default-toggle-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="navbar-default-toggle-hover-bg" placeholder="{{variables['navbar-default-toggle-hover-bg']}}">
+        <label>@navbar-default-toggle-icon-bar-bg</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="navbar-default-toggle-icon-bar-bg" placeholder="{{variables['navbar-default-toggle-icon-bar-bg']}}">
+        <label>@navbar-default-toggle-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="navbar-default-toggle-border-color" placeholder="{{variables['navbar-default-toggle-border-color']}}">
+      </div>
+
+      <div class="col-lg-6">
+        <h3>Inverted navbar</h3>
+
+        <h4>Basics</h4>
+        <label>@navbar-inverse-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="navbar-inverse-color" placeholder="{{variables['navbar-inverse-color']}}">
+        <label>@navbar-inverse-bg</label>
+        <input type="text" class="form-control" data-placeholder="#222" name="navbar-inverse-bg" placeholder="{{variables['navbar-inverse-bg']}}">
+        <label>@navbar-inverse-border</label>
+        <input type="text" class="form-control" data-placeholder="darken(@navbar-inverse-bg, 10%)" name="navbar-inverse-border" placeholder="{{variables['navbar-inverse-border']}}">
+
+        <h4>Links</h4>
+        <label>@navbar-inverse-link-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="navbar-inverse-link-color" placeholder="{{variables['navbar-inverse-link-color']}}">
+        <label>@navbar-inverse-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="navbar-inverse-link-hover-color" placeholder="{{variables['navbar-inverse-link-hover-color']}}">
+        <label>@navbar-inverse-link-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="transparent" name="navbar-inverse-link-hover-bg" placeholder="{{variables['navbar-inverse-link-hover-bg']}}">
+        <label>@navbar-inverse-link-active-color</label>
+        <input type="text" class="form-control" data-placeholder="@navbar-inverse-link-hover-color" name="navbar-inverse-link-active-color" placeholder="{{variables['navbar-inverse-link-active-color']}}">
+        <label>@navbar-inverse-link-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="darken(@navbar-inverse-bg, 10%)" name="navbar-inverse-link-active-bg" placeholder="{{variables['navbar-inverse-link-active-bg']}}">
+        <label>@navbar-inverse-link-disabled-color</label>
+        <input type="text" class="form-control" data-placeholder="#444" name="navbar-inverse-link-disabled-color" placeholder="{{variables['navbar-inverse-link-disabled-color']}}">
+        <label>@navbar-inverse-link-disabled-bg</label>
+        <input type="text" class="form-control" data-placeholder="transparent" name="navbar-inverse-link-disabled-bg" placeholder="{{variables['navbar-inverse-link-disabled-bg']}}">
+
+        <h4>Brand</h4>
+        <label>@navbar-inverse-brand-color</label>
+        <input type="text" class="form-control" data-placeholder="@navbar-inverse-link-color" name="navbar-inverse-brand-color" placeholder="{{variables['navbar-inverse-brand-color']}}">
+        <label>@navbar-inverse-brand-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="navbar-inverse-brand-hover-color" placeholder="{{variables['navbar-inverse-brand-hover-color']}}">
+        <label>@navbar-inverse-brand-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="transparent" name="navbar-inverse-brand-hover-bg" placeholder="{{variables['navbar-inverse-brand-hover-bg']}}">
+
+        <h4>Toggle</h4>
+        <label>@navbar-inverse-toggle-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="#333" name="navbar-inverse-toggle-hover-bg" placeholder="{{variables['navbar-inverse-toggle-hover-bg']}}">
+        <label>@navbar-inverse-toggle-icon-bar-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="navbar-inverse-toggle-icon-bar-bg" placeholder="{{variables['navbar-inverse-toggle-icon-bar-bg']}}">
+        <label>@navbar-inverse-toggle-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#333" name="navbar-inverse-toggle-border-color" placeholder="{{variables['navbar-inverse-toggle-border-color']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-nav">Nav</h2>
+
+    <h3>Default nav</h3>
+    <div class="row">
+      <div class="col-lg-6">
+        <h4>Common placeholders</h4>
+        <label>@nav-link-padding</label>
+        <input type="text" class="form-control" data-placeholder="10px 15px" name="nav-link-padding" placeholder="{{variables['nav-link-padding']}}">
+        <label>@nav-link-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="nav-link-hover-bg" placeholder="{{variables['nav-link-hover-bg']}}">
+        <label>@nav-disabled-link-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="nav-disabled-link-color" placeholder="{{variables['nav-disabled-link-color']}}">
+        <label>@nav-disabled-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="nav-disabled-link-hover-color" placeholder="{{variables['nav-disabled-link-hover-color']}}">
+        <label>@nav-open-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="nav-open-link-hover-color" placeholder="{{variables['nav-open-link-hover-color']}}">
+        <label>@nav-open-caret-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="nav-open-caret-border-color" placeholder="{{variables['nav-open-caret-border-color']}}">
+
+        <h4>Pills</h4>
+        <label>@nav-pills-active-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="@fff" name="nav-pills-active-link-hover-color" placeholder="{{variables['nav-pills-active-link-hover-color']}}">
+        <label>@nav-pills-active-link-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="@component-active-bg" name="nav-pills-active-link-hover-bg" placeholder="{{variables['nav-pills-active-link-hover-bg']}}">
+      </div>
+      <div class="col-lg-6">
+        <h4>Tabs</h4>
+        <label>@nav-tabs-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="nav-tabs-border-color" placeholder="{{variables['nav-tabs-border-color']}}">
+        <label>@nav-tabs-link-hover-border-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="nav-tabs-link-hover-border-color" placeholder="{{variables['nav-tabs-link-hover-border-color']}}">
+        <label>@nav-tabs-active-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray" name="nav-tabs-active-link-hover-color" placeholder="{{variables['nav-tabs-active-link-hover-color']}}">
+        <label>@nav-tabs-active-link-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="@body-bg" name="nav-tabs-active-link-hover-bg" placeholder="{{variables['nav-tabs-active-link-hover-bg']}}">
+        <label>@nav-tabs-active-link-hover-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="nav-tabs-active-link-hover-border-color" placeholder="{{variables['nav-tabs-active-link-hover-border-color']}}">
+        <label>@nav-tabs-justified-link-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="nav-tabs-justified-link-border-color" placeholder="{{variables['nav-tabs-justified-link-border-color']}}">
+        <label>@nav-tabs-justified-active-link-border-color</label>
+        <input type="text" class="form-control" data-placeholder="@body-bg" name="nav-tabs-justified-active-link-border-color" placeholder="{{variables['nav-tabs-justified-active-link-border-color']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-tables">Tables</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@table-cell-padding</label>
+        <input type="text" class="form-control" data-placeholder="8px" name="table-cell-padding" placeholder="{{variables['table-cell-padding']}}">
+        <p class="help-block">Default padding for <code>&lt;th&gt;</code>s and <code>&lt;td&gt;</code>s</p>
+        <label>@table-condensed-cell-padding</label>
+        <input type="text" class="form-control" data-placeholder="5px" name="table-condensed-cell-padding" placeholder="{{variables['table-condensed-cell-padding']}}">
+        <p class="help-block">Default padding cells in <code>.table-condensed</code></p>
+      </div>
+      <div class="col-md-4">
+        <label>@table-bg</label>
+        <input type="text" class="form-control" data-placeholder="transparent" name="table-bg" placeholder="{{variables['table-bg']}}">
+        <p class="help-block">Default background color used for all tables.</p>
+        <label>@table-bg-accent</label>
+        <input type="text" class="form-control" data-placeholder="#f9f9f9" name="table-bg-accent" placeholder="{{variables['table-bg-accent']}}">
+        <p class="help-block">Background color used for <code>.table-striped</code>.</p>
+      </div>
+      <div class="col-md-4">
+        <label>@table-bg-hover</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="table-bg-hover" placeholder="{{variables['table-bg-hover']}}">
+        <p class="help-block">Background color used for <code>.table-hover</code>.</p>
+        <label>@table-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="table-border-color" placeholder="{{variables['table-border-color']}}">
+        <p class="help-block">Border color for table and cell borders.</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-forms">Forms</h2>
+
+    <h3>Inputs</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@input-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray" name="input-color" placeholder="{{variables['input-color']}}">
+        <p class="help-block">Text color for <code>&lt;input&gt;</code>s</p>
+        <label>@input-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="input-bg" placeholder="{{variables['input-bg']}}">
+        <p class="help-block"><code>&lt;input&gt;</code> background color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@input-border</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="input-border" placeholder="{{variables['input-border']}}">
+        <p class="help-block"><code>&lt;input&gt;</code> border color</p>
+        <label>@input-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="@border-radius-base" name="input-border-radius" placeholder="{{variables['input-border-radius']}}">
+        <p class="help-block"><code>&lt;input&gt;</code> border radius</p>
+      </div>
+      <div class="col-md-4">
+        <label>@input-color-placeholder</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="input-color-placeholder" placeholder="{{variables['input-color-placeholder']}}">
+        <p class="help-block">Placeholder text color</p>
+      </div>
+    </div>
+
+    <h3>Input states</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@input-border-focus</label>
+        <input type="text" class="form-control" data-placeholder="#66afe9" name="input-border-focus" placeholder="{{variables['input-border-focus']}}">
+        <p class="help-block">Border color for inputs on focus</p>
+      </div>
+      <div class="col-md-4">
+        <label>@input-bg-disabled</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="input-bg-disabled" placeholder="{{variables['input-bg-disabled']}}">
+        <p class="help-block"><code>&lt;input disabled&gt;</code> background color</p>
+      </div>
+    </div>
+
+    <h3>Input sizes</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@input-height-base</label>
+        <input type="text" class="form-control" data-placeholder="(@line-height-computed + (@padding-base-vertical * 2) + 2)" name="input-height-base" placeholder="{{variables['input-height-base']}}">
+        <p class="help-block">Default <code>.form-control</code> height</p>
+      </div>
+      <div class="col-md-4">
+        <label>@input-height-large</label>
+        <input type="text" class="form-control" data-placeholder="(floor(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2)" name="input-height-large" placeholder="{{variables['input-height-large']}}">
+        <p class="help-block">Large <code>.form-control</code> height</p>
+      </div>
+      <div class="col-md-4">
+        <label>@input-height-small</label>
+        <input type="text" class="form-control" data-placeholder="(floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2)" name="input-height-small" placeholder="{{variables['input-height-small']}}">
+        <p class="help-block">Small <code>.form-control</code> height</p>
+      </div>
+    </div>
+
+    <h3>Legend</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@legend-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-dark" name="legend-color" placeholder="{{variables['legend-color']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@legend-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#e5e5e5" name="legend-border-color" placeholder="{{variables['legend-border-color']}}">
+      </div>
+    </div>
+
+    <h3>Input groups</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@input-group-addon-bg</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="input-group-addon-bg" placeholder="{{variables['input-group-addon-bg']}}">
+        <p class="help-block">Background color for textual input addons</p>
+      </div>
+      <div class="col-md-4">
+        <label>@input-group-addon-border-color</label>
+        <input type="text" class="form-control" data-placeholder="@input-border" name="input-group-addon-border-color" placeholder="{{variables['input-group-addon-border-color']}}">
+        <p class="help-block">Border color for textual input addons</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-dropdowns">Dropdowns</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Dropdown menu</h3>
+        <label>@dropdown-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="dropdown-bg" placeholder="{{variables['dropdown-bg']}}">
+        <p class="help-block">Dropdown menu background color</p>
+        <label>@dropdown-border</label>
+        <input type="text" class="form-control" data-placeholder="rgba(0,0,0,.15)" name="dropdown-border" placeholder="{{variables['dropdown-border']}}">
+        <p class="help-block">Dropdown menu border color</p>
+        <label>@dropdown-fallback-border</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="dropdown-fallback-border" placeholder="{{variables['dropdown-fallback-border']}}">
+        <p class="help-block">Dropdown menu border color <strong>for IE8</strong></p>
+        <label>@dropdown-caret-color</label>
+        <input type="text" class="form-control" data-placeholder="@dropdown-caret-color" name="dropdown-caret-color" placeholder="{{variables['dropdown-caret-color']}}">
+        <p class="help-block">Indicator arrow for showing an element has a dropdown</p>
+        <label>@dropdown-divider-bg</label>
+        <input type="text" class="form-control" data-placeholder="#e5e5e5" name="dropdown-divider-bg" placeholder="{{variables['dropdown-divider-bg']}}">
+        <p class="help-block">Dropdown divider top border color</p>
+        <label>@dropdown-header-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="dropdown-header-color" placeholder="{{variables['dropdown-header-color']}}">
+        <p class="help-block">Text color for headers within dropdown menus</p>
+      </div>
+      <div class="col-md-6">
+        <h3>Dropdown items</h3>
+        <label>@dropdown-link-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-dark" name="dropdown-link-color" placeholder="{{variables['dropdown-link-color']}}">
+        <p class="help-block">Dropdown text color</p>
+
+        <label>@dropdown-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="darken(@dropdown-link-color, 5%)" name="dropdown-link-hover-color" placeholder="{{variables['dropdown-link-hover-color']}}">
+        <p class="help-block">Hovered dropdown menu entry text color</p>
+        <label>@dropdown-link-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="dropdown-link-hover-bg" placeholder="{{variables['dropdown-link-hover-bg']}}">
+        <p class="help-block">Hovered dropdown menu entry text color</p>
+
+        <label>@dropdown-link-active-color</label>
+        <input type="text" class="form-control" data-placeholder="@component-active-color" name="dropdown-link-active-color" placeholder="{{variables['dropdown-link-active-color']}}">
+        <p class="help-block">Active dropdown menu entry text color</p>
+        <label>@dropdown-link-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="@component-active-bg" name="dropdown-link-active-bg" placeholder="{{variables['dropdown-link-active-bg']}}">
+        <p class="help-block">Active dropdown menu entry background color</p>
+
+        <label>@dropdown-link-disabled-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="dropdown-link-disabled-color" placeholder="{{variables['dropdown-link-disabled-color']}}">
+        <p class="help-block">Disabled dropdown menu entry background color</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-panels-wells">Panels and wells</h2>
+
+    <h3>Common panel styles</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@panel-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="panel-bg" placeholder="{{variables['panel-bg']}}">
+        <label>@panel-inner-border</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="panel-inner-border" placeholder="{{variables['panel-inner-border']}}">
+        <p class="help-block">Border color for elements within panels</p>
+      </div>
+      <div class="col-md-6">
+        <label>@panel-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="@border-radius-base" name="panel-border-radius" placeholder="{{variables['panel-border-radius']}}">
+        <label>@panel-footer-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="panel-footer-bg" placeholder="{{variables['panel-footer-bg']}}">
+      </div>
+    </div>
+    <h3>Contextual panel colors</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Default</h4>
+        <label>@panel-default-text</label>
+        <input type="text" class="form-control" data-placeholder="@gray-dark" name="panel-default-text" placeholder="{{variables['panel-default-text']}}">
+        <label>@panel-default-border</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="panel-default-border" placeholder="{{variables['panel-default-border']}}">
+        <label>@panel-default-heading-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="panel-default-heading-bg" placeholder="{{variables['panel-default-heading-bg']}}">
+
+        <h4>Primary</h4>
+        <label>@panel-primary-text</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="panel-primary-text" placeholder="{{variables['panel-primary-text']}}">
+        <label>@panel-primary-border</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="panel-primary-border" placeholder="{{variables['panel-primary-border']}}">
+        <label>@panel-primary-heading-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="panel-primary-heading-bg" placeholder="{{variables['panel-primary-heading-bg']}}">
+
+        <h4>Success</h4>
+        <label>@panel-success-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-success-text" name="panel-success-text" placeholder="{{variables['panel-success-text']}}">
+        <label>@panel-success-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-success-border" name="panel-success-border" placeholder="{{variables['panel-success-border']}}">
+        <label>@panel-success-heading-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-success-bg" name="panel-success-heading-bg" placeholder="{{variables['panel-success-heading-bg']}}">
+      </div>
+      <div class="col-md-6">
+        <h4>Info</h4>
+        <label>@panel-info-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-info-text" name="panel-info-text" placeholder="{{variables['panel-info-text']}}">
+        <label>@panel-info-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-info-border" name="panel-info-border" placeholder="{{variables['panel-info-border']}}">
+        <label>@panel-info-heading-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-info-bg" name="panel-info-heading-bg" placeholder="{{variables['panel-info-heading-bg']}}">
+
+        <h4>Warning</h4>
+        <label>@panel-warning-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-warning-text" name="panel-warning-text" placeholder="{{variables['panel-warning-text']}}">
+        <label>@panel-warning-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-warning-border" name="panel-warning-border" placeholder="{{variables['panel-warning-border']}}">
+        <label>@panel-warning-heading-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-warning-bg" name="panel-warning-heading-bg" placeholder="{{variables['panel-warning-heading-bg']}}">
+
+        <h4>Danger</h4>
+        <label>@panel-danger-text</label>
+        <input type="text" class="form-control" data-placeholder="@state-danger-text" name="panel-danger-text" placeholder="{{variables['panel-danger-text']}}">
+        <label>@panel-danger-border</label>
+        <input type="text" class="form-control" data-placeholder="@state-danger-border" name="panel-danger-border" placeholder="{{variables['panel-danger-border']}}">
+        <label>@panel-danger-heading-bg</label>
+        <input type="text" class="form-control" data-placeholder="@state-danger-bg" name="panel-danger-heading-bg" placeholder="{{variables['panel-danger-heading-bg']}}">
+      </div>
+    </div>
+
+    <h3>Wells</h3>
+    <label>@well-bg</label>
+    <input type="text" class="form-control" data-placeholder="#f5f5f5" name="well-bg" placeholder="{{variables['well-bg']}}">
+
+    <h2 id="variables-badges">Badges</h2>
+
+    <h3>Base styles</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@badge-font-weight</label>
+        <input type="text" class="form-control" data-placeholder="bold" name="badge-font-weight" placeholder="{{variables['badge-font-weight']}}">
+        <label>@badge-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="badge-color" placeholder="{{variables['badge-color']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@badge-bg</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="badge-bg" placeholder="{{variables['badge-bg']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@badge-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="10px" name="badge-border-radius" placeholder="{{variables['badge-border-radius']}}">
+      </div>
+    </div>
+
+    <h3>States</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@badge-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="badge-link-hover-color" placeholder="{{variables['badge-link-hover-color']}}">
+        <p class="help-block">Linked badge text color on hover</p>
+      </div>
+      <div class="col-md-4">
+        <label>@badge-active-color</label>
+        <input type="text" class="form-control" data-placeholder="@link-color" name="badge-active-color" placeholder="{{variables['badge-active-color']}}">
+        <p class="help-block">Badge text color in active nav link</p>
+      </div>
+      <div class="col-md-4">
+        <label>@badge-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="@badge-color" name="badge-active-bg" placeholder="{{variables['badge-active-bg']}}">
+        <p class="help-block">Badge background color in active nav link</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-breadcrumbs">Breadcrumbs</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@breadcrumb-color</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="breadcrumb-color" placeholder="{{variables['breadcrumb-color']}}">
+        <p class="help-block">Breadcrumb text color</p>
+        <label>@breadcrumb-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="breadcrumb-bg" placeholder="{{variables['breadcrumb-bg']}}">
+        <p class="help-block">Breadcrumb background color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@breadcrumb-active-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="breadcrumb-active-color" placeholder="{{variables['breadcrumb-active-color']}}">
+        <p class="help-block">Text color of current page in the breadcrumb</p>
+        <label>@breadcrumb-separator</label>
+        <input type="text" class="form-control" data-placeholder="&quot;/&quot;" name="breadcrumb-separator" placeholder="{{variables['breadcrumb-separator']}}">
+        <p class="help-block">Textual separator for between breadcrumb elements</p>
+      </div>
+    </div>
+
+    <h2 id="variables-jumbotron">Jumbotron</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@jumbotron-padding</label>
+        <input type="text" class="form-control" data-placeholder="30px" name="jumbotron-padding" placeholder="{{variables['jumbotron-padding']}}">
+        <label>@jumbotron-bg</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="jumbotron-bg" placeholder="{{variables['jumbotron-bg']}}">
+        <label>@jumbotron-font-size</label>
+        <input type="text" class="form-control" data-placeholder="ceil(@font-size-base * 1.5)" name="jumbotron-font-size" placeholder="{{variables['jumbotron-font-size']}}">
+      </div>
+      <div class="col-md-6">
+        <label>@jumbotron-color</label>
+        <input type="text" class="form-control" data-placeholder="inherit" name="jumbotron-color" placeholder="{{variables['jumbotron-color']}}">
+        <label>@jumbotron-heading-color</label>
+        <input type="text" class="form-control" data-placeholder="inherit" name="jumbotron-heading-color" placeholder="{{variables['jumbotron-heading-color']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-modals">Modals</h2>
+
+    <h3>Base modal</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@modal-inner-padding</label>
+        <input type="text" class="form-control" data-placeholder="20px" name="modal-inner-padding" placeholder="{{variables['modal-inner-padding']}}">
+        <p class="help-block">Padding applied to the modal body</p>
+      </div>
+      <div class="col-md-4">
+        <label>@modal-backdrop-bg</label>
+        <input type="text" class="form-control" data-placeholder="#000" name="modal-backdrop-bg" placeholder="{{variables['modal-backdrop-bg']}}">
+        <p class="help-block">Modal backdrop background color</p>
+      </div>
+    </div>
+
+    <h3>Modal header and footer</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@modal-title-padding</label>
+        <input type="text" class="form-control" data-placeholder="15px" name="modal-title-padding" placeholder="{{variables['modal-title-padding']}}">
+        <p class="help-block">Padding applied to the modal title</p>
+      </div>
+      <div class="col-md-4">
+        <label>@modal-title-line-height</label>
+        <input type="text" class="form-control" data-placeholder="@line-height-base" name="modal-title-line-height" placeholder="{{variables['modal-title-line-height']}}">
+        <p class="help-block">Modal title line-height</p>
+      </div>
+      <div class="col-md-4">
+        <label>@modal-header-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#e5e5e5" name="modal-header-border-color" placeholder="{{variables['modal-header-border-color']}}">
+        <p class="help-block">Modal header border color</p>
+        <label>@modal-footer-border-color</label>
+        <input type="text" class="form-control" data-placeholder="@modal-header-border-color" name="modal-footer-border-color" placeholder="{{variables['modal-footer-border-color']}}">
+        <p class="help-block">Modal footer border color</p>
+      </div>
+    </div>
+
+    <h3>Modal content</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@modal-content-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="modal-content-bg" placeholder="{{variables['modal-content-bg']}}">
+        <p class="help-block">Background color of modal content area</p>
+      </div>
+      <div class="col-md-4">
+        <label>@modal-content-border-color</label>
+        <input type="text" class="form-control" data-placeholder="rgba(0,0,0,.2)" name="modal-content-border-color" placeholder="{{variables['modal-content-border-color']}}">
+        <p class="help-block">Modal content border color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@modal-content-fallback-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#999" name="modal-content-fallback-border-color" placeholder="{{variables['modal-content-fallback-border-color']}}">
+        <p class="help-block">Modal content border color <strong>for IE8</strong></p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-carousel">Carousel</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@carousel-text-shadow</label>
+        <input type="text" class="form-control" data-placeholder="0 1px 2px rgba(0,0,0,.6)" name="carousel-text-shadow" placeholder="{{variables['carousel-text-shadow']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@carousel-control-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="carousel-control-color" placeholder="{{variables['carousel-control-color']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@carousel-caption-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="carousel-caption-color" placeholder="{{variables['carousel-caption-color']}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@carousel-indicator-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="carousel-indicator-border-color" placeholder="{{variables['carousel-indicator-border-color']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@carousel-indicator-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="carousel-indicator-active-bg" placeholder="{{variables['carousel-indicator-active-bg']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-list-group">List group</h2>
+
+    <h3>Base styles</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@list-group-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="list-group-bg" placeholder="{{variables['list-group-bg']}}">
+        <p class="help-block">Background color on <code>.list-group-item</code></p>
+      </div>
+      <div class="col-md-4">
+        <label>@list-group-border</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="list-group-border" placeholder="{{variables['list-group-border']}}">
+        <p class="help-block"><code>.list-group-item</code> border color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@list-group-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="@border-radius-base" name="list-group-border-radius" placeholder="{{variables['list-group-border-radius']}}">
+        <p class="help-block">List group border radius</p>
+      </div>
+    </div>
+
+    <h3>Hover and active states</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@list-group-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="list-group-hover-bg" placeholder="{{variables['list-group-hover-bg']}}">
+        <p class="help-block">Background color of single list elements on hover</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@list-group-active-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="list-group-active-color" placeholder="{{variables['list-group-active-color']}}">
+        <p class="help-block">Text color of active list elements</p>
+      </div>
+      <div class="col-md-4">
+        <label>@list-group-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="@component-active-bg" name="list-group-active-bg" placeholder="{{variables['list-group-active-bg']}}">
+        <p class="help-block">Background color of active list elements</p>
+      </div>
+      <div class="col-md-4">
+        <label>@list-group-active-border</label>
+        <input type="text" class="form-control" data-placeholder="@list-group-active-bg" name="list-group-active-border" placeholder="{{variables['list-group-active-border']}}">
+        <p class="help-block">Border color of active list elements</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-thumbnails">Thumbnails</h2>
+
+    <h3>Base thumbnail</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@thumbnail-padding</label>
+        <input type="text" class="form-control" data-placeholder="4px" name="thumbnail-padding" placeholder="{{variables['thumbnail-padding']}}">
+        <p class="help-block">Padding around the thumbnail image</p>
+        <label>@thumbnail-bg</label>
+        <input type="text" class="form-control" data-placeholder="@body-bg" name="thumbnail-bg" placeholder="{{variables['thumbnail-bg']}}">
+        <p class="help-block">Thumbnail background color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@thumbnail-border</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="thumbnail-border" placeholder="{{variables['thumbnail-border']}}">
+        <p class="help-block">Thumbnail border color</p>
+        <label>@thumbnail-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="@border-radius-base" name="thumbnail-border-radius" placeholder="{{variables['thumbnail-border-radius']}}">
+        <p class="help-block">Thumbnail border radius</p>
+      </div>
+    </div>
+
+    <h3>Thumbnail captions</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@thumbnail-caption-padding</label>
+        <input type="text" class="form-control" data-placeholder="9px" name="thumbnail-caption-padding" placeholder="{{variables['thumbnail-caption-padding']}}">
+        <p class="help-block">Padding around the thumbnail caption</p>
+      </div>
+      <div class="col-md-6">
+        <label>@thumbnail-caption-color</label>
+        <input type="text" class="form-control" data-placeholder="@text-color" name="thumbnail-caption-color" placeholder="{{variables['thumbnail-caption-color']}}">
+        <p class="help-block">Custom text color for thumbnail captions</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-progress">Progress bars</h2>
+
+    <h3>Shared styles</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@progress-bg</label>
+        <input type="text" class="form-control" data-placeholder="#f5f5f5" name="progress-bg" placeholder="{{variables['progress-bg']}}">
+        <p class="help-block">Background color of the whole progress component</p>
+      </div>
+      <div class="col-md-4">
+        <label>@progress-bar-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="progress-bar-color" placeholder="{{variables['progress-bar-color']}}">
+        <p class="help-block">Info progress bar text color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@progress-bar-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="progress-bar-bg" placeholder="{{variables['progress-bar-bg']}}">
+        <p class="help-block">Default progress bar color</p>
+      </div>
+    </div>
+
+    <h3>Contextual states</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@progress-bar-success-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-success" name="progress-bar-success-bg" placeholder="{{variables['progress-bar-success-bg']}}">
+        <p class="help-block">Success progress bar color</p>
+        <label>@progress-bar-info-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-info" name="progress-bar-info-bg" placeholder="{{variables['progress-bar-info-bg']}}">
+        <p class="help-block">Info progress bar color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@progress-bar-warning-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-warning" name="progress-bar-warning-bg" placeholder="{{variables['progress-bar-warning-bg']}}">
+        <p class="help-block">Warning progress bar color</p>
+        <label>@progress-bar-danger-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-danger" name="progress-bar-danger-bg" placeholder="{{variables['progress-bar-danger-bg']}}">
+        <p class="help-block">Danger progress bar color</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-pagination">Pagination</h2>
+
+    <h3>Default styles</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@pagination-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="pagination-bg" placeholder="{{variables['pagination-bg']}}">
+        <p class="help-block">Background color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@pagination-border</label>
+        <input type="text" class="form-control" data-placeholder="#ddd" name="pagination-border" placeholder="{{variables['pagination-border']}}">
+        <p class="help-block">Border color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@pagination-hover-bg</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="pagination-hover-bg" placeholder="{{variables['pagination-hover-bg']}}">
+        <p class="help-block">Background hover color</p>
+      </div>
+    </div>
+
+    <h3>Disabled and active states</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@pagination-disabled-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="pagination-disabled-color" placeholder="{{variables['pagination-disabled-color']}}">
+        <p class="help-block">Disabled text color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@pagination-active-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="pagination-active-bg" placeholder="{{variables['pagination-active-bg']}}">
+        <p class="help-block">Active background color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@pagination-active-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="pagination-active-color" placeholder="{{variables['pagination-active-color']}}">
+        <p class="help-block">Active text color</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-pager">Pager</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@pager-border-radius</label>
+        <input type="text" class="form-control" data-placeholder="15px" name="pager-border-radius" placeholder="{{variables['pager-border-radius']}}">
+        <p class="help-block">Pager border radius</p>
+      </div>
+      <div class="col-md-4">
+        <label>@pager-disabled-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="pager-disabled-color" placeholder="{{variables['pager-disabled-color']}}">
+        <p class="help-block">Pager disabled state color</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-labels">Labels</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@label-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="label-color" placeholder="{{variables['label-color']}}">
+        <p class="help-block">Default label text color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@label-link-hover-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="label-link-hover-color" placeholder="{{variables['label-link-hover-color']}}">
+        <p class="help-block">Default text color of a linked label</p>
+      </div>
+      <div class="col-md-4">
+        <label>@label-default-bg</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="label-default-bg" placeholder="{{variables['label-default-bg']}}">
+        <p class="help-block">Default label background color</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <label>@label-primary-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-primary" name="label-primary-bg" placeholder="{{variables['label-primary-bg']}}">
+        <p class="help-block">Primary label background color</p>
+        <label>@label-success-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-success" name="label-success-bg" placeholder="{{variables['label-success-bg']}}">
+        <p class="help-block">Success label background color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@label-info-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-info" name="label-info-bg" placeholder="{{variables['label-info-bg']}}">
+        <p class="help-block">Info label background color</p>
+        <label>@label-warning-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-warning" name="label-warning-bg" placeholder="{{variables['label-warning-bg']}}">
+        <p class="help-block">Warning label background color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@label-danger-bg</label>
+        <input type="text" class="form-control" data-placeholder="@brand-danger" name="label-danger-bg" placeholder="{{variables['label-danger-bg']}}">
+        <p class="help-block">Danger label background color</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-tooltips-popovers">Tooltips and popovers</h2>
+
+    <h3>Tooltip</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@tooltip-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="tooltip-color" placeholder="{{variables['tooltip-color']}}">
+        <p class="help-block">Tooltip text color</p>
+        <label>@tooltip-bg</label>
+        <input type="text" class="form-control" data-placeholder="#000" name="tooltip-bg" placeholder="{{variables['tooltip-bg']}}">
+        <p class="help-block">Tooltip background color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@tooltip-arrow-width</label>
+        <input type="text" class="form-control" data-placeholder="5px" name="tooltip-arrow-width" placeholder="{{variables['tooltip-arrow-width']}}">
+        <p class="help-block">Tooltip arrow width</p>
+        <label>@tooltip-arrow-color</label>
+        <input type="text" class="form-control" data-placeholder="@tooltip-bg" name="tooltip-arrow-color" placeholder="{{variables['tooltip-arrow-color']}}">
+        <p class="help-block">Tooltip arrow color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@tooltip-max-width</label>
+        <input type="text" class="form-control" data-placeholder="200px" name="tooltip-max-width" placeholder="{{variables['tooltip-max-width']}}">
+        <p class="help-block">Tooltip max width</p>
+      </div>
+    </div>
+
+    <h3>Popovers</h3>
+
+    <h3>Base styles</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@popover-bg</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="popover-bg" placeholder="{{variables['popover-bg']}}">
+        <p class="help-block">Popover body background color</p>
+        <label>@popover-max-width</label>
+        <input type="text" class="form-control" data-placeholder="276px" name="popover-max-width" placeholder="{{variables['popover-max-width']}}">
+        <p class="help-block">Popover maximum width</p>
+      </div>
+      <div class="col-md-4">
+        <label>@popover-border-color</label>
+        <input type="text" class="form-control" data-placeholder="rgba(0,0,0,.2)" name="popover-border-color" placeholder="{{variables['popover-border-color']}}">
+        <p class="help-block">Popover border color</p>
+        <label>@popover-fallback-border-color</label>
+        <input type="text" class="form-control" data-placeholder="#ccc" name="popover-fallback-border-color" placeholder="{{variables['popover-fallback-border-color']}}">
+        <p class="help-block">Popover fallback border color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@popover-title-bg</label>
+        <input type="text" class="form-control" data-placeholder="darken(@popover-bg, 3%)" name="popover-title-bg" placeholder="{{variables['popover-title-bg']}}">
+        <p class="help-block">Popover title background color</p>
+      </div>
+    </div>
+
+    <h3>Popover arrows</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@popover-arrow-width</label>
+        <input type="text" class="form-control" data-placeholder="10px" name="popover-arrow-width" placeholder="{{variables['popover-arrow-width']}}">
+        <p class="help-block">Popover arrow width</p>
+      </div>
+      <div class="col-md-4">
+        <label>@popover-arrow-color</label>
+        <input type="text" class="form-control" data-placeholder="#fff" name="popover-arrow-color" placeholder="{{variables['popover-arrow-color']}}">
+        <p class="help-block">Popover arrow color</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@popover-arrow-outer-width</label>
+        <input type="text" class="form-control" data-placeholder="(@popover-arrow-width + 1)" name="popover-arrow-outer-width" placeholder="{{variables['popover-arrow-outer-width']}}">
+        <p class="help-block">Popover outer arrow width</p>
+      </div>
+      <div class="col-md-4">
+        <label>@popover-arrow-outer-color</label>
+        <input type="text" class="form-control" data-placeholder="rgba(0,0,0,.25)" name="popover-arrow-outer-color" placeholder="{{variables['popover-arrow-outer-color']}}">
+        <p class="help-block">Popover outer arrow color</p>
+      </div>
+      <div class="col-md-4">
+        <label>@popover-arrow-outer-fallback-color</label>
+        <input type="text" class="form-control" data-placeholder="#999" name="popover-arrow-outer-fallback-color" placeholder="{{variables['popover-arrow-outer-fallback-color']}}">
+        <p class="help-block">Popover outer arrow fallback color</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-close">Close button</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <label>@close-font-weight</label>
+        <input type="text" class="form-control" data-placeholder="bold" name="close-font-weight" placeholder="{{variables['close-font-weight']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@close-color</label>
+        <input type="text" class="form-control" data-placeholder="#000" name="close-color" placeholder="{{variables['close-color']}}">
+      </div>
+      <div class="col-md-4">
+        <label>@close-text-shadow</label>
+        <input type="text" class="form-control" data-placeholder="0 1px 0 #fff" name="close-text-shadow" placeholder="{{variables['close-text-shadow']}}">
+      </div>
+    </div>
+
+
+    <h2 id="variables-type">Type</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@text-muted</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="text-muted" placeholder="{{variables['text-muted']}}">
+        <p class="help-block">Text muted color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@abbr-border-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="abbr-border-color" placeholder="{{variables['abbr-border-color']}}">
+        <p class="help-block">Abbreviations and acronyms border color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@headings-small-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="headings-small-color" placeholder="{{variables['headings-small-color']}}">
+        <p class="help-block">Headings small color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@blockquote-small-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-light" name="blockquote-small-color" placeholder="{{variables['blockquote-small-color']}}">
+        <p class="help-block">Blockquote small color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@blockquote-border-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="blockquote-border-color" placeholder="{{variables['blockquote-border-color']}}">
+        <p class="help-block">Blockquote border color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@page-header-border-color</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="page-header-border-color" placeholder="{{variables['page-header-border-color']}}">
+        <p class="help-block">Page header border color</p>
+      </div>
+    </div>
+
+
+    <h2 id="variables-other">Other</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <label>@hr-border</label>
+        <input type="text" class="form-control" data-placeholder="@gray-lighter" name="hr-border" placeholder="{{variables['hr-border']}}">
+        <p class="help-block">Horizontal line color</p>
+      </div>
+      <div class="col-md-6">
+        <label>@component-offset-horizontal</label>
+        <input type="text" class="form-control" data-placeholder="180px" name="component-offset-horizontal" placeholder="{{variables['component-offset-horizontal']}}">
+        <p class="help-block">Horizontal offset for forms and lists</p>
+      </div>
+    </div>
+  </div>
+  <input class="btn btn-primary btn-lg" type="submit"/>
+  <br/>
+  <br/>
+</form>
+{% endblock %}

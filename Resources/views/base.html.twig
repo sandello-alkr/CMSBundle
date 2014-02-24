@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>{% block title %}Bootstrap 101 Template{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block metakeywords %}{% endblock %}
+    {% block metadescription %}{% endblock %}
+    <!-- Bootstrap -->
+    {% stylesheets filter="compass" debug=false
+        "@CMSBundle/Resources/assets/css/fixed.footer.sass"
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+    <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    {#<link href="{{ asset('/bundles/cms/css/style.css') }}" rel="stylesheet" media="screen">#}
+
+    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+    {% if header.navbar.fixed %}
+    <style type="text/css">
+    body {margin-top:50px;}
+    </style>
+    {% endif %}
+
+</head>
+
+<body>
+    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all JavaScripts, compiled by Assetic -->
+    <script src="{{ asset('/js/bootstrap.js') }}"></script>
+
+    {% javascripts debug=false filter='uglifyjs2'
+        '@CMSBundle/Resources/public/js/*'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    
+    <div id="wrap">
+        {% include 'CMSBundle::header.html.twig' %}
+        {% if header.navbar.enabled %}
+        {% if header.navbar.narrow and not header.navbar.fixed %}
+        <div class="container">
+        {% endif %}
+            <div class="navbar {% if header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %}{% if not header.navbar.narrow %} navbar-static-top{% endif %}{% if header.navbar.fixed %} navbar-fixed-top{% endif %}" role="navigation">
+            {% if header.navbar.fixed or not header.navbar.narrow %}<div class="container">{% endif %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle"
+                    data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('index')}}">Главная</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-ex1-collapse">
+                {{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'navbar'}) }}
+                {% if header.search %}
+                <form class="navbar-form navbar-right" action="{{ path('search') }}" role="search">
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" data-provide="typeahead" data-source="[&quot;alabama&quot;,&quot;alaska&quot;]" autocomplete="off" placeholder="что ищем" name="q"{% if app.request.get('q') %} value="{{app.request.get('q')}}"{% endif %}>
+                    </div>
+                    <button type="submit" class="btn btn-default">Искать</button>
+                </form>
+                {% endif %}
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+        {% endif %}
+        {% if header.slider %}
+        <div class="container">
+            {{ render(controller('CMSBundle:Block:slider', { 'id': 'header'})) }}
+        </div>
+        {% endif %}
+        <div class="container">
+            {% for key, type in app.session.flashbag %}
+            {% for flash in type %}
+                <div class="alert {{key}} fade in">
+                    {{ flash }}
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                </div>
+            {% endfor %}
+            {% endfor %}
+            {% block content %}
+            <div class="row">
+                <div class="col-md-12">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+    <div id="footer">
+        {% if header.navbar.narrow %}<div class="container">{% endif %}
+            <div class="navbar {% if header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %}{% if not header.navbar.narrow %} navbar-static-bottom{% endif %}" role="navigation">
+                {% if not header.navbar.narrow %}<div class="container">{% endif %}
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                    data-toggle="collapse" data-target=".navbar-ex2-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {#<a class="navbar-brand" href="{{ path('index')}}">Wide-web</a>#}
+                </div>
+                <div class="navbar-collapse collapse navbar-ex2-collapse">
+                    {{ knp_menu_render('CMSBundle:Builder:footerMenu',{'style':'navbar'}) }}
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    // $('.carousel').carousel();
+    // $.each($('.carousel-inner'),function(){
+    //     if($(this).find('.item').length>1)
+    //     {
+    //         $(this).parent().parent().addClass('slide').find('.carousel-control').show()
+    //     }
+    // })
+    </script>
+</body>
+</html>

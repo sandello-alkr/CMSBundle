@@ -1,0 +1,28 @@
+{% extends 'CMSBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Настройки</h1>
+
+    <form method="post">
+	{% for place, arr in globals %}
+	<h3>{{place}}</h3>
+	<ul>
+	{% for element, val in arr %}
+		{% if val|length > 1 %}
+		<h4>{{element}}</h4>
+		{% for element1, val1 in val %}
+			<li><label><input type="checkbox" name="{{place}}.{{element}}.{{element1}}"{% if val1 %} checked{% endif %}/> {{element1}}</label></li>	
+		{% endfor %}
+		{% else %}
+		<li><label>{#{% if element == 'banner' %}<select name="{{place}}.{{element}}"><option value=""></option>{% for banner in banners %}<option value="{{banner.name}}"{% if val == banner.name %} selected{% endif %}>{{banner.name}}</option>{% endfor %}</select>{% else %}#}<input type="checkbox" name="{{place}}.{{element}}"{% if val %} checked{% endif %}/>{#{% endif %}#} {{element}}</label></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+	{% endfor %}
+	<input type="submit" class="btn"/>
+	</form>
+	{#<br/>
+	<h3>Шапка</h3>
+	{{ form(form)}}#}
+
+{% endblock %}

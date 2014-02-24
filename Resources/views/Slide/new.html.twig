@@ -1,0 +1,15 @@
+{% extends 'CMSBundle:Default:manager.html.twig' %}
+
+{% block body -%}
+    <h1>Slide creation</h1>
+
+    {{ form(form,{'style':'horizontal'}) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('manager_slide') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

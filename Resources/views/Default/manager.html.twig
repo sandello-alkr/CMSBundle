@@ -1,0 +1,38 @@
+{% extends "CMSBundle:Templates:one_sidebar.html.twig" %}
+
+{% block sidebar %}
+    <ul>
+    	<li><a href="{{ path('page') }}">Управление страницами</a></li>
+    	<li><a href="{{ path('manager_post') }}">Управление новостями</a></li>
+    	<li><a href="{{ path('category') }}">Управление категориями</a></li>
+    	<li><a href="{{ path('manager_banner') }}">Управление баннерами</a></li>
+    	<li><a href="{{ path('manager_slide') }}">Управление слайдами</a></li>
+    	<li><a href="{{ path('manager_faq') }}">Вопросы и ответы</a></li>
+    </ul>
+{% endblock %}
+
+{% block body -%}
+    <h1>Добро пожаловать!</h1>
+    {% for cat in categories %}
+    <h3>{{cat.name}} <sup><a href="{{ path('category_edit',{'id':cat.id}) }}">{{ icon('pencil') }}</a></sup></h3>
+    <ul>
+    {% for page in cat.topPages %}
+	    <li{% if page.enabled == false %} class="muted"{% endif %}>
+	        {{page.title}} <sup><a href="{{ path('page_edit',{'id':page.id}) }}">{{ icon('pencil') }}</a></sup>{% if page.children|length > 0 %}
+	        <ul>
+	            {% for child in page.allChildren %}
+	            <li{% if child.enabled == false %} class="muted"{% endif %}>{{child.title}} <sup><a href="{{ path('page_edit',{'id':child.id}) }}">{{ icon('pencil') }}</a></sup>{% if child.children|length > 0 %}
+			        <ul>
+			            {% for grandchild in page.allChildren %}
+			            <li{% if grandchild.enabled == false %} class="muted"{% endif %}>{{grandchild.title}} <sup><a href="{{ path('page_edit',{'id':grandchild.id}) }}">{{ icon('pencil') }}</a></sup></li>
+			            {% endfor %}
+			        </ul>
+			        {% endif %}</li>
+	            {% endfor %}
+	        </ul>
+	        {% endif %}
+	    </li>
+    {% endfor %}
+	</ul>
+	{% endfor %}
+{% endblock %}

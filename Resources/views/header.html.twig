@@ -1,0 +1,13 @@
+<div class="container">
+<div id="header">
+	<div id="element1"></div>
+	<div id="element2"></div>
+	<div id="element3"></div>
+	<div id="element4"></div>
+	{% if header.menu %}
+	<div id="menu">
+		{{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'pills'}) }}
+	</div>
+	{% endif %}
+</div>
+</div>

@@ -1,0 +1,61 @@
+{% extends 'CMSBundle::base.html.twig' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm-3{% if sidebar.right %} col-sm-push-9{% endif %} hidden-xs">
+		{% block sidebar %}
+		{% if sidebar.menu %}
+			{{ knp_menu_render('CMSBundle:Builder:leftMenu',{'currentAsLink':false}) }}
+		{% endif %}
+		{% if sidebar.search %}
+		<h4>Поиск</h4>
+		<form action="{{ path('search') }}" role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="что ищем" name="q">
+			</div>
+			<button type="submit" class="btn btn-default">Искать</button>
+		</form>
+		{% endif %}
+		{% if sidebar.posts %}
+		<h4>Новости</h4>
+			{{ render(controller('CMSBundle:Block:news', { 'max': 3, 'type': 'news', 'class': 'vertical news' })) }}
+		{% endif %}
+		{% if sidebar.banner %}
+		<h4>Баннеры</h4>
+		{{ render(controller('CMSBundle:Block:banners', { 'max': 3, 'carousel':'true','slides':1 })) }}
+		{% endif %}
+		{% if sidebar.gallery %}
+		<h4>Галерея</h4>
+		<div id="gallery">
+			<a class="thumbnail">
+				<img src=""/>
+			</a>
+		</div>
+		<script type="text/javascript">
+			function get_image(){
+				$.ajax({
+					type: "POST",
+					url: "{{ path('gallery_image') }}",
+					async: false,
+					dataType: 'json',
+					success: function(data){
+						console.log(data)
+						$('#gallery img').attr('src',data.path);
+						$('#gallery a').attr('href',data.href);
+					},
+					complete :function(){
+						setTimeout(function(){get_image();}, 5000);
+					}
+				});
+			}
+			get_image();
+		</script>
+		{% endif %}
+		{% endblock %}
+	</div>
+	<div class="{% if sidebar.right %}col-md-pull-3 {% endif %}col-sm-9">
+		{% block body %}
+		{% endblock %}
+	</div>
+</div>
+{% endblock %}

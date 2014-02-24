@@ -1,0 +1,28 @@
+{% extends 'CMSBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Карта сайта</h1>
+
+    {% for cat in categories %}
+    <h3>{{cat.name}}</h3>
+    <ul>
+    {% for page in cat.topPages %}
+	    <li>
+	        {{page.title}}{% if page.children|length > 0 %}
+	        <ul>
+	            {% for child in page.children %}
+	            <li>{{child.title}}{% if child.children|length > 0 %}
+			        <ul>
+			            {% for grandchild in page.children %}
+			            <li>{{grandchild.title}}</li>
+			            {% endfor %}
+			        </ul>
+			        {% endif %}</li>
+	            {% endfor %}
+	        </ul>
+	        {% endif %}
+	    </li>
+    {% endfor %}
+	</ul>
+	{% endfor %}
+{% endblock %}
