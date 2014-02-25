@@ -19,7 +19,7 @@
         }
     ],
     "autoload": {
-        "psr-0": { "alkr/CMSBundle": "" }
+        "psr-0": { "alkr\\CMSBundle": "" }
     },
     "target-dir": "alkr/CMSBundle"
 }
