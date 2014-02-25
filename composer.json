@@ -19,7 +19,7 @@
         }
     ],
     "autoload": {
-        "psr-0": { "sandello-alkr\\CMSBundle": "" }
+        "psr-0": { "CMSBundle": "" }
     },
-    "target-dir": "sandello-alkr/CMSBundle"
+    "target-dir": "sandello-alkr/"
 }
