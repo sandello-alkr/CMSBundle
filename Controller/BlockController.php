@@ -5,8 +5,10 @@ namespace alkr\CMSBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use alkr\CMSBundle\Form\FeedbackType;
 
 class BlockController extends Controller
 {
@@ -33,7 +35,6 @@ class BlockController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $banners = $em->getRepository('CMSBundle:Banner')->findBy(array(),array(),$request->get('max',2),$request->get('offset',0));
-
         return $this->render(
             'CMSBundle:Blocks:blocks.html.twig',
             array(

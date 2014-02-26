@@ -32,6 +32,13 @@ class Page
     /**
      * @var string
      *
+     * @ORM\Column(name="annotation", type="text", nullable=true)
+     */
+    private $annotation;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="content", type="text")
      */
     private $content;
@@ -39,14 +46,21 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=100)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="metaTitle", type="string", length=40, nullable=true)
+     */
+    private $metaTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=100)
      */
     private $url;
 
@@ -86,7 +100,7 @@ class Page
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"remove","persist"})
      * @var ArrayCollection $children
      */
     private $children;
@@ -257,7 +271,7 @@ class Page
      */
     public function getView()
     {
-        return is_object($this->category)?$this->category->getView():'full_width.html.twig';
+        return is_object($this->category)?$this->category->getView():'';
     }
 
     /**
@@ -480,5 +494,51 @@ class Page
     public function getLastmod()
     {
         return $this->lastmod;
+    }
+
+    /**
+     * Set annotation
+     *
+     * @param string $annotation
+     * @return Page
+     */
+    public function setAnnotation($annotation)
+    {
+        $this->annotation = $annotation;
+    
+        return $this;
+    }
+
+    /**
+     * Get annotation
+     *
+     * @return string 
+     */
+    public function getAnnotation()
+    {
+        return $this->annotation;
+    }
+
+    /**
+     * Set metaTitle
+     *
+     * @param string $metaTitle
+     * @return Page
+     */
+    public function setMetaTitle($metaTitle)
+    {
+        $this->metaTitle = $metaTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get metaTitle
+     *
+     * @return string 
+     */
+    public function getMetaTitle()
+    {
+        return $this->metaTitle;
     }
 }

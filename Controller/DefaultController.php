@@ -2,6 +2,7 @@
 
 namespace alkr\CMSBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -12,7 +13,7 @@ use alkr\CMSBundle\Form\FeedbackType;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/",name="index", options={"sitemap" = {"priority" = 1, "changefreq" = "daily" }})
+     * @Route("/",name="index")
      * @Template()
      */
     public function indexAction()
@@ -24,7 +25,24 @@ class DefaultController extends Controller
         return array(
             'news'          =>  $posts,
             'categories'    => $categories,
-            'template'      => 'full_width.html.twig'
+            'template'      => 'two_sidebars.html.twig'
+            );
+    }
+
+    /**
+     * @Route("/test/",name="test")
+     * @Template()
+     */
+    public function testAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('CMSBundle:Page')->findBy(array('parent'=>null));
+        $posts = $em->getRepository('CMSBundle:Post')->findAll();
+
+        return array(
+            'news'          =>  $posts,
+            'categories'    => $categories,
+            // 'template'      => 'full_width.html.twig'
             );
     }
 
@@ -105,7 +123,6 @@ class DefaultController extends Controller
 
         return array(
             'pages'    => $pages,
-            'template'      => 'full_width.html.twig'
             );
     }
 
@@ -118,7 +135,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $faq = $em->getRepository('CMSBundle:FAQ')->findAll();
 
-        return array('faq'      => $faq);
+        return array('faq'     => $faq);
     }
 
     /**

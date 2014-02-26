@@ -1,20 +1,38 @@
-{% extends "CMSBundle:Templates:one_sidebar.html.twig" %}
+{% extends "CMSBundle:Templates:two_sidebars.html.twig" %}
+
+{% block header %}
+{% endblock %}
+
+{% block style %}
+{% stylesheets filter="compass" debug=true
+        "@CMSBundle/Resources/assets/css/one_sidebar.sass"
+%}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
+{% endblock %}
 
 {% block sidebar %}
-    <ul>
-    	<li><a href="{{ path('page') }}">Управление страницами</a></li>
-    	<li><a href="{{ path('manager_post') }}">Управление новостями</a></li>
-    	<li><a href="{{ path('category') }}">Управление категориями</a></li>
-    	<li><a href="{{ path('manager_banner') }}">Управление баннерами</a></li>
-    	<li><a href="{{ path('manager_slide') }}">Управление слайдами</a></li>
-    	<li><a href="{{ path('manager_faq') }}">Вопросы и ответы</a></li>
-    </ul>
+	<ul class="nav">
+		<li><a href="{{ path('manager_index') }}">Меню</a>
+		    <ul class="menu_level_1 nav">
+		    	{#<li><a href="{{ path('page') }}">Управление страницами</a></li>#}
+		    	{% if sidebar.posts or sidebar2.posts %}<li><a href="{{ path('manager_post') }}">Управление новостями</a></li>{% endif %}
+		    	<li><a href="{{ path('category') }}">Управление категориями</a></li>
+		    	{% if sidebar.banner or sidebar2.banner %}<li><a href="{{ path('manager_banner') }}">Управление баннерами</a></li>{% endif %}
+		    	{% if header.slider %}<li><a href="{{ path('manager_slide') }}">Управление слайдами</a></li>{% endif %}
+		    	{% if footer.faq %}<li><a href="{{ path('manager_faq') }}">Вопросы и ответы</a></li>{% endif %}
+		    	<li><a href="{{ path('index') }}">В общедоступную часть</a></li>
+		    </ul>
+		</li>
+	</ul>
 {% endblock %}
 
 {% block body -%}
     <h1>Добро пожаловать!</h1>
+    <a href="{{ path('page_new') }}"><button class="btn btn-primary">Создать страницу</button></a>
     {% for cat in categories %}
-    <h3>{{cat.name}} <sup><a href="{{ path('category_edit',{'id':cat.id}) }}">{{ icon('pencil') }}</a></sup></h3>
+    {% if cat.topPages|length > 0 %}
+    <h3>{{cat.name}}{#<sup><a href="{{ path('category_edit',{'id':cat.id}) }}">{{ icon('pencil') }}</a></sup>#}</h3>
     <ul>
     {% for page in cat.topPages %}
 	    <li{% if page.enabled == false %} class="muted"{% endif %}>
@@ -23,7 +41,7 @@
 	            {% for child in page.allChildren %}
 	            <li{% if child.enabled == false %} class="muted"{% endif %}>{{child.title}} <sup><a href="{{ path('page_edit',{'id':child.id}) }}">{{ icon('pencil') }}</a></sup>{% if child.children|length > 0 %}
 			        <ul>
-			            {% for grandchild in page.allChildren %}
+			            {% for grandchild in child.allChildren %}
 			            <li{% if grandchild.enabled == false %} class="muted"{% endif %}>{{grandchild.title}} <sup><a href="{{ path('page_edit',{'id':grandchild.id}) }}">{{ icon('pencil') }}</a></sup></li>
 			            {% endfor %}
 			        </ul>
@@ -34,5 +52,6 @@
 	    </li>
     {% endfor %}
 	</ul>
+	{% endif %}
 	{% endfor %}
 {% endblock %}

@@ -2,21 +2,44 @@
 <html>
 <head>
 
-    <title>{% block title %}Bootstrap 101 Template{% endblock %}</title>
+    <title>{% block title %}{% endblock %}Клининговая компания &laquo;Преображение&raquo;</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block metakeywords %}{% endblock %}
     {% block metadescription %}{% endblock %}
     <!-- Bootstrap -->
-    {% stylesheets filter="compass" debug=false
-        "@CMSBundle/Resources/assets/css/fixed.footer.sass"
+    {% block style %}
+    {% stylesheets filter="compass" debug=true
+        "@CMSBundle/Resources/assets/css/two_sidebars.sass"
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+    {% endblock %}
 
     {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Marmelad&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('/bundles/cms/css/style.css') }}" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
     {#<link href="{{ asset('/bundles/cms/css/style.css') }}" rel="stylesheet" media="screen">#}
 
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
@@ -43,42 +66,13 @@
     {% endjavascripts %}
     
     <div id="wrap">
-        {% include 'CMSBundle::header.html.twig' %}
+        {% block header %}
         {% if header.navbar.enabled %}
-        {% if header.navbar.narrow and not header.navbar.fixed %}
-        <div class="container">
+        {% include 'CMSBundle:Base:navbar.html.twig' %}
         {% endif %}
-            <div class="navbar {% if header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %}{% if not header.navbar.narrow %} navbar-static-top{% endif %}{% if header.navbar.fixed %} navbar-fixed-top{% endif %}" role="navigation">
-            {% if header.navbar.fixed or not header.navbar.narrow %}<div class="container">{% endif %}
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle"
-                    data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ path('index')}}">Главная</a>
-            </div>
-            <div class="navbar-collapse collapse navbar-ex1-collapse">
-                {{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'navbar'}) }}
-                {% if header.search %}
-                <form class="navbar-form navbar-right" action="{{ path('search') }}" role="search">
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" data-provide="typeahead" data-source="[&quot;alabama&quot;,&quot;alaska&quot;]" autocomplete="off" placeholder="что ищем" name="q"{% if app.request.get('q') %} value="{{app.request.get('q')}}"{% endif %}>
-                    </div>
-                    <button type="submit" class="btn btn-default">Искать</button>
-                </form>
-                {% endif %}
-            </div><!--/.nav-collapse -->
-          </div>
-        </div>
-        {% endif %}
+        {% include 'CMSBundle:Base:header.html.twig' %}
         {% if header.slider %}
-        <div class="container">
             {{ render(controller('CMSBundle:Block:slider', { 'id': 'header'})) }}
-        </div>
         {% endif %}
         <div class="container">
             {% for key, type in app.session.flashbag %}
@@ -89,21 +83,25 @@
                 </div>
             {% endfor %}
             {% endfor %}
-            {% block content %}
+        </div>
+        {% endblock %}
+        {% block content %}
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     {% block body %}
                     {% endblock %}
                 </div>
             </div>
-            {% endblock %}
         </div>
+        {% endblock %}
     </div>
     <div id="footer">
         {% if header.navbar.narrow %}<div class="container">{% endif %}
             <div class="navbar {% if header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %}{% if not header.navbar.narrow %} navbar-static-bottom{% endif %}" role="navigation">
                 {% if not header.navbar.narrow %}<div class="container">{% endif %}
-                <div class="navbar-header">
+                {% if footer.menu %}
+                <div class="navbar-footer">
                     <button type="button" class="navbar-toggle"
                     data-toggle="collapse" data-target=".navbar-ex2-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -116,6 +114,9 @@
                 <div class="navbar-collapse collapse navbar-ex2-collapse">
                     {{ knp_menu_render('CMSBundle:Builder:footerMenu',{'style':'navbar'}) }}
                 </div><!--/.nav-collapse -->
+                {% endif %}
+                <div class="left">Copyright &copy; 2008-{{date()|date('Y')}} &mdash; Клининговая&nbsp;компания &laquo;Преображение&raquo;&nbsp;(СПб)</div>
+                <div class="right">Разработка сайта &mdash; <a href="http://wide-web.spb.ru" target="_blank">Компания &laquo;Wide-Web&raquo;</a></div>
             </div>
         </div>
     </div>

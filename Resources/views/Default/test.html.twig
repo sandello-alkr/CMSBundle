@@ -1,0 +1,8 @@
+{% extends "CMSBundle::base.html.twig" %}
+{% block body %}
+{{ include('CMSBundle:Blocks:blocks.html.twig',{'items':news}) }}
+{% set options = {'type':'news','class':['new']} %}
+{{ include('CMSBundle:Blocks:blocks.html.twig',{'items':news}) }}
+{% set options = {'type':'news','class':['vertical']} %}
+{{ include('CMSBundle:Blocks:blocks.html.twig',{'items':news}) }}
+{% endblock %}

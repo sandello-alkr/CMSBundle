@@ -1,7 +1,7 @@
 {% extends 'CMSBundle:Default:manager.html.twig' %}
 
 {% block body -%}
-    <h1>Banner list</h1>
+    <h1>Баннеры</h1>
 
     {% for entity in entities %}
         <div class="row-fluid">
@@ -10,7 +10,9 @@
     {% endfor %}
 
     <br/>
-    <a class="btn btn-success" href="{{ path('manager_banner_new') }}">
-        Create a new entry
+    <a href="{{ path('manager_banner_new') }}">
+        <button class="btn btn-success">
+            Создать
+        </button>
     </a>
-    {% endblock %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{#<div id="header" class="slider">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-lg-offset-1 col-md-offset-1 ">
+                <div id="element1"><a class="navbar-brand clear col-lg-12 col-md-12 col-sm-6 col-xs-12 " href="{{ path('index')}}"><img alt="Лого компании Преображение" src="/bundles/cms/img/logo.png"></a></div>
+                <div id="element2"><p class="t-b col-lg-12 col-md-12 col-sm-6 col-xs-12 c centr clear ">Оформление заявки на чистку и оздоровление помещений потребует от вас всего пару минут</p></div>
+                <div id="element3"><button type="button" class="btn btn-primary btn-lg col-lg-12 col-md-12 col-sm-6 col-xs-12 ">Сделать заказ<br>или задать вопрос</button></div>
+            </div>
+            <div id="element4"><img class="col-lg-7 col-md-7 hidden-sm col-lg-offset-1 col-md-offset-1 hidden-xs" alt="" src="/bundles/cms/img/frames.png"></div>
+            {% if header.menu %}
+            <div id="menu">
+                {{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'pills'}) }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>#}
+
+<div id="header" class="slider">
+    <div class="container">
+        <div id="element1">
+            <a href="{{ path('index')}}"><img alt="Лого компании Преображение" src="/bundles/cms/img/logo.png"></a>
+        </div>
+        <div id="element2">
+            <p>Оформление заявки на чистку и оздоровление помещений потребует от вас всего пару минут</p>
+            <a href="{{ path('page_show',{'url':'заказ'}) }}"><button type="button" class="btn btn-primary btn-lg">Сделать заказ<br>или задать вопрос</button></a>
+        </div>
+        <div id="element3">
+        </div>
+        <div id="element4">
+            <img class="hidden-sm hidden-xs" alt="" src="/bundles/cms/img/frames.png">
+        </div>
+    </div>
+    {% if header.menu %}
+    <div id="menu">
+        {{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'pills'}) }}
+    </div>
+    {% endif %}
+</div>

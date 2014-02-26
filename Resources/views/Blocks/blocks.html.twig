@@ -118,9 +118,9 @@ $(document).ready(function(){
 		</div>
 		<div class="item_link pull-right">
 			<a href="{{ path('page_show',{'url':item.url}) }}">Подробнее</a>
+			<div class="clearfix"></div>
 		</div>
 	{% endif %}
-	<div class="clearfix"></div>
 </div>
 {% endmacro %}
 
@@ -129,11 +129,11 @@ $(document).ready(function(){
 <div class="list_item gallery">
 	<div class="item_thumb">
 		{% if item.photo.link is defined and item.photo.link != '' %}
-		<a href="{{item.photo.link}}" class="thumbnail">
-			<img src="{{ item.photo|apply_filter('item_gallery_thumb') }}"/>
+		<a href="{{item.photo.link}}">
+			<img src="{{ item.photo }}"/>
 		</a>
 		{% else %}
-			<img src="{{ item.photo|apply_filter('item_gallery_thumb') }}"/>
+			<img src="{{ item.photo }}"/>
 		{% endif %}
 	</div>
 </div>

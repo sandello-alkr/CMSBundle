@@ -26,10 +26,12 @@ class PageType extends AbstractType
             ->add('title',null,array('label'=>'Заголовок'))
             ->add('url',null,array('label'=>'Адрес'))
             ->add('enabled',null,array('required'=>false,'label'=>'Включена'))
-            ->add('category',null,array('label'=>'Категория'))
+            ->add('category',null,array('label'=>'Категория','required'=>true))
+            ->add('annotation',null,array('label'=>'Аннотация'))
             ->add('content','ckeditor',array('label'=>'Содержание'))
             ->add('feedback',null,array('label'=>'Форма обратной связи'))
             ->add('map',null,array('label'=>'Карта'))
+            ->add('metaTitle',null,array('label'=>'Заголовок браузера'))
             ->add('keywords',null,array('label'=>'Ключевые слова'))
             ->add('description',null,array('label'=>'Описание'))
             ->add(
@@ -40,8 +42,8 @@ class PageType extends AbstractType
                     'type'               => new \alkr\CMSBundle\Form\PhotoDescType(),
                     'allow_add'          => true,
                     'allow_delete'       => true,
-                    'add_button_text'    => 'Add Photo',
-                    'delete_button_text' => 'Delete Photo',
+                    'add_button_text'    => 'Добавить фото',
+                    'delete_button_text' => 'Удалить фото',
                     'sub_widget_col'     => 9,
                     'button_col'         => 3
                 )

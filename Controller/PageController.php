@@ -60,7 +60,7 @@ class PageController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('page'));
+            return $this->redirect($this->generateUrl('manager_index'));
         }
 
         return array(
@@ -83,7 +83,7 @@ class PageController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Создать'));
 
         return $form;
     }
@@ -147,7 +147,7 @@ class PageController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Сохранить'));
 
         return $form;
     }
@@ -190,7 +190,7 @@ class PageController extends Controller
             }
             $em->flush();
 
-            return $this->redirect($this->generateUrl('page'));
+            return $this->redirect($this->generateUrl('manager_index'));
         }
 
         return array(
@@ -222,7 +222,7 @@ class PageController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('page'));
+        return $this->redirect($this->generateUrl('manager_index'));
     }
 
     /**
@@ -237,7 +237,7 @@ class PageController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('page_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Удалить'))
             ->getForm()
         ;
     }

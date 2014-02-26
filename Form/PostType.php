@@ -18,7 +18,7 @@ class PostType extends AbstractType
             ->add('title',null,array('label'=>'Заголовок'))
             ->add('url',null,array('label'=>'Адрес'))
             ->add('annotation',null,array('label'=>'Аннотация'))
-            ->add('content','ckeditor',null,array('label'=>'Содержание'))
+            ->add('content','ckeditor',array('label'=>'Содержание'))
             ->add('photo',new PhotoPureType(),array('label'=>'Фотография'))
         ;
     }

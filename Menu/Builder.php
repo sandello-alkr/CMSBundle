@@ -8,9 +8,13 @@ class Builder extends ContainerAware
 {
     public function mainMenu(FactoryInterface $factory, array $options)
     {
+        $file = yaml_parse_file(__DIR__.'/../../../../app/config/globals.yml');
         $em = $this->container->get('doctrine.orm.entity_manager');
         $menu = $factory->createItem('root');
-        // $menu->addChild('Главная', array('route' => 'index'));
+        if($file['twig']['globals']['header']['navbar']['main'])
+            $menu->addChild('Главная', array('route' => 'index'));
+        if($file['twig']['globals']['header']['navbar']['reviews'])
+            $menu->addChild('Отзывы', array('route' => 'review'));
         // $mainCategory = $em->getRepository('CMSBundle:Category')->find(1);
         $mainPages = $em->createQueryBuilder('p')
                 ->from('CMSBundle:Page','p')
@@ -94,6 +98,8 @@ class Builder extends ContainerAware
             $path[] = $parent;
             $current = $parent;
         }
+        if(count($path)<2)
+            return $menu;
         for($i=count($path)-1;$i>-1;$i--)
         {
             $menu->addChild($path[$i]->getTitle(),array('route'=>'page_show','routeParameters'=>array('url'=>$path[$i]->getUrl())));

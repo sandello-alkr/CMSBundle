@@ -1,4 +1,4 @@
-{% extends 'CMSBundle::base.html.twig' %}
+{% extends 'CMSBundle:Base:base.html.twig' %}
 
 {% block body -%}
     <h1>Настройки</h1>
@@ -9,7 +9,7 @@
 	<ul>
 	{% for element, val in arr %}
 		{% if val|length > 1 %}
-		<h4>{{element}}</h4>
+		<h2>{{element}}</h2>
 		{% for element1, val1 in val %}
 			<li><label><input type="checkbox" name="{{place}}.{{element}}.{{element1}}"{% if val1 %} checked{% endif %}/> {{element1}}</label></li>	
 		{% endfor %}

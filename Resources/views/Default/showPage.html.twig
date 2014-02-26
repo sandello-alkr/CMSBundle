@@ -1,81 +1,98 @@
-{% extends 'CMSBundle:Templates:'~entity.view %}
-{% block title %}{{entity.title}}{% endblock %}
+{% extends 'CMSBundle:Templates:'~entity.view|default('two_sidebars.html.twig') %}
+{% block title %}{% if entity.metaTitle %}{{entity.metaTitle}} - {% endif %}{% if entity.title %}{{entity.title}} - {% endif %}{% endblock %}
 {% block metakeywords %}{% if entity.keywords %}<meta name="keywords" content="{{entity.keywords}}">{% endif %}{% endblock %}
 {% block metadescription %}{% if entity.description %}<meta name="description" content="{{entity.description}}">{% endif %}{% endblock %}
 {% block body %}
     <h1>{{entity.title}}</h1>
-    {{ knp_menu_render('CMSBundle:Builder:breadcrumbs',{'style':'breadcrumbs','currentAsLink':false}) }}
-    {{ entity.content|raw }}
-    {% if entity.photos|length > 0 %}
-    {% for photo in entity.photos %}
-    {% if loop.index % 4 == 1 %}
-    <!-- <div class="row"> -->
-    {% endif %}	
-    <div class="col-lg-3 col-md-4 col-sm-6"><a href="{{ photo }}" class="thumbnail"><img src="{{ photo | apply_filter('gallery_thumb') }}"/></a></div>
-    <div class="col-lg-3 col-md-4 col-sm-6"><a href="{{ photo }}" class="thumbnail"><img src="{{ photo | apply_filter('gallery_thumb') }}"/></a></div>
-    <div class="col-lg-3 col-md-4 col-sm-6"><a href="{{ photo }}" class="thumbnail"><img src="{{ photo | apply_filter('gallery_thumb') }}"/></a></div>
-    {% if loop.index % 4 == 0 or loop.last%}
-    <!-- </div> -->
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-    {% if map is defined %}
-    <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-    <script type="text/javascript">
-    ymaps.ready(init);
+    <div class="inner">
+        {{ knp_menu_render('CMSBundle:Builder:breadcrumbs',{'style':'breadcrumbs','currentAsLink':false}) }}
+        {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %}
+        {% if entity.children|length > 0 %}
+        <div class="children">
+            {% for child in entity.children %}
+            {% if loop.index % 2 == 1 %}<div class="row">{% endif %}
+                <div class="child col-sm-6 text-center">
+                    <a href="{{ path('page_show',{'url':child.url}) }}">
+                        <div class="title">{{child.title}}</div>
+                        {% if child.photos|length > 0 %}<div class="thumbnail"><img src="{{child.photos[0]| apply_filter('gallery_thumb')}}"/></div>{% endif %}
+                    </a>
+                </div>
+            {% if loop.index % 2 == 0 or loop.last %}</div>{% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {{ entity.content|raw }}
+        {% if entity.photos|length > 0 %}
+        {% for photo in entity.photos %}
+        {% if loop.index % 4 == 1 %}
+        <!-- <div class="row"> -->
+        {% endif %} 
+        <div class="col-lg-3 col-md-4 col-sm-6"><a href="{{ photo }}" class="thumbnail"><img src="{{ photo | apply_filter('gallery_thumb') }}"/></a></div>
+        {% if loop.index % 4 == 0 or loop.last%}
+        <!-- </div> -->
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% if map is defined %}
+        <div class="clearfix"></div>
+        <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+        <script type="text/javascript">
+        ymaps.ready(init);
 
-    function init() {
-        var myMap = new ymaps.Map('map', {
-            center: [55.753994, 37.622093],
-            zoom: 9,
-            behaviors: ['default', 'scrollZoom']
-        });
-
-        ymaps.geocode('{{settings.address}}', {
-            /**
-             * Опции запроса
-             * @see http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/geocode.xml
-             */
-            // boundedBy: myMap.getBounds(), // Сортировка результатов от центра окна карты
-            // strictBounds: true, // Вместе с опцией boundedBy будет искать строго внутри области, указанной в boundedBy
-            results: 1 // Если нужен только один результат, экономим трафик пользователей
-        }).then(function (res) {
-                // Выбираем первый результат геокодирования.
-                var firstGeoObject = res.geoObjects.get(0),
-                    // Координаты геообъекта.
-                    coords = firstGeoObject.geometry.getCoordinates(),
-                    // Область видимости геообъекта.
-                    bounds = firstGeoObject.properties.get('boundedBy');
-
-                // Добавляем первый найденный геообъект на карту.
-                // myMap.geoObjects.add(firstGeoObject);
-                // Масштабируем карту на область видимости геообъекта.
-                myMap.setBounds(bounds, {
-                    checkZoomRange: true // проверяем наличие тайлов на данном масштабе.
-                });
-
-                /**
-                 * Если нужно добавить по найденным геокодером координатам метку со своими стилями и контентом балуна, создаем новую метку по координатам найденной и добавляем ее на карту вместо найденной.
-                 */
-                
-                 var myPlacemark = new ymaps.Placemark(coords, {
-                 iconContent: '{{settings.baloon}}',
-                 balloonContent: '{{settings.baloon_text}}'
-                 }, {
-                 preset: 'twirl#violetStretchyIcon'
-                 });
-
-                 myMap.geoObjects.add(myPlacemark);
+        function init() {
+            var myMap = new ymaps.Map('map', {
+                center: [55.753994, 37.622093],
+                zoom: 9,
+                behaviors: ['default']
             });
-    }
-    </script>
-    <div id="map"></div>
-    {% endif %}
-    {% if form is defined %}
-    {{ form(form,{'style':'horizontal'}) }}
-    {% endif %}
-    {% if main.comments %}
-    <br/>
-    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
-    {% endif %}
+
+            ymaps.geocode('{{settings.address}}', {
+                /**
+                 * Опции запроса
+                 * @see http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/geocode.xml
+                 */
+                // boundedBy: myMap.getBounds(), // Сортировка результатов от центра окна карты
+                // strictBounds: true, // Вместе с опцией boundedBy будет искать строго внутри области, указанной в boundedBy
+                results: 1 // Если нужен только один результат, экономим трафик пользователей
+            }).then(function (res) {
+                    // Выбираем первый результат геокодирования.
+                    var firstGeoObject = res.geoObjects.get(0),
+                        // Координаты геообъекта.
+                        coords = firstGeoObject.geometry.getCoordinates(),
+                        // Область видимости геообъекта.
+                        bounds = firstGeoObject.properties.get('boundedBy');
+
+                    // Добавляем первый найденный геообъект на карту.
+                    // myMap.geoObjects.add(firstGeoObject);
+                    // Масштабируем карту на область видимости геообъекта.
+                    myMap.setBounds(bounds, {
+                        checkZoomRange: true // проверяем наличие тайлов на данном масштабе.
+                    });
+
+                    /**
+                     * Если нужно добавить по найденным геокодером координатам метку со своими стилями и контентом балуна, создаем новую метку по координатам найденной и добавляем ее на карту вместо найденной.
+                     */
+                    
+                     var myPlacemark = new ymaps.Placemark(coords, {
+                     iconContent: '{{settings.baloon}}',
+                     balloonContent: '{{settings.baloon_text}}'
+                     }, {
+                     preset: 'twirl#violetStretchyIcon'
+                     });
+
+                     myMap.geoObjects.add(myPlacemark);
+                     myMap.container.fitToViewport();
+                });
+        }
+        </script>
+        <div id="map"></div>
+        {% endif %}
+        {% if form is defined %}
+        {{ form(form,{'style':'horizontal'}) }}
+        {% endif %}
+        {% if main.comments %}
+        <br/>
+        {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
+        {% endif %}
+    </div>
 {% endblock %}

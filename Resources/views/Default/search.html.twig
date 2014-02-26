@@ -1,4 +1,4 @@
-{% extends "CMSBundle:Templates:"~template %}
+{% extends "CMSBundle:Templates:"~template|default('two_sidebars.html.twig') %}
 {% block body %}
 {% for page in pages %}
 <div class="row">

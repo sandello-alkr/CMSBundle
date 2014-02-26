@@ -22,7 +22,7 @@ class ReviewController extends Controller
     /**
      * Lists all Review entities.
      *
-     * @Route("/", name="review")
+     * @Route("", name="review")
      * @Method("GET")
      * @Template()
      */
@@ -86,7 +86,7 @@ class ReviewController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Отправить'));
 
         return $form;
     }
@@ -175,7 +175,7 @@ class ReviewController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Ответить'));
 
         return $form;
     }
@@ -250,7 +250,7 @@ class ReviewController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('review_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Удалить'))
             ->getForm()
         ;
     }
