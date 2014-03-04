@@ -15,12 +15,12 @@
     {% endstylesheets %}
     {% endblock %}
 
-    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-    {% endstylesheets %}
     <link href='http://fonts.googleapis.com/css?family=Marmelad&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ asset('/bundles/cms/css/style.css') }}" rel="stylesheet">
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css'
+                   '@CMSBundle/Resources/public/css/*' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />

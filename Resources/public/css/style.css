@@ -81,12 +81,12 @@ li{color: #666666;}
     margin-top: 5%;}
 
 .telephone span{
-    background: url('../img/sprite.png') no-repeat -5px -12px;
+    background: url('/bundles/cms/img/sprite.png') no-repeat -5px -12px;
     width: 17px;
     height: 23px;
 }
 .worktime span{
-    background: url('../img/sprite.png') no-repeat -25px -14px;
+    background: url('/bundles/cms/img/sprite.png') no-repeat -25px -14px;
     width: 24px;
     height: 22px;}
 
@@ -132,7 +132,7 @@ li{color: #666666;}
 
 /*----Sprite Icon----*/
 .sprite{
-    background: url('../img/sprite.png') no-repeat;
+    background: url('/bundles/cms/img/sprite.png') no-repeat;
 }
 /*----Sprite Icon End----*/
 
@@ -213,16 +213,16 @@ li{color: #666666;}
     float: left;
     content: " ";}
 .prom{
-    background: url('../img/sprite.png') no-repeat -97px -2px #9dcc6f;
+    background: url('/bundles/cms/img/sprite.png') no-repeat -97px -2px #9dcc6f;
     width: 44px;
     height: 41px;}
 .coop{
-    background: url('../img/sprite.png') no-repeat -144px -2px #9dcc6f;
+    background: url('/bundles/cms/img/sprite.png') no-repeat -144px -2px #9dcc6f;
     width: 43px;
     height: 41px;}
 
 .client{
-    background: url('../img/sprite.png') no-repeat -189px -2px #9dcc6f;
+    background: url('/bundles/cms/img/sprite.png') no-repeat -189px -2px #9dcc6f;
     width: 44px;
     height: 41px;}
 

@@ -27,7 +27,7 @@
         {% if loop.index % 4 == 1 %}
         <!-- <div class="row"> -->
         {% endif %} 
-        <div class="col-lg-3 col-md-4 col-sm-6"><a href="{{ photo }}" class="thumbnail"><img src="{{ photo | apply_filter('gallery_thumb') }}"/></a></div>
+        <div class="col-lg-3 col-md-4 col-sm-6"><a href="{{ photo }}" class="thumbnail" data-imagelightbox="a"><img src="{{ photo | apply_filter('gallery_thumb') }}"/></a></div>
         {% if loop.index % 4 == 0 or loop.last%}
         <!-- </div> -->
         {% endif %}
