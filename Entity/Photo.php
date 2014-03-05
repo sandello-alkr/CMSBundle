@@ -30,7 +30,7 @@ class Photo
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../web'.$this->getUploadDir();
+        return __DIR__.'/../../../../../web'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -83,7 +83,7 @@ class Photo
         imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
         else
             $image_p = $image;
-        $watermark = imagecreatefrompng(__DIR__."/../../../../web/watermark.png");
+        $watermark = imagecreatefrompng(__DIR__."/../../../../../web/watermark.png");
         imagecopy($image_p, $watermark, 0, 0, 0, 0, 171, 55);
         imagejpeg($image_p, $this->getAbsolutePath(), 100);*/
         return true;
