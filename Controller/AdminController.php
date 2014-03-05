@@ -26,7 +26,7 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $file = yaml_parse_file(__DIR__.'/../../../../../app/config/globals.yml');
+        $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
         if($request->getMethod() == 'POST')
         {
             // print_r ($request);
