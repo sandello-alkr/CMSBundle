@@ -8,7 +8,7 @@ class Builder extends ContainerAware
 {
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        $file = yaml_parse_file(__DIR__.'/../../../../app/config/globals.yml');
+        $file = yaml_parse_file(__DIR__.'/../../../../../app/config/globals.yml');
         $em = $this->container->get('doctrine.orm.entity_manager');
         $menu = $factory->createItem('root');
         if($file['twig']['globals']['header']['navbar']['main'])
@@ -111,7 +111,7 @@ class Builder extends ContainerAware
 
     public function footerMenu(FactoryInterface $factory, array $options)
     {
-        $file = yaml_parse_file(__DIR__.'/../../../../app/config/globals.yml');
+        $file = yaml_parse_file(__DIR__.'/../../../../../app/config/globals.yml');
         $em = $this->container->get('doctrine.orm.entity_manager');
         $menu = $factory->createItem('root');
         // $menu->addChild('Главная', array('route' => 'index'));
