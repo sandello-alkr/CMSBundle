@@ -22,18 +22,25 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('translations', 'a2lix_translations_gedmo', array(
+                'translatable_class' => 'alkr\ExtendCMSBundle\Entity\Page',
+                'required' => false,                    // [2]
+                'fields' => array(                      // [3]
+                    'title' => array('label' => 'Заголовок'),
+                    'annotation' => array('label'=>'Аннотация'),
+                    'content' => array('label'=>'Содержание'),
+                    'metaTitle' => array('label'=>'Заголовок браузера'),
+                    'keywords' => array('label'=>'Ключевые слова'),
+                    'description' => array('label'=>'Описание')
+                    )
+                )
+            )
             ->add('parent',null,array('choices'=>$this->parents,'group_by'=>'categoryName','label'=>'Родитель'))
-            ->add('title',null,array('label'=>'Заголовок'))
             ->add('url',null,array('label'=>'Адрес'))
             ->add('enabled',null,array('required'=>false,'label'=>'Включена'))
             ->add('category',null,array('label'=>'Категория','required'=>true))
-            ->add('annotation',null,array('label'=>'Аннотация'))
-            ->add('content','ckeditor',array('label'=>'Содержание'))
             ->add('feedback',null,array('label'=>'Форма обратной связи'))
             ->add('map',null,array('label'=>'Карта'))
-            ->add('metaTitle',null,array('label'=>'Заголовок браузера'))
-            ->add('keywords',null,array('label'=>'Ключевые слова'))
-            ->add('description',null,array('label'=>'Описание'))
             ->add(
                 'photos',
                 'bootstrap_collection',

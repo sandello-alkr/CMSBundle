@@ -3,15 +3,17 @@
 namespace alkr\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Page
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @Gedmo\TranslationEntity(class="alkr\CMSBundle\Entity\PageTranslation")
  */
 class Page
-{
+{   
     public function __toString() {
         $parent = $this;
         $name = $this->getTitle();
@@ -28,34 +30,6 @@ class Page
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="annotation", type="text", nullable=true)
-     */
-    private $annotation;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text")
-     */
-    private $content;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=100)
-     */
-    private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="metaTitle", type="string", length=40, nullable=true)
-     */
-    private $metaTitle;
 
     /**
      * @var string
@@ -86,20 +60,6 @@ class Page
     private $map;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="keywords", type="text", nullable=true)
-     */
-    private $keywords;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"remove","persist"})
      * @var ArrayCollection $children
      */
@@ -112,13 +72,13 @@ class Page
     private $parent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="pages")
+     * @ORM\ManyToOne(targetEntity="alkr\CMSBundle\Entity\Category", inversedBy="pages")
      * @ORM\JoinColumn(name="category", referencedColumnName="id" )
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="page", cascade={"remove","persist"})
+     * @ORM\OneToMany(targetEntity="alkr\CMSBundle\Entity\Photo", mappedBy="page", cascade={"remove","persist"})
      * @var ArrayCollection $photos
      */
     private $photos;
@@ -129,6 +89,97 @@ class Page
      * @ORM\Column(name="lastmod", type="datetime")
      */
     private $lastmod;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annotation", type="text", nullable=true)
+     * @Gedmo\Translatable
+     */
+    private $annotation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     * @Gedmo\Translatable
+     */
+    private $content;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=100)
+     * @Gedmo\Translatable
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="metaTitle", type="string", length=40, nullable=true)
+     * @Gedmo\Translatable
+     */
+    private $metaTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="keywords", type="text", nullable=true)
+     * @Gedmo\Translatable
+     */
+    private $keywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     * @Gedmo\Translatable
+     */
+    private $description;
+
+    /**
+     * @ORM\OneToMany(
+     *   targetEntity="PageTranslation",
+     *   mappedBy="object",
+     *   cascade={"persist", "remove"}
+     * )
+     */
+    private $translations;
+
+    /**
+     * Required for Translatable behaviour
+     * @Gedmo\Locale
+     */
+    protected $locale;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lastmod = new \DateTime();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation($t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function removeTranslation($t)
+    {
+        $this->translations->removeElement($t);
+    }
 
     /**
      * Get id
@@ -185,15 +236,7 @@ class Page
     {
         return $this->title;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lastmod = new \DateTime();
-    }
-    
+
     /**
      * Add children
      *
