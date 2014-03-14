@@ -23,12 +23,12 @@ class PageType extends AbstractType
     {
         $builder
             ->add('translations', 'a2lix_translations_gedmo', array(
-                'translatable_class' => 'alkr\ExtendCMSBundle\Entity\Page',
+                'translatable_class' => 'alkr\CMSBundle\Entity\Page',
                 'required' => false,                    // [2]
                 'fields' => array(                      // [3]
                     'title' => array('label' => 'Заголовок'),
                     'annotation' => array('label'=>'Аннотация'),
-                    'content' => array('label'=>'Содержание'),
+                    'content' => array('field_type'=>'ckeditor','label'=>'Содержание'),
                     'metaTitle' => array('label'=>'Заголовок браузера'),
                     'keywords' => array('label'=>'Ключевые слова'),
                     'description' => array('label'=>'Описание')
