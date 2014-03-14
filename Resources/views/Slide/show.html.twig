@@ -27,12 +27,12 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('manager_slide') }}">
-            Back to the list
+            {{'Назад'|trans}}
         </a>
     </li>
     <li>
         <a href="{{ path('manager_slide_edit', { 'id': entity.id }) }}">
-            Edit
+            {{'Редактировать'|trans}}
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

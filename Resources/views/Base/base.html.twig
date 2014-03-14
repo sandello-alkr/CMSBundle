@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>{% block title %}{% endblock %}Клининговая компания &laquo;Преображение&raquo;</title>
+    <title>{% block title %}{% endblock %}{{'title'|trans}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block metakeywords %}{% endblock %}
     {% block metadescription %}{% endblock %}
@@ -104,7 +104,7 @@
                 <div class="navbar-footer">
                     <button type="button" class="navbar-toggle"
                     data-toggle="collapse" data-target=".navbar-ex2-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">{{'Toggle navigation'|trans}}</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -115,8 +115,8 @@
                     {{ knp_menu_render('CMSBundle:Builder:footerMenu',{'style':'navbar'}) }}
                 </div><!--/.nav-collapse -->
                 {% endif %}
-                <div class="left">Copyright &copy; 2008-{{date()|date('Y')}} &mdash; Клининговая&nbsp;компания &laquo;Преображение&raquo;&nbsp;(СПб)</div>
-                <div class="right">Разработка сайта &mdash; <a href="http://wide-web.spb.ru" target="_blank">Компания &laquo;Wide-Web&raquo;</a></div>
+                <div class="left">Copyright &copy; {{'копирайт с какого года'|trans}}-{{date()|date('Y')}} &mdash; {{'Название компании'|trans}}</div>
+                <div class="right">{{'Разработка сайта'|trans}} &mdash; <a href="http://wide-web.spb.ru" target="_blank">{{'Компания'|trans}} &laquo;Wide-Web&raquo;</a></div>
             </div>
         </div>
     </div>

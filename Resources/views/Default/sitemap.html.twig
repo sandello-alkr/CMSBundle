@@ -1,7 +1,7 @@
 {% extends 'CMSBundle:Templates:two_sidebars.html.twig' %}
 
 {% block body -%}
-    <h1>Карта сайта</h1>
+    <h1>{{'Карта сайта'|trans}}</h1>
 
     {% for cat in categories %}
     {% if cat.topPages|length > 0 %}

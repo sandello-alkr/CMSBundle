@@ -2,14 +2,6 @@
 
 {% block content %}
 <div class="container my_container">
-		{#<div class="sidebar toggle navbar-default">
-			<button type="button" class="navbar-toggle">
-	            <span class="sr-only">Услуги</span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	            <span class="icon-bar"></span>
-	        </button>
-	    </div>#}
 		<div class="sidebar left">
 			{% block sidebar %}
 			{% if sidebar.menu %}
@@ -21,19 +13,19 @@
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="что ищем" name="q">
 				</div>
-				<button type="submit" class="btn btn-default">Искать</button>
+				<button type="submit" class="btn btn-default">{{'Искать'|trans}}</button>
 			</form>
 			{% endif %}
 			{% if sidebar.posts %}
-			<h4>Новости</h4>
+			<h4>{{'Новости'|trans}}</h4>
 			{{ render(controller('CMSBundle:Block:news', { 'max': 3, 'type': 'news', 'class': 'vertical news' })) }}
 			{% endif %}
 			{% if sidebar.banner %}
-			<h4>Баннеры</h4>
+			<h4>{{'Баннеры'|trans}}</h4>
 			{{ render(controller('CMSBundle:Block:banners', { 'max': 3, 'carousel':'true','slides':1 })) }}
 			{% endif %}
 			{% if sidebar.gallery %}
-			<h4>Галерея</h4>
+			<h4>{{'Галерея'|trans}}</h4>
 			<div id="gallery">
 				<a class="thumbnail">
 					<img src=""/>
@@ -66,20 +58,20 @@
 			{% endblock %}
 		</div>
 		<div class="sidebar right">
-			<a href="{{ path('page_show',{'url':'акции'})}}"><h4><span class="i prom"></span>&nbsp;Акции</h4></a>
-			<a href="{{ path('page_show',{'url':'сотрудничество'})}}"><h4><span class="i coop"></span>&nbsp;Сотрудничество</h4></a>
-			<a href="{{ path('page_show',{'url':'клиенты'})}}"><h4><span class="client i"></span>&nbsp;Наши клиенты</h4></a>
+			<a href="{{ path('page_show',{'url':'акции'})}}"><h4><span class="i prom"></span>&nbsp;{{'правый сайдбар1'|trans}}</h4></a>
+			<a href="{{ path('page_show',{'url':'сотрудничество'})}}"><h4><span class="i coop"></span>&nbsp;{{'правый сайдбар2'|trans}}</h4></a>
+			<a href="{{ path('page_show',{'url':'клиенты'})}}"><h4><span class="client i"></span>&nbsp;{{'правый сайдбар3'|trans}}</h4></a>
 			{% block sidebar2 %}
 			{% if sidebar2.menu %}
 			{{ knp_menu_render('CMSBundle:Builder:mainMenu',{'currentAsLink':false}) }}
 			{% endif %}
 			{% if sidebar2.search %}
-			<h4>Поиск</h4>
+			<h4>{{'Поиск'|trans}}</h4>
 			<form action="{{ path('search') }}" role="search">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="что ищем" name="q">
+					<input type="text" class="form-control" placeholder="{{'что ищем'|trans}}" name="q">
 				</div>
-				<button type="submit" class="btn btn-default">Искать</button>
+				<button type="submit" class="btn btn-default">{{'Искать'|trans}}</button>
 			</form>
 			{% endif %}
 			{% if sidebar2.posts %}

@@ -6,13 +6,13 @@
     <div class="navbar-header">
         <button type="button" class="navbar-toggle"
             data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only">{{'Toggle navigation'|trans}}</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <p class="telephone"><span></span>(921) 3500125 <br> (812) 9950533</p>  
-        <p class="worktime" ><span></span>с 8:00 до 22:00 <br> без выходных</p>
+        <p class="telephone"><span></span>{{'телефон1'|trans}} <br> {{'телефон2'|trans}}</p>  
+        <p class="worktime" ><span></span>{{'время работы'|trans}} <br> {{'выходные'|trans}}</p>
     </div>
     <div class="navbar-collapse navbar-right collapse navbar-ex1-collapse">
         {{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'navbar'}) }}
@@ -22,7 +22,7 @@
 
                 <input type="text" class="form-control" data-provide="typeahead" data-source="[&quot;alabama&quot;,&quot;alaska&quot;]" autocomplete="off" placeholder="что ищем" name="q"{% if app.request.get('q') %} value="{{app.request.get('q')}}"{% endif %}>
             </div>
-            <button type="submit" class="btn btn-default">Искать</button>
+            <button type="submit" class="btn btn-default">{{'Искать'|trans}}</button>
         </form>
         {% endif %}
     </div><!--/.nav-collapse -->

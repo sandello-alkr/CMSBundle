@@ -1,14 +1,14 @@
 {% extends "CMSBundle:Templates:"~template|default('two_sidebars.html.twig') %}
 
 {% block body -%}
-    <h1>Review creation</h1>
+    <h1>{{'Review creation'|trans}}</h1>
 
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('review') }}">
-            Back to the list
+            {{'Назад'|trans}}
         </a>
     </li>
 </ul>

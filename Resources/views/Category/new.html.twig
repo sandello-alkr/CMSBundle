@@ -1,14 +1,14 @@
 {% extends 'CMSBundle:Default:manager.html.twig' %}
 
 {% block body -%}
-    <h1>Category creation</h1>
+    <h1>{{'Category creation'|trans}}</h1>
 
     {{ form(form, {'style':'horizontal'}) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('category') }}">
-            Back to the list
+            {{'Назад'|trans}}
         </a>
     </li>
 </ul>

@@ -13,7 +13,7 @@
             {% for slide in slides %}
             <div class="item{% if loop.index == 1 %} active{% endif %}">
                 <div class="carousel_title">{{slide.title}}</div>
-                <div class="carousel_content">{{slide.content}}<br><a href="{{slide.photo.link}}">Подробнее</a></div>
+                <div class="carousel_content">{{slide.content}}<br><a href="{{slide.photo.link}}">{{'Подробнее'|trans}}</a></div>
                 <a href="{{slide.photo.link}}"><img src="{{slide.photo|apply_filter(filter)}}">
                 </a>
             </div>

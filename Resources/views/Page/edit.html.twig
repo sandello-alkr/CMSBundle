@@ -1,14 +1,14 @@
 {% extends 'CMSBundle:Default:manager.html.twig' %}
 
 {% block body -%}
-    <h1>Редактирование страницы</h1>
+    <h1>{{'Редактирование страницы'|trans}}</h1>
 
     {{ form(edit_form, {'style':'horizontal'}) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('page') }}">
-            Назад
+            {{'Назад'|trans}}
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

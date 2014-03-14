@@ -1,12 +1,12 @@
 {% extends 'CMSBundle:Default:manager.html.twig' %}
 
 {% block body -%}
-    <h1>Редактировать баннер</h1>
+    <h1>{{"Редактировать баннер"|trans}}</h1>
 
     {{ form(edit_form,{'style':'horizontal'}) }}
 
         <a href="{{ path('manager_banner') }}">
-            назад
+            {{"назад"|trans}}
         </a>
     {{ form(delete_form) }}
 {% endblock %}

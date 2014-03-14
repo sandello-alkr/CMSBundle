@@ -1,7 +1,7 @@
 {% extends "CMSBundle:Templates:"~template|default('two_sidebars.html.twig') %}
 
 {% block body -%}
-    <h1>Отзывы</h1>
+    <h1>{{'Отзывы'|trans}}</h1>
 
     {{ form(form,{'style':'horizontal'})}}
 
