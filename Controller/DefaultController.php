@@ -176,7 +176,10 @@ class DefaultController extends Controller
     public function managerAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('CMSBundle:Page');
+        print_r ($repo->getNodesHierarchy());
         return array(
+            'repo' => $repo,
             'categories' => $em->getRepository('CMSBundle:Category')->findAll()
             );
     }

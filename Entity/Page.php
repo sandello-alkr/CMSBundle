@@ -4,20 +4,25 @@ namespace alkr\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
  * Page
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @Gedmo\Tree(type="nested")
  * @Gedmo\TranslationEntity(class="alkr\CMSBundle\Entity\PageTranslation")
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  */
 class Page
 {   
     public function __toString() {
-        $parent = $this;
+        return $this->getTitle();
+    }
+
+    public function getIndent() {
         $name = $this->getTitle();
-        while(is_object($parent = $parent->getParent()))
+        for($i=0;$i<$this->lvl;$i++)
             $name = '&nbsp;&nbsp;'.$name;
         return $name;
     }
@@ -33,7 +38,8 @@ class Page
 
     /**
      * @var string
-     *
+     * @Gedmo\Translatable
+     * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="url", type="string", length=100)
      */
     private $url;
@@ -60,16 +66,41 @@ class Page
     private $map;
 
     /**
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"remove","persist"})
-     * @var ArrayCollection $children
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
      */
-    private $children;
+    private $lft;
 
     /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private $lvl;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(name="root", type="integer", nullable=true)
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
-     * @ORM\JoinColumn(name="parent", referencedColumnName="id" )
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="alkr\CMSBundle\Entity\Category", inversedBy="pages")
@@ -243,7 +274,7 @@ class Page
      * @param \alkr\CMSBundle\Entity\Page $children
      * @return Page
      */
-    public function addChildren(\alkr\CMSBundle\Entity\Page $children)
+    /*public function addChildren(\alkr\CMSBundle\Entity\Page $children)
     {
         $this->children[] = $children;
     
@@ -255,7 +286,7 @@ class Page
      *
      * @param \alkr\CMSBundle\Entity\Page $children
      */
-    public function removeChildren(\alkr\CMSBundle\Entity\Page $children)
+    /*public function removeChildren(\alkr\CMSBundle\Entity\Page $children)
     {
         $this->children->removeElement($children);
     }
@@ -265,7 +296,7 @@ class Page
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getChildren()
+    /*public function getChildren()
     {
         $children = array();
         foreach ($this->children as $page)
@@ -323,7 +354,7 @@ class Page
      * @param string $url
      * @return Page
      */
-    public function setUrl($url)
+    /*public function setUrl($url)
     {
         $this->url = $url;
     

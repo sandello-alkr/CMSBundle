@@ -32,11 +32,11 @@ class PageType extends AbstractType
                     'metaTitle' => array('label'=>'Заголовок браузера'),
                     'keywords' => array('label'=>'Ключевые слова'),
                     'description' => array('label'=>'Описание')
+                    // 'url' => array('label'=>'Адрес')
                     )
                 )
             )
-            ->add('parent',null,array('choices'=>$this->parents,'group_by'=>'categoryName','label'=>'Родитель'))
-            ->add('url',null,array('label'=>'Адрес'))
+            ->add('parent',null,array('choices'=>$this->parents,'group_by'=>'categoryName','label'=>'Родитель','property'=>'indent'))
             ->add('enabled',null,array('required'=>false,'label'=>'Включена'))
             ->add('category',null,array('label'=>'Категория','required'=>true))
             ->add('feedback',null,array('label'=>'Форма обратной связи'))

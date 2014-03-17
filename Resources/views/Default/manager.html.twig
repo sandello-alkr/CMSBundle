@@ -33,25 +33,23 @@
     {% for cat in categories %}
     {% if cat.topPages|length > 0 %}
     <h3>{{cat.name}}{#<sup><a href="{{ path('category_edit',{'id':cat.id}) }}">{{ icon('pencil') }}</a></sup>#}</h3>
-    <ul>
-    {% for page in cat.topPages %}
-	    <li{% if page.enabled == false %} class="muted"{% endif %}>
-	        {{page.title}} <sup><a href="{{ path('page_edit',{'id':page.id}) }}">{{ icon('pencil') }}</a></sup>{% if page.children|length > 0 %}
-	        <ul>
-	            {% for child in page.allChildren %}
-	            <li{% if child.enabled == false %} class="muted"{% endif %}>{{child.title}} <sup><a href="{{ path('page_edit',{'id':child.id}) }}">{{ icon('pencil') }}</a></sup>{% if child.children|length > 0 %}
-			        <ul>
-			            {% for grandchild in child.allChildren %}
-			            <li{% if grandchild.enabled == false %} class="muted"{% endif %}>{{grandchild.title}} <sup><a href="{{ path('page_edit',{'id':grandchild.id}) }}">{{ icon('pencil') }}</a></sup></li>
-			            {% endfor %}
-			        </ul>
-			        {% endif %}</li>
+
+    {% for productCategory in repo.childrenHierarchy(null,false) %}
+    	{{ _self.display_tree(productCategory) }}
+	{% endfor %}
+
+	{% macro display_tree(level) %}
+	    <ul>
+	        <li><a href="{{ path('page_edit',{'id':level.id}) }}">{{ level.title }}</a>
+	        {% if level.__children|default() %}
+	            {% for child in level.__children %}
+	                {{ _self.display_tree(child) }}
 	            {% endfor %}
-	        </ul>
 	        {% endif %}
-	    </li>
-    {% endfor %}
-	</ul>
+	        </li>
+	    </ul>
+	{% endmacro %}
+
 	{% endif %}
 	{% endfor %}
 {% endblock %}

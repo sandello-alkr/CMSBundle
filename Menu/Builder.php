@@ -25,13 +25,14 @@ class Builder extends ContainerAware
                 ->andWhere('c.id = 1 OR c.id = 3')
                 ->getQuery()
                 ->getResult();
+        $repo = $em->getRepository('CMSBundle:Page');
         foreach ($mainPages as $page) {
             $menu->addChild($page->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
-            if(count($children = $page->getChildren())>0)
+            if(count($children = $repo->children($page))>0)
             {
                 foreach ($children as $child) {
                     $menu[$page->getTitle()]->addChild($child->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
-                    if(count($children1 = $child->getChildren())>0)
+                    if(count($children1 = $repo->children($child))>0)
                     {
                         foreach ($children1 as $child1) {
                             $menu[$page->getTitle()][$child->getTitle()]->addChild($child1->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));
@@ -67,13 +68,14 @@ class Builder extends ContainerAware
                 ->andWhere('c.id = 1')
                 ->getQuery()
                 ->getResult();
+        $repo = $em->getRepository('CMSBundle:Page');
         foreach ($mainPages as $page) {
             $menu->addChild($page->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
-            if(count($children = $page->getChildren())>0)
+            if(count($children = $repo->getChildren($page))>0)
             {
                 foreach ($children as $child) {
                     $menu[$page->getTitle()]->addChild($child->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
-                    if(count($children1 = $child->getChildren())>0)
+                    if(count($children1 = $repo->getChildren($child))>0)
                     {
                         foreach ($children1 as $child1) {
                             $menu[$page->getTitle()][$child->getTitle()]->addChild($child1->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));

@@ -173,7 +173,7 @@ class PageController extends Controller
         $editForm->handleRequest($request);
         $request = $request->get('alkr_cmsbundle_page');
 
-        $entity->setContent($request['content']);
+        // $entity->setContent($request['content']);
         if ($editForm->isValid()) {
             $entity->setLastmod(new \DateTime('now'));
             $addPhoto = $entity->getPhotos()->getInsertDiff();
