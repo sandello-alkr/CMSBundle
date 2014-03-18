@@ -5,6 +5,8 @@ namespace alkr\CMSBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class PageType extends AbstractType
 {
@@ -21,6 +23,7 @@ class PageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
         $builder
             ->add('translations', 'a2lix_translations_gedmo', array(
                 'translatable_class' => 'alkr\CMSBundle\Entity\Page',
@@ -35,13 +38,26 @@ class PageType extends AbstractType
                     // 'url' => array('label'=>'Адрес')
                     )
                 )
-            )
-            ->add('parent',null,array('choices'=>$this->parents,'group_by'=>'categoryName','label'=>'Родитель','property'=>'indent'))
-            ->add('enabled',null,array('required'=>false,'label'=>'Включена'))
-            ->add('category',null,array('label'=>'Категория','required'=>true))
-            ->add('feedback',null,array('label'=>'Форма обратной связи'))
-            ->add('map',null,array('label'=>'Карта'))
-            ->add(
+            );
+
+        $parents = $this->parents;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($parents) {
+            $product = $event->getData();
+            $form = $event->getForm();
+            if (!$product || null === $product->getId() || is_object($product->getParent()))
+                $form->add('parent',null,array('choices'=>$parents,'label'=>'Родитель','property'=>'indent','required'=>true));
+        });
+
+        $builder->add('enabled',null,array('required'=>false,'label'=>'Включена'));
+        if($file['twig']['globals']['modules']['views'])
+            $builder->add('view','choice',array('label'=>'Шаблон','choices'=>array('two_sidebars.html.twig'=>'two_sidebars')));
+        if($file['twig']['globals']['modules']['feedback'])
+            $builder->add('feedback',null,array('label'=>'Форма обратной связи'));
+        if($file['twig']['globals']['modules']['map'])
+            $builder->add('map',null,array('label'=>'Карта'));
+        if($file['twig']['globals']['modules']['gallery'])
+            $builder->add(
                 'photos',
                 'bootstrap_collection',
                 array(

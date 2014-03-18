@@ -1,0 +1,19 @@
+<ul class="nav navbar-nav">
+{% for page in pages %}
+        {{ _self.display_tree(page,loop) }}
+{% endfor %}
+</ul>
+
+{% macro display_tree(page,loop) %}
+    <li>{% if app.request.uri != page.path %}<a href="{{ path('page_show',{'url':page.path}) }}">{{ page.title }}</a>{% else %}<span>{{ page.title }}</span>{% endif %}
+    {% if page.__children|default() and page.lvl == 1 %}
+    </li>
+    <li><a href="#" class="dropdown-toggle dropdown-caret" data-toggle="dropdown"><b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu"{#  aria-labelledby="drop2" #}>
+        {% for child in page.__children %}
+            {{ _self.display_tree(child,loop) }}
+        {% endfor %}
+        </ul>
+    {% endif %}
+    </li>
+{% endmacro %}

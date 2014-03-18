@@ -18,7 +18,7 @@ class BlockController extends Controller
         $posts = $em->getRepository('CMSBundle:Post')->findBy(array(),array('date'=>'DESC'),$request->get('max',2),$request->get('offset',0));
 
         return $this->render(
-            'CMSBundle:Blocks:blocks.html.twig',
+            'CMSBundle:Block:blocks.html.twig',
             array(
                 'items' => $posts,
                 'options'=>array(
@@ -36,7 +36,7 @@ class BlockController extends Controller
         $em = $this->getDoctrine()->getManager();
         $banners = $em->getRepository('CMSBundle:Banner')->findBy(array(),array(),$request->get('max',2),$request->get('offset',0));
         return $this->render(
-            'CMSBundle:Blocks:blocks.html.twig',
+            'CMSBundle:Block:blocks.html.twig',
             array(
                 'items' => $banners,
                 'options'=>array(
@@ -55,7 +55,7 @@ class BlockController extends Controller
         $slides = $em->getRepository('CMSBundle:Slide')->findAll();
 
         return $this->render(
-            'CMSBundle:Blocks:slider.html.twig',
+            'CMSBundle:Block:slider.html.twig',
             array(
                 'slides' => $slides, 'id'=>$request->get('id',rand()), 'filter'=>$request->get('filter','my_thumb')
                 )
@@ -92,5 +92,29 @@ class BlockController extends Controller
                 'url'=>$image->getPage()->getUrl()
                 ))
             )));
+    }
+
+    /**
+     * @Template()
+     */
+    public function leftMenuAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('CMSBundle:Page');
+        $pages = $repo->childrenHierarchy($repo->find(2),false,array(),true);
+
+        return array('pages'=>$pages);
+    }
+
+    /**
+     * @Template()
+     */
+    public function mainMenuAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('CMSBundle:Page');
+        $pages = $repo->childrenHierarchy($repo->find(2),false,array(),true);
+
+        return array('pages'=>$pages);
     }
 }

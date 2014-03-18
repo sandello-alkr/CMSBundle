@@ -1,0 +1,39 @@
+{% if slides|length > 0 %}
+<div class="container">
+    <div id="carousel-{{id}}" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for slide in slides %}
+            <li data-target="#carousel-{{id}}" data-slide-to="{{loop.index0}}"{% if loop.index == 1 %} class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            {% for slide in slides %}
+            <div class="item{% if loop.index == 1 %} active{% endif %}">
+                <div class="carousel_title">{{slide.title}}</div>
+                <div class="carousel_content">{{slide.content}}<br><a href="{{slide.photo.link}}">{{'Подробнее'|trans}}</a></div>
+                <a href="{{slide.photo.link}}"><img src="{{slide.photo|apply_filter(filter)}}">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        {% if slides|length > 1 %}
+        <a class="left carousel-control" href="#carousel-{{id}}" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-{{id}}" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+        {% endif %}
+    </div>
+</div>
+<script type="text/javascript">
+$('#carousel-{{id}} img').eq(0).load(function(){
+    $('#carousel-{{id}} .carousel-inner').css('height',$('#carousel-{{id}} .item').eq(0).height()+'px')
+})
+{% endif %}
+</script>

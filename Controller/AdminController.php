@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use alkr\CMSBundle\Form\BannerType;
-use alkr\CMSBundle\Entity\Category;
 
 /**
  * Admin controller.
@@ -155,21 +154,5 @@ class AdminController extends Controller
         return array(
             'variables' =>  $variables,
         );
-    }
-
-    /**
-     * @Route("/admin/install/", name="admin_install")
-     * @Template()
-     */
-    public function installAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->persist(new Category('Основные страницы',true));
-        $em->persist(new Category('Инфостраницы',true));
-        $em->persist(new Category('Галерея',true));
-        $em->persist(new Category('Левое меню',true));
-        $em->flush();
-
-        return new Response('ok');
     }
 }

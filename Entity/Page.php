@@ -91,12 +91,6 @@ class Page
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="alkr\CMSBundle\Entity\Category", inversedBy="pages")
-     * @ORM\JoinColumn(name="category", referencedColumnName="id" )
-     */
-    private $category;
-
-    /**
      * @ORM\OneToMany(targetEntity="alkr\CMSBundle\Entity\Photo", mappedBy="page", cascade={"remove","persist"})
      * @var ArrayCollection $photos
      */
@@ -108,6 +102,13 @@ class Page
      * @ORM\Column(name="lastmod", type="datetime")
      */
     private $lastmod;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="view", type="text", nullable=true)
+     */
+    private $view;
 
     /**
      * @var string
@@ -327,13 +328,26 @@ class Page
     }
 
     /**
+     * Set view
+     *
+     * @param string $view
+     * @return Page
+     */
+    public function setView($view)
+    {
+        $this->view = $view;
+    
+        return $this;
+    }
+
+    /**
      * Get view
      *
      * @return string 
      */
     public function getView()
     {
-        return is_object($this->category)?$this->category->getView():'';
+        return $this->view;
     }
 
     /**
@@ -380,29 +394,6 @@ class Page
     public function getEnabled()
     {
         return $this->enabled;
-    }
-
-    /**
-     * Set category
-     *
-     * @param \alkr\CMSBundle\Entity\Category $category
-     * @return Page
-     */
-    public function setCategory(\alkr\CMSBundle\Entity\Category $category = null)
-    {
-        $this->category = $category;
-    
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \alkr\CMSBundle\Entity\Category 
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 
     /**
@@ -482,11 +473,6 @@ class Page
     public function getMap()
     {
         return $this->map;
-    }
-
-    public function getCategoryName()
-    {
-        return is_object($this->category)?$this->category->getName():'';
     }
 
     /**

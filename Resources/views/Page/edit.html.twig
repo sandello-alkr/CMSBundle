@@ -7,11 +7,13 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('page') }}">
+        <a href="{{ path('manager_index') }}">
             {{'Назад'|trans}}
         </a>
     </li>
+    {% if entity.parent is not null %}
     <li>{{ form(delete_form) }}</li>
+    {% endif %}
 </ul>
 
 

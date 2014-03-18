@@ -16,7 +16,7 @@ class Builder extends ContainerAware
         if($file['twig']['globals']['header']['navbar']['reviews'])
             $menu->addChild('Отзывы', array('route' => 'review'));
         // $mainCategory = $em->getRepository('CMSBundle:Category')->find(1);
-        $mainPages = $em->createQueryBuilder('p')
+        /*$mainPages = $em->createQueryBuilder('p')
                 ->from('CMSBundle:Page','p')
                 ->select('p')
                 ->join('p.category','c')
@@ -24,9 +24,24 @@ class Builder extends ContainerAware
                 ->andWhere('p.enabled = 1')
                 ->andWhere('c.id = 1 OR c.id = 3')
                 ->getQuery()
-                ->getResult();
+                ->getResult();*/
+
         $repo = $em->getRepository('CMSBundle:Page');
-        foreach ($mainPages as $page) {
+        $menu = $repo->find(1);
+        // get some data
+        $qb = $this->createQueryBuilder('m')
+            ->andWhere('m.path LIKE :path')
+            ->andWhere('m.id != :id')
+            ->addOrderBy('m.path', 'ASC')
+            ->addOrderBy('m.sort', 'ASC')
+            ->setParameter('path', $menu->getPath().'%')
+            ->setParameter('id', $menu->getId())
+        ;
+        // here is the data
+        $results = $qb->getQuery()->execute();
+        $menu->buildTree(new ArrayObject($results));
+
+        /*foreach ($mainPages as $page) {
             $menu->addChild($page->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
             if(count($children = $repo->getChildren($page,true))>0)
             {
@@ -40,7 +55,7 @@ class Builder extends ContainerAware
                     }
                 }
             }
-        }
+        }*/
 
         return $menu;
     }
@@ -93,7 +108,7 @@ class Builder extends ContainerAware
         $em = $this->container->get('doctrine.orm.entity_manager');
         $menu = $factory->createItem('root');
         $request = $this->container->get('request');
-        $current = $em->getRepository('CMSBundle:Page')->findOneByUrl($request->get('url'));
+        $current = $em->getRepository('CMSBundle:Page')->findOneByPath($request->get('url'));
         $path = array('0'=>$current);
         while($parent = $current->getParent())
         {
@@ -104,7 +119,7 @@ class Builder extends ContainerAware
             return $menu;
         for($i=count($path)-1;$i>-1;$i--)
         {
-            $menu->addChild($path[$i]->getTitle(),array('route'=>'page_show','routeParameters'=>array('url'=>$path[$i]->getUrl())));
+            $menu->addChild($path[$i]->getTitle(),array('route'=>'page_show','routeParameters'=>array('url'=>$path[$i]->getPath())));
         }
         // $menu->addChild('Главная', array('route' => 'index'));
 
@@ -116,17 +131,10 @@ class Builder extends ContainerAware
         $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
         $em = $this->container->get('doctrine.orm.entity_manager');
         $menu = $factory->createItem('root');
-        // $menu->addChild('Главная', array('route' => 'index'));
         $mainCategory = $em->getRepository('CMSBundle:Category')->find(2);
         foreach ($em->getRepository('CMSBundle:Page')->findBy(array('parent'=>null,'enabled'=>1,'category'=>$mainCategory)) as $page) {
             $menu->addChild($page->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
         }
-        // $faq = $em->createQueryBuilder('p')
-        //     ->select('count(p)')
-        //     ->from('CMSBundle:FAQ','p')
-        //     ->where('1 = 1')
-        //     ->getQuery()
-        //     ->getResult();
         if($file['twig']['globals']['footer']['faq'])
             $menu->addChild('FAQ', array('route' => 'faq'));
         if($file['twig']['globals']['footer']['sitemap'])

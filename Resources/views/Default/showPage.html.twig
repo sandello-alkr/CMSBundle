@@ -7,12 +7,12 @@
     <div class="inner">
         {{ knp_menu_render('CMSBundle:Builder:breadcrumbs',{'style':'breadcrumbs','currentAsLink':false}) }}
         {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %}
-        {% if repo.children(entity,true)|length > 0 %}
+        {% if children|length > 0 %}
         <div class="children">
-            {% for child in repo.children(entity,true) %}
+            {% for child in children %}
             {% if loop.index % 2 == 1 %}<div class="row">{% endif %}
                 <div class="child col-sm-6 text-center">
-                    <a href="{{ path('page_show',{'url':child.url}) }}">
+                    <a href="{{ path('page_show',{'url':child.path}) }}">
                         <div class="title">{{child.title}}</div>
                         {% if child.photos|length > 0 %}<div class="thumbnail"><img src="{{child.photos[0]| apply_filter('gallery_thumb')}}"/></div>{% endif %}
                     </a>

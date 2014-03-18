@@ -15,7 +15,8 @@
         <p class="worktime" ><span></span>{{'время работы'|trans}} <br> {{'выходные'|trans}}</p>
     </div>
     <div class="navbar-collapse navbar-right collapse navbar-ex1-collapse">
-        {{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'navbar'}) }}
+        {#{{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'navbar'}) }}#}
+        {{ render(controller('CMSBundle:Block:mainMenu')) }}
         {% if header.search %}
         <form class="navbar-form navbar-right" action="{{ path('search') }}" role="search">
             <div class="form-group">

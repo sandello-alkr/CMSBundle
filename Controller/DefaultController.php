@@ -55,7 +55,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('CMSBundle:Page')->findOneByUrl($url);
+        $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($url);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -84,7 +84,9 @@ class DefaultController extends Controller
             $return['map'] = true;
         }
 
-        $return['repo'] = $em->getRepository('CMSBundle:Page');
+        $return['children'] = $em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'asc',false);
+
+        // $return['repo'] = $em->getRepository('CMSBundle:Page');
 
         return $return;
     }
@@ -182,7 +184,6 @@ class DefaultController extends Controller
         // print_r(array_keys($repo->getChildren($repo->find(2))));
         return array(
             'repo' => $repo,
-            'categories' => $em->getRepository('CMSBundle:Category')->findAll()
             );
     }
 
@@ -194,7 +195,6 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         return array(
-            'categories' => $em->getRepository('CMSBundle:Category')->findAll()
             );
     }
 

@@ -1,0 +1,159 @@
+{% import _self as macros %}
+
+{% if options is not defined or options.class is not defined %}
+	{% set class = ['horizontal','list'] %}
+{% elseif options.class is defined and 'vertical' in options.class %}
+	{% set class = ['list']|merge(options.class) %}
+{% else %}
+	{% set class = ['horizontal','list']|merge(options.class) %}
+{% endif %}
+
+{% if options.carousel is defined and options.carousel == 'true' %}
+	{% if carouselId is not defined %}
+		{% set carouselId = random(62000) %}
+	{% else %}
+		{% set carouselId = carouselId + 1 %}
+	{% endif %}
+	<div id="carousel{{carouselId}}" data-slides="{{options.slides|default(4)}}" class="list_carousel">
+		{% if items|length > options.slides|default(4) %}
+		<div class="carousel_control prev">{{ icon('chevron-left') }}</div>
+		<div class="carousel_control next">{{ icon('chevron-right') }}</div>
+		{% endif %}
+{% endif %}
+
+<div {% if options.id is defined %}id="{{options.id}}" {% endif %}class="{{ class|join(' ') }}">
+	{% if options.type is not defined or options.type == 'content' %}
+		{% for item in items %}
+			{{ macros.content_item(item) }}
+		{% endfor %}
+	{% elseif options.type == 'news' and options.annotation is not defined %}
+		{% for item in items %}
+			{{ macros.news_item(item) }}
+		{% endfor %}
+	{% elseif options.type == 'news' %}
+		{% for item in items %}
+			{{ macros.news_item(item,options.annotation) }}
+		{% endfor %}
+	{% elseif options.type == 'short_news' %}
+		{% for item in items %}
+			{{ macros.short_item(item) }}
+		{% endfor %}
+	{% elseif options.type == 'gallery' %}
+		{% for item in items %}
+			{{ macros.gallery_item(item) }}
+		{% endfor %}
+	{% endif %}
+</div>
+
+{% if options.carousel is defined and options.carousel == 'true' %}
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	width{{carouselId}} = $('#carousel{{carouselId}}').width()/$('#carousel{{carouselId}}').data('slides')
+	$('#carousel{{carouselId}} .list').css('width',width{{carouselId}}*$('#carousel{{carouselId}} .list_item').length+'px')
+	if($('#carousel{{carouselId}} .list img').length > 0)
+		$('#carousel{{carouselId}} .list img').eq(0).load(function(){
+			$('#carousel{{carouselId}}').css('height',$('#carousel{{carouselId}} .list').outerHeight(true,true)+'px')
+		})
+	$('#carousel{{carouselId}}').css('height',$('#carousel{{carouselId}} .list').outerHeight(true,true)+'px')
+	$('#carousel{{carouselId}} .carousel_control.next').click(function(){
+		if($('#carousel{{carouselId}} .list')[0].offsetLeft>$('#carousel{{carouselId}}').width()-$('#carousel{{carouselId}} .list').width())
+		$('#carousel{{carouselId}} .list').stop(true,true).animate({
+			left: "-="+(width{{carouselId}})
+		},500)
+	})
+	$('#carousel{{carouselId}} .carousel_control.prev').click(function(){
+		if($('#carousel{{carouselId}} .list')[0].offsetLeft<0)
+		$('#carousel{{carouselId}} .list').stop(true,true).animate({
+			left: "+="+(width{{carouselId}})
+		},500)
+	})
+})
+</script>
+{% endif %}
+
+{% macro content_item(item) %}
+<div class="list_item content">
+	{% if item.photo is defined and item.photo != '' %}
+	<div class="item_thumb pull-left">
+		<img src="{{ item.photo|apply_filter('item_content_thumb') }}"/>
+	</div>
+	{% endif %}
+	<div class="item_header">
+		{{ item.title }}
+	</div>
+	<div class="item_text">
+		{{ item.content|raw }}
+	</div>
+</div>
+{% endmacro %}
+
+{% macro news_item(item,annotation = true) %}
+<div class="list_item news">
+	<div class="item_header">
+		{{ item.title }}
+	</div>
+	{% if item.photo is defined and item.photo != '' %}
+	<div class="item_thumb">
+		<img src="{{ item.photo|apply_filter('item_news_thumb') }}"/>
+	</div>
+	{% endif %}
+	{# check if is post or page #}
+	{% if item.annotation is defined %}
+		{# don't show annotation #}
+		{% if annotation %}
+			<div class="item_text">
+				{{ item.annotation }}
+			</div>
+		{% endif %}
+		<div class="item_date pull-left">
+			{{ item.date|date('d.m.Y') }}
+		</div>
+		<div class="item_link pull-right">
+			<a href="{{ path('post_show',{'url':item.url}) }}">{{'Подробнее'|trans}}</a>
+		</div>
+	{% else %}
+		<div class="item_text">
+			{{ item.content|raw }}
+		</div>
+		<div class="item_link pull-right">
+			<a href="{{ path('page_show',{'url':item.url}) }}">{{'Подробнее'|trans}}</a>
+			<div class="clearfix"></div>
+		</div>
+	{% endif %}
+</div>
+{% endmacro %}
+
+{% macro gallery_item(item) %}
+{% if item.photo is defined and item.photo != '' %}
+<div class="list_item gallery">
+	<div class="item_thumb">
+		{% if item.photo.link is defined and item.photo.link != '' %}
+		<a href="{{item.photo.link}}">
+			<img src="{{ item.photo }}"/>
+		</a>
+		{% else %}
+			<img src="{{ item.photo }}"/>
+		{% endif %}
+	</div>
+</div>
+{% endif %}
+{% endmacro %}
+
+{#}
+{% block item_content %}
+<div class="list_item">
+	{% if current.image is defined %}
+	<div class="item_thumb">
+		<img src="{{ current.image }}"/>
+	</div>
+	{% endif %}
+	<div class="item_header">
+		{{ item.title }}
+	</div>
+	<div class="item_text">
+		{{ current.text }}
+	</div>
+</div>
+{% endblock %}
+#}

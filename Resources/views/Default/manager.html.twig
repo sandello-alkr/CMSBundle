@@ -17,7 +17,6 @@
 		    <ul class="menu_level_1 nav">
 		    	{#<li><a href="{{ path('page') }}">Управление страницами</a></li>#}
 		    	{% if sidebar.posts or sidebar2.posts %}<li><a href="{{ path('manager_post') }}">{{'Управление новостями'|trans}}</a></li>{% endif %}
-		    	<li><a href="{{ path('category') }}">{{'Управление категориями'|trans}}</a></li>
 		    	{% if sidebar.banner or sidebar2.banner %}<li><a href="{{ path('manager_banner') }}">{{'Управление баннерами'|trans}}</a></li>{% endif %}
 		    	{% if header.slider %}<li><a href="{{ path('manager_slide') }}">{{'Управление слайдами'|trans}}</a></li>{% endif %}
 		    	{% if footer.faq %}<li><a href="{{ path('manager_faq') }}">{{'Вопросы и ответы'|trans}}</a></li>{% endif %}
@@ -30,10 +29,6 @@
 {% block body -%}
     <h1>{{'Добро пожаловать в админку!'|trans}}</h1>
     <a href="{{ path('page_new') }}"><button class="btn btn-primary">{{'Создать страницу'|trans}}</button></a>
-
-    {% for cat in categories %}
-    {% if cat.topPages|length > 0 %}
-    <h3>{{cat.name}}{#<sup><a href="{{ path('category_edit',{'id':cat.id}) }}">{{ icon('pencil') }}</a></sup>#}</h3>
 
     {% for page in repo.children(null,true) %}
     	{{ _self.display_tree(repo,page) }}
@@ -51,6 +46,4 @@
 	    </ul>
 	{% endmacro %}
 
-	{% endif %}
-	{% endfor %}
 {% endblock %}

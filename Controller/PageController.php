@@ -245,34 +245,7 @@ class PageController extends Controller
     public function hierarchyPages()
     {
         $em = $this->getDoctrine()->getManager();
-        // $topLevel = $em->getRepository('CMSBundle:Page')->findBy(array('parent'=>NULL));
-        $topLevel = $em->createQueryBuilder('p')
-                ->from('CMSBundle:Page','p')
-                ->select('p')
-                ->join('p.category','cat')
-                ->where('p.parent IS NULL')
-                ->orderBy('cat.id','ASC')
-                ->getQuery()
-                ->getResult();
-        $return = array();
-        foreach ($topLevel as $parent) {
-            // if(isset($category) && $category != $parent->getCategory())
-            //     $return[] = 'separator';
-            // $category = $parent->getCategory();
-            $return[] = $parent;
-            foreach ($parent->getAllChildren() as $child) {
-                $return[] = $child;
-                foreach ($child->getAllChildren() as $child1) {
-                    $return[] = $child1;
-                    foreach ($child1->getAllChildren() as $child2) {
-                        $return[] = $child2;
-                        foreach ($child2->getAllChildren() as $child3) {
-                            $return[] = $child3;
-                        }
-                    }
-                }
-            }
-        }
-        return $return;
+        $repo = $em->getRepository('CMSBundle:Page');
+        return $repo->getChildren();
     }
 }

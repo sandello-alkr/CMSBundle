@@ -1,0 +1,17 @@
+<ul class="nav">
+{% for page in pages %}
+	{{ _self.display_tree(page,loop) }}
+{% endfor %}
+</ul>
+
+{% macro display_tree(page,loop) %}
+	<li>{% if app.request.uri != page.path %}<a href="{{ path('page_show',{'url':page.path}) }}">{{ page.title }}</a>{% else %}<span>{{ page.title }}</span>{% endif %}
+	{% if page.__children|default() %}
+		<ul class="nav menu_level_{{page.lvl}}">
+	    {% for child in page.__children %}
+	        {{ _self.display_tree(child,loop) }}
+	    {% endfor %}
+		</ul>
+	{% endif %}
+	</li>
+{% endmacro %}
