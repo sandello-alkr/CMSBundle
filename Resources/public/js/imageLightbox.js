@@ -396,12 +396,13 @@
 
 		//	WITH ACTIVITY INDICATION
 
-		$( 'a[data-imagelightbox="a"]' ).imageLightbox(
+		var selectorA = 'a[data-imagelightbox="a"]';
+		var instanceA = $( selectorA ).imageLightbox(
 		{
-			onStart:	 function() { navigationOn( instanceA, selectorA ); },
-			onEnd:		 function() { navigationOff(); activityIndicatorOff(); },
-			onLoadStart:	function() { activityIndicatorOn(); },
-			onLoadEnd:		function() { activityIndicatorOff(); },
+			onStart:	 function() { overlayOn(); navigationOn( instanceA, selectorA ); },
+			onEnd:		 function() { captionOff(); overlayOff(); navigationOff(); activityIndicatorOff(); },
+			onLoadStart:	function() { captionOff(); activityIndicatorOn(); },
+			onLoadEnd:		function() { captionOn(); navigationUpdate( selectorA ); activityIndicatorOff(); },
 		});
 
 
