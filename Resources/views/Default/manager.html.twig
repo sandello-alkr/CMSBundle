@@ -30,28 +30,27 @@
 {% block body -%}
     <h1>{{'Добро пожаловать в админку!'|trans}}</h1>
     <a href="{{ path('page_new') }}"><button class="btn btn-primary">{{'Создать страницу'|trans}}</button></a>
+
     {% for cat in categories %}
     {% if cat.topPages|length > 0 %}
     <h3>{{cat.name}}{#<sup><a href="{{ path('category_edit',{'id':cat.id}) }}">{{ icon('pencil') }}</a></sup>#}</h3>
-    <ul>
-    {% for page in cat.topPages %}
-	    <li{% if page.enabled == false %} class="muted"{% endif %}>
-	        {{page.title}} <sup><a href="{{ path('page_edit',{'id':page.id}) }}">{{ icon('pencil') }}</a></sup>{% if page.children|length > 0 %}
-	        <ul>
-	            {% for child in page.allChildren %}
-	            <li{% if child.enabled == false %} class="muted"{% endif %}>{{child.title}} <sup><a href="{{ path('page_edit',{'id':child.id}) }}">{{ icon('pencil') }}</a></sup>{% if child.children|length > 0 %}
-			        <ul>
-			            {% for grandchild in child.allChildren %}
-			            <li{% if grandchild.enabled == false %} class="muted"{% endif %}>{{grandchild.title}} <sup><a href="{{ path('page_edit',{'id':grandchild.id}) }}">{{ icon('pencil') }}</a></sup></li>
-			            {% endfor %}
-			        </ul>
-			        {% endif %}</li>
+
+    {% for page in repo.children(null,true) %}
+    	{{ _self.display_tree(repo,page) }}
+	{% endfor %}
+
+	{% macro display_tree(repo,page) %}
+	    <ul>
+	        <li><a href="{{ path('page_edit',{'id':page.id}) }}">{{ page.title }}</a>
+	        {% if repo.children(page,true)|default() %}
+	            {% for child in repo.children(page,true) %}
+	                {{ _self.display_tree(repo,child) }}
 	            {% endfor %}
-	        </ul>
 	        {% endif %}
-	    </li>
-    {% endfor %}
-	</ul>
+	        </li>
+	    </ul>
+	{% endmacro %}
+
 	{% endif %}
 	{% endfor %}
 {% endblock %}

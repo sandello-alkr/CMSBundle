@@ -84,6 +84,8 @@ class DefaultController extends Controller
             $return['map'] = true;
         }
 
+        $return['repo'] = $em->getRepository('CMSBundle:Page');
+
         return $return;
     }
 
@@ -176,7 +178,10 @@ class DefaultController extends Controller
     public function managerAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('CMSBundle:Page');
+        // print_r(array_keys($repo->getChildren($repo->find(2))));
         return array(
+            'repo' => $repo,
             'categories' => $em->getRepository('CMSBundle:Category')->findAll()
             );
     }

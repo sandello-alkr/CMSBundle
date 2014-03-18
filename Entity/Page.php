@@ -4,23 +4,34 @@ namespace alkr\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
  * Page
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @Gedmo\Tree(type="materializedPath")
  * @Gedmo\TranslationEntity(class="alkr\CMSBundle\Entity\PageTranslation")
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
  */
 class Page
 {   
     public function __toString() {
-        $parent = $this;
+        return $this->getTitle();
+    }
+
+    public function getIndent() {
         $name = $this->getTitle();
-        while(is_object($parent = $parent->getParent()))
+        for($i=0;$i<$this->lvl;$i++)
             $name = '&nbsp;&nbsp;'.$name;
         return $name;
     }
+
+    /**
+     * @Gedmo\TreePath(separator="/",appendId=false)
+     * @ORM\Column(name="path", type="string", length=3000, nullable=true)
+     */
+    private $path;
 
     /**
      * @var integer
@@ -33,7 +44,9 @@ class Page
 
     /**
      * @var string
-     *
+     * @Gedmo\Translatable
+     * @Gedmo\Slug(fields={"title"})
+     * @Gedmo\TreePathSource
      * @ORM\Column(name="url", type="string", length=100)
      */
     private $url;
@@ -60,16 +73,22 @@ class Page
     private $map;
 
     /**
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent", cascade={"remove","persist"})
-     * @var ArrayCollection $children
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer", nullable=true)
      */
-    private $children;
+    private $lvl;
 
     /**
+     * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
-     * @ORM\JoinColumn(name="parent", referencedColumnName="id" )
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+     */
+    private $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="alkr\CMSBundle\Entity\Category", inversedBy="pages")
@@ -243,7 +262,7 @@ class Page
      * @param \alkr\CMSBundle\Entity\Page $children
      * @return Page
      */
-    public function addChildren(\alkr\CMSBundle\Entity\Page $children)
+    /*public function addChildren(\alkr\CMSBundle\Entity\Page $children)
     {
         $this->children[] = $children;
     
@@ -255,7 +274,7 @@ class Page
      *
      * @param \alkr\CMSBundle\Entity\Page $children
      */
-    public function removeChildren(\alkr\CMSBundle\Entity\Page $children)
+    /*public function removeChildren(\alkr\CMSBundle\Entity\Page $children)
     {
         $this->children->removeElement($children);
     }
@@ -265,7 +284,7 @@ class Page
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getChildren()
+    /*public function getChildren()
     {
         $children = array();
         foreach ($this->children as $page)
@@ -583,5 +602,15 @@ class Page
     public function getMetaTitle()
     {
         return $this->metaTitle;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
     }
 }

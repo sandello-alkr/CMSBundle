@@ -7,9 +7,9 @@
     <div class="inner">
         {{ knp_menu_render('CMSBundle:Builder:breadcrumbs',{'style':'breadcrumbs','currentAsLink':false}) }}
         {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %}
-        {% if entity.children|length > 0 %}
+        {% if repo.children(entity,true)|length > 0 %}
         <div class="children">
-            {% for child in entity.children %}
+            {% for child in repo.children(entity,true) %}
             {% if loop.index % 2 == 1 %}<div class="row">{% endif %}
                 <div class="child col-sm-6 text-center">
                     <a href="{{ path('page_show',{'url':child.url}) }}">
