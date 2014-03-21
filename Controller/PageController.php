@@ -237,7 +237,7 @@ class PageController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('page_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Удалить'))
+            ->add('submit', 'submit', array('label' => 'Удалить','attr'=>array('class'=>'delete_button', 'type'=>'danger')))
             ->getForm()
         ;
     }
