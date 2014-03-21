@@ -42,15 +42,15 @@ class Builder extends ContainerAware
         $menu->buildTree(new ArrayObject($results));
 
         /*foreach ($mainPages as $page) {
-            $menu->addChild($page->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
+            $menu->addChild($page->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
             if(count($children = $repo->getChildren($page,true))>0)
             {
                 foreach ($children as $child) {
-                    $menu[$page->getTitle()]->addChild($child->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
+                    $menu[$page->getMenuTitle()]->addChild($child->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
                     if(count($children1 = $repo->getChildren($child,true))>0)
                     {
                         foreach ($children1 as $child1) {
-                            $menu[$page->getTitle()][$child->getTitle()]->addChild($child1->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));
+                            $menu[$page->getMenuTitle()][$child->getMenuTitle()]->addChild($child1->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));
                         }
                     }
                 }
@@ -85,15 +85,15 @@ class Builder extends ContainerAware
                 ->getResult();
         $repo = $em->getRepository('CMSBundle:Page');
         foreach ($mainPages as $page) {
-            $menu->addChild($page->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
+            $menu->addChild($page->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
             if(count($children = $repo->getChildren($page,true))>0)
             {
                 foreach ($children as $child) {
-                    $menu[$page->getTitle()]->addChild($child->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
+                    $menu[$page->getMenuTitle()]->addChild($child->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
                     if(count($children1 = $repo->getChildren($child,true))>0)
                     {
                         foreach ($children1 as $child1) {
-                            $menu[$page->getTitle()][$child->getTitle()]->addChild($child1->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));
+                            $menu[$page->getMenuTitle()][$child->getMenuTitle()]->addChild($child1->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));
                         }
                     }
                 }
@@ -133,7 +133,7 @@ class Builder extends ContainerAware
         $menu = $factory->createItem('root');
         $mainCategory = $em->getRepository('CMSBundle:Category')->find(2);
         foreach ($em->getRepository('CMSBundle:Page')->findBy(array('parent'=>null,'enabled'=>1,'category'=>$mainCategory)) as $page) {
-            $menu->addChild($page->getTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
+            $menu->addChild($page->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
         }
         if($file['twig']['globals']['footer']['faq'])
             $menu->addChild('FAQ', array('route' => 'faq'));

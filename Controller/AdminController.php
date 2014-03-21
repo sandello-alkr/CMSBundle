@@ -49,7 +49,7 @@ class AdminController extends Controller
                     }
                 }
             }
-            yaml_emit_file(__DIR__.'/../../../../../app/config/globals.yml',$file);
+            yaml_emit_file(__DIR__.'/../../../../../../app/config/globals.yml',$file);
             
         }
 

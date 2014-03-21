@@ -129,7 +129,7 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=100)
+     * @ORM\Column(name="title", type="string", length=120)
      * @Gedmo\Translatable
      */
     private $title;
@@ -137,10 +137,18 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="metaTitle", type="string", length=40, nullable=true)
+     * @ORM\Column(name="metaTitle", type="string", length=70, nullable=true)
      * @Gedmo\Translatable
      */
     private $metaTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="menuTitle", type="string", length=40, nullable=true)
+     * @Gedmo\Translatable
+     */
+    private $menuTitle;
 
     /**
      * @var string
@@ -393,6 +401,8 @@ class Page
      */
     public function getEnabled()
     {
+        // if($this->getParent() && !$this->getParent()->getEnabled())
+        //     return false;
         return $this->enabled;
     }
 
@@ -598,5 +608,31 @@ class Page
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set menuTitle
+     *
+     * @param string $menuTitle
+     * @return Page
+     */
+    public function setMenuTitle($menuTitle)
+    {
+        $this->menuTitle = $menuTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get menuTitle
+     *
+     * @return string 
+     */
+    public function getMenuTitle()
+    {
+        if($this->menuTitle)
+            return $this->menuTitle;
+        else
+            return $this->title;
     }
 }

@@ -30,20 +30,22 @@
     <h1>{{'Добро пожаловать в админку!'|trans}}</h1>
     <a href="{{ path('page_new') }}"><button class="btn btn-primary">{{'Создать страницу'|trans}}</button></a>
 
+    <ul>
     {% for page in repo.children(null,true) %}
     	{{ _self.display_tree(repo,page) }}
 	{% endfor %}
+    </ul>
 
 	{% macro display_tree(repo,page) %}
-	    <ul>
-	        <li><a href="{{ path('page_edit',{'id':page.id}) }}">{{ page.title }}</a>
-	        {% if repo.children(page,true)|default() %}
-	            {% for child in repo.children(page,true) %}
-	                {{ _self.display_tree(repo,child) }}
-	            {% endfor %}
-	        {% endif %}
-	        </li>
-	    </ul>
+        <li{% if not page.enabled %} class="muted"{% endif %}>{{ page.title }} <a href="{{ path('page_edit',{'id':page.id}) }}">{{ icon('pencil') }}</a>
+        {% if repo.children(page,true)|default() %}
+        	<ul>
+            {% for child in repo.children(page,true) %}
+                {{ _self.display_tree(repo,child) }}
+            {% endfor %}
+        	</ul>
+        {% endif %}
+        </li>
 	{% endmacro %}
 
 {% endblock %}

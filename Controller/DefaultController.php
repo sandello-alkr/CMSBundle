@@ -57,7 +57,7 @@ class DefaultController extends Controller
 
         $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($url);
 
-        if (!$entity) {
+        if (!$entity || !$entity->getEnabled()) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
@@ -84,7 +84,11 @@ class DefaultController extends Controller
             $return['map'] = true;
         }
 
-        $return['children'] = $em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'asc',false);
+        $return['children'] = array();
+        foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'asc',false) as $child) {
+            if($child->getEnabled())
+                $return['children'][] = $child;
+        }
 
         // $return['repo'] = $em->getRepository('CMSBundle:Page');
 
@@ -116,11 +120,16 @@ class DefaultController extends Controller
     public function searchAction(Request $request)
     {
         $finder = $this->container->get('fos_elastica.finder.pages.page');
+
         $boolQuery = new \Elastica\Query\Bool();
         $boolQuery->addShould(new \Elastica\Query\Fuzzy('title', $request->get('q')));
         $boolQuery->addShould(new \Elastica\Query\Fuzzy('content', $request->get('q')));
-        // $fuzzy->addField('content', array('value'=>$request->get('q')));
-        $pages = $finder->find($boolQuery);
+        $boolQuery->addShould(new \Elastica\Query\Fuzzy('annotation', $request->get('q')));
+
+        $term = new \Elastica\Filter\Term(array('enabled'=>true));
+        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $term);
+
+        $pages = $finder->find($filteredQuery);
 
         /** var array of Acme\UserBundle\Entity\User limited to 10 results */
         // $users = $finder->find('bob', 10);
@@ -181,7 +190,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        // print_r(array_keys($repo->getChildren($repo->find(2))));
+
         return array(
             'repo' => $repo,
             );
