@@ -33,7 +33,7 @@ class PageType extends AbstractType
                     'annotation' => array('label'=>'Аннотация'),
                     'content' => array('field_type'=>'ckeditor','label'=>'Содержание'),
                     'metaTitle' => array('label'=>'Заголовок браузера'),
-                    'metaTitle' => array('label'=>'Заголовок меню'),
+                    'menuTitle' => array('label'=>'Заголовок меню'),
                     'keywords' => array('label'=>'Ключевые слова'),
                     'description' => array('label'=>'Описание')
                     // 'url' => array('label'=>'Адрес')
