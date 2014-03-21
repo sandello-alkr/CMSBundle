@@ -103,7 +103,7 @@
             {% endfor %}
         </ul>
         {% if form.vars.allow_add %}
-            <a href="#" class="btn btn-primary btn-small" data-addfield="collection" data-collection="{{ form.vars.id }}" data-prototype-name="{{ prototype_name }}">{{ form.vars.add_button_text }}</a>
+            <a href="#" class="btn btn-warning btn-small" data-addfield="collection" data-collection="{{ form.vars.id }}" data-prototype-name="{{ prototype_name }}">{{ form.vars.add_button_text }}</a>
         {% endif %}
     </div>
 {% endspaceless %}
@@ -467,7 +467,7 @@
         {% set label = name|humanize %}
     {% endif %}
     {% if type is defined and type == 'submit' %}
-        {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-primary')|trim }) %}
+        {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-'~attr.type|default('primary'))|trim }) %}
     {% else %}
         {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' btn btn-default')|trim }) %}
     {% endif %}
