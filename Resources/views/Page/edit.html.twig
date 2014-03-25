@@ -5,16 +5,20 @@
 
     {{ form(edit_form, {'style':'horizontal'}) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('manager_index') }}">
-            {{'Назад'|trans}}
-        </a>
-    </li>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-default" href="{{ path('manager_index') }}">
+                {{'Назад'|trans}}
+            </a>
+        </div>
+    </div>
     {% if entity.parent is not null %}
-    <li>{{ form(delete_form) }}</li>
+    <div class="row">
+        <div class="col-md-10 col-md-push-2">
+            {{ form(delete_form) }}
+        </div>
+    </div>
     {% endif %}
-</ul>
 
 
 <script type="text/javascript">
