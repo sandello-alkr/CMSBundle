@@ -25,21 +25,15 @@ class PageType extends AbstractType
     {
         $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
         $builder
-            ->add('translations', 'a2lix_translations_gedmo', array(
-                'translatable_class' => 'alkr\CMSBundle\Entity\Page',
-                'required' => false,                    // [2]
-                'fields' => array(                      // [3]
-                    'title' => array('label' => 'Заголовок'),
-                    'annotation' => array('label'=>'Аннотация'),
-                    'content' => array('field_type'=>'ckeditor','label'=>'Содержание'),
-                    'metaTitle' => array('label'=>'Заголовок браузера'),
-                    'menuTitle' => array('label'=>'Заголовок меню'),
-                    'keywords' => array('label'=>'Ключевые слова'),
-                    'description' => array('label'=>'Описание')
-                    // 'url' => array('label'=>'Адрес')
-                    )
-                )
-            );
+            ->add('title',null,array('label' => 'Заголовок'))
+            ->add('annotation',null,array('label'=>'Аннотация'))
+            ->add('content','ckeditor',array('label'=>'Содержание'))
+            ->add('metaTitle',null,array('label'=>'Заголовок браузера'))
+            ->add('menuTitle',null,array('label'=>'Заголовок меню'))
+            ->add('keywords',null,array('label'=>'Ключевые слова'))
+            ->add('description',null,array('label'=>'Описание'))
+            ->add('url',null,array('label'=>''))
+            ;
 
         $parents = $this->parents;
 

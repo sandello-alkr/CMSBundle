@@ -10,7 +10,6 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  * Page
  *
  * @Gedmo\Tree(type="materializedPath")
- * @Gedmo\TranslationEntity(class="alkr\CMSBundle\Entity\PageTranslation")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
  */
@@ -44,7 +43,6 @@ class Page
 
     /**
      * @var string
-     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"title"})
      * @Gedmo\TreePathSource
      * @ORM\Column(name="url", type="string", length=100)
@@ -114,7 +112,6 @@ class Page
      * @var string
      *
      * @ORM\Column(name="annotation", type="text", nullable=true)
-     * @Gedmo\Translatable
      */
     private $annotation;
 
@@ -122,7 +119,6 @@ class Page
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Gedmo\Translatable
      */
     private $content;
 
@@ -130,7 +126,6 @@ class Page
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=120)
-     * @Gedmo\Translatable
      */
     private $title;
 
@@ -138,7 +133,6 @@ class Page
      * @var string
      *
      * @ORM\Column(name="metaTitle", type="string", length=70, nullable=true)
-     * @Gedmo\Translatable
      */
     private $metaTitle;
 
@@ -146,7 +140,6 @@ class Page
      * @var string
      *
      * @ORM\Column(name="menuTitle", type="string", length=40, nullable=true)
-     * @Gedmo\Translatable
      */
     private $menuTitle;
 
@@ -154,7 +147,6 @@ class Page
      * @var string
      *
      * @ORM\Column(name="keywords", type="text", nullable=true)
-     * @Gedmo\Translatable
      */
     private $keywords;
 
@@ -162,51 +154,16 @@ class Page
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @Gedmo\Translatable
      */
     private $description;
-
-    /**
-     * @ORM\OneToMany(
-     *   targetEntity="PageTranslation",
-     *   mappedBy="object",
-     *   cascade={"persist", "remove"}
-     * )
-     */
-    private $translations;
-
-    /**
-     * Required for Translatable behaviour
-     * @Gedmo\Locale
-     */
-    protected $locale;
     
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lastmod = new \DateTime();
-    }
-
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    public function addTranslation($t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
-        }
-    }
-
-    public function removeTranslation($t)
-    {
-        $this->translations->removeElement($t);
     }
 
     /**
