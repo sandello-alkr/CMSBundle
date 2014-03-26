@@ -1,7 +1,7 @@
-{% extends "CMSBundle:Templates:"~template|default('two_sidebars.html.twig') %}
+{% extends "CMSBundle:Templates:"~template|default(base_template) %}
 
 {% block body -%}
-    <h1>{{'Review creation'|trans}}</h1>
+    <h1>{{'Новый отзыв'|trans}}</h1>
 
     {{ form(form) }}
 

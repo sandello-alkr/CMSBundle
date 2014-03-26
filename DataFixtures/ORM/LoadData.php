@@ -12,10 +12,10 @@ class LoadData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $file = yaml_parse_file(__DIR__.'/../../../../../../../app/config/globals.yml');
+        // $file = yaml_parse_file(__DIR__.'/../../../../../../../app/config/globals.yml');
 
-        if($file['twig']['globals']['sidebar']['menu'])
-        {
+        // if($file['twig']['globals']['sidebar']['menu'])
+        // {
             $leftMenuRoot = new Page();
             $leftMenuRoot->setTitle('Корень')
                 ->setEnabled(true)
@@ -46,7 +46,7 @@ class LoadData implements FixtureInterface
                 ->setParent($child)
                 ;
             $manager->persist($grandchild);
-        }
+        // }
 
         $leftMenuRoot = new Page();
         $leftMenuRoot->setTitle('Страницы для шапки')

@@ -113,7 +113,7 @@ class BlockController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        $pages = $repo->childrenHierarchy($repo->find(2),false,array(),true);
+        $pages = $repo->childrenHierarchy($repo->find(7),false,array(),false);
 
         return array('pages'=>$pages);
     }

@@ -66,33 +66,15 @@
     {% endjavascripts %}
     
     <div id="wrap">
-        {% block header %}
         {% if header.navbar.enabled %}
-        {% include 'CMSBundle:Base:navbar.html.twig' %}
+            {% include 'CMSBundle:Base:navbar.html.twig' %}
         {% endif %}
-        {% include 'CMSBundle:Base:header.html.twig' %}
-        {% if header.slider %}
-            {{ render(controller('CMSBundle:Block:slider', { 'id': 'header'})) }}
-        {% endif %}
-        <div class="container">
-            {% for key, type in app.session.flashbag %}
-            {% for flash in type %}
-                <div class="alert {{key}} fade in">
-                    {{ flash }}
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                </div>
-            {% endfor %}
-            {% endfor %}
-        </div>
+        {% block header %}
         {% endblock %}
         {% block content %}
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    {% block body %}
-                    {% endblock %}
-                </div>
-            </div>
+            {% block body %}
+            {% endblock %}
         </div>
         {% endblock %}
     </div>

@@ -25,7 +25,6 @@ class DefaultController extends Controller
         return array(
             'news'          =>  $posts,
             'categories'    => $categories,
-            'template'      => 'two_sidebars.html.twig'
             );
     }
 
@@ -42,7 +41,6 @@ class DefaultController extends Controller
         return array(
             'news'          =>  $posts,
             'categories'    => $categories,
-            // 'template'      => 'full_width.html.twig'
             );
     }
 
