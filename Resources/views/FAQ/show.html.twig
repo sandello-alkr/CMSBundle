@@ -20,17 +20,23 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('manager_faq') }}">
-            {{'Назад'|trans}}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('manager_faq_edit', { 'id': entity.id }) }}">
-            {{'Редактировать'|trans}}
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-default" href="{{ path('manager_faq') }}">
+                {{'Назад'|trans}}
+            </a>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-warning" href="{{ path('manager_faq_edit', { 'id': entity.id }) }}">
+                {{'Редактировать'|trans}}
+            </a>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            {{ form(delete_form) }}
+        </div>
+    </div>
 {% endblock %}

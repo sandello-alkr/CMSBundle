@@ -4,8 +4,12 @@
     <h1>{{"Новый баннер"|trans}}</h1>
 
     {{ form(form,{'style':'horizontal'}) }}
-
-        <a href="{{ path('manager_banner') }}">
-            {{"Назад"|trans}}
-        </a>
+	
+	<div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a href="{{ path('manager_banner') }}">
+	            {{"Назад"|trans}}
+	        </a>
+	    </div>
+	</div>
 {% endblock %}

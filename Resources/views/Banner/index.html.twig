@@ -10,9 +10,11 @@
     {% endfor %}
 
     <br/>
-    <a href="{{ path('manager_banner_new') }}">
-        <button class="btn btn-success">
-            {{'Создать'|trans}}
-        </button>
-    </a>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-primary" href="{{ path('manager_banner_new') }}">
+                {{'Создать'|trans}}
+            </a>
+        </div>
+    </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'CMSBundle:Default:manager.html.twig' %}
 
 {% block body -%}
-    <h1>{{'Post list'|trans}}</h1>
+    <h1>{{'Список новостей'|trans}}</h1>
 
     <table class="records_list table">
         <thead>
@@ -26,11 +26,11 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('manager_post_new') }}">
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-primary" href="{{ path('manager_post_new') }}">
                 {{'Создать'|trans}}
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
     {% endblock %}

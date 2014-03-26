@@ -1,7 +1,7 @@
 {% extends 'CMSBundle:Default:manager.html.twig' %}
 
 {% block body -%}
-    <h1>{{'FAQ list'|trans}}</h1>
+    <h1>{{'Список вопросов'|trans}}</h1>
 
     <table class="records_list">
         <thead>
@@ -24,11 +24,11 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('manager_faq_new') }}">
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-primary" href="{{ path('manager_faq_new') }}">
                 {{'Создать'|trans}}
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
     {% endblock %}

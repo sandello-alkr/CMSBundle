@@ -5,11 +5,11 @@
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('review') }}">
-            {{'Назад'|trans}}
-        </a>
-    </li>
-</ul>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-default" href="{{ path('review') }}">
+	            {{'Назад'|trans}}
+	        </a>
+	    </div>
+	</div>
 {% endblock %}

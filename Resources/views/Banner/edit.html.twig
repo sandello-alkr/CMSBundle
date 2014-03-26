@@ -5,8 +5,12 @@
 
     {{ form(edit_form,{'style':'horizontal'}) }}
 
-        <a href="{{ path('manager_banner') }}">
-            {{"назад"|trans}}
-        </a>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-default" href="{{ path('manager_banner') }}">
+	            {{"назад"|trans}}
+	        </a>
+	    </div>
+	</div>
     {{ form(delete_form) }}
 {% endblock %}

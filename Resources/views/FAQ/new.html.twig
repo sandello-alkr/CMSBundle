@@ -1,15 +1,15 @@
 {% extends 'CMSBundle:Default:manager.html.twig' %}
 
 {% block body -%}
-    <h1>{{'FAQ creation'|trans}}</h1>
+    <h1>{{'Новый вопрос'|trans}}</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('manager_faq') }}">
-            {{'Назад'|trans}}
-        </a>
-    </li>
-</ul>
+    <div class="row form-group">
+        <div class="col-md-10 col-md-push-2">
+            <a class="btn btn-default" href="{{ path('manager_faq') }}">
+	            {{'Назад'|trans}}
+	        </a>
+	    </div>
+	</div>
 {% endblock %}

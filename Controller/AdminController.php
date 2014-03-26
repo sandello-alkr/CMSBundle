@@ -85,13 +85,13 @@ class AdminController extends Controller
                     'type'               => new \alkr\CMSBundle\Form\PhotoType(),
                     'allow_add'          => true,
                     'allow_delete'       => true,
-                    'add_button_text'    => 'Add Photo',
-                    'delete_button_text' => 'Delete Photo',
+                    'add_button_text'    => 'Добавить Фото',
+                    'delete_button_text' => 'Удалить',
                     'sub_widget_col'     => 9,
                     'button_col'         => 3
                 )
             )
-            ->add('submit', 'submit', array('label' => 'Create'))
+            ->add('submit', 'submit', array('label' => 'Создать'))
             ->setMethod('PUT')
             ->setAction($this->generateUrl('admin_update_header'))
             ->getForm();

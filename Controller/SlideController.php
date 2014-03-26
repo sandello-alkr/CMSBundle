@@ -78,7 +78,7 @@ class SlideController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Создать'));
 
         return $form;
     }
@@ -167,7 +167,7 @@ class SlideController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Сохранить'));
 
         return $form;
     }
@@ -244,7 +244,7 @@ class SlideController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('manager_slide_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Удалить','attr'=>array('type'=>'danger')))
             ->getForm()
         ;
     }
