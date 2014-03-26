@@ -1,4 +1,5 @@
-{% extends 'CMSBundle:Templates:two_sidebars.html.twig' %}
+{% extends "CMSBundle:Templates:"~template|default(base_template) %}
+
 {% block title %}{{entity.title}}{% endblock %}
 {#{% block metakeywords %}{% if entity.keywords %}<meta name="keywords" content="{{entity.keywords}}">{% endif %}{% endblock %}
 {% block metadescription %}{% if entity.description %}<meta name="description" content="{{entity.description}}">{% endif %}{% endblock %}#}
