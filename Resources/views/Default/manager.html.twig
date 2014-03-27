@@ -20,6 +20,7 @@
 		    	{% if sidebar.banner or sidebar2.banner %}<li><a href="{{ path('manager_banner') }}">{{'Управление баннерами'|trans}}</a></li>{% endif %}
 		    	{% if header.slider %}<li><a href="{{ path('manager_slide') }}">{{'Управление слайдами'|trans}}</a></li>{% endif %}
 		    	{% if footer.faq %}<li><a href="{{ path('manager_faq') }}">{{'Вопросы и ответы'|trans}}</a></li>{% endif %}
+                {% if modules.redirects %}<li><a href="{{ path('manager_redirect') }}">{{'Карта перенаправлений'|trans}}</a></li>{% endif %}
 		    	<li><a href="{{ path('index') }}">{{'В общедоступную часть'|trans}}</a></li>
 		    </ul>
 		</li>

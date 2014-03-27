@@ -1,0 +1,41 @@
+{% extends 'CMSBundle:Default:manager.html.twig' %}
+
+{% block body -%}
+    <h1>{{'Карта перенаправлений'|trans}}</h1>
+
+    <table class="table">
+        {% for entity in entities %}
+        <tr>
+            <form action="{{ path('manager_redirect_update',{'id':entity.id}) }}" method="post">
+                <td>
+                    <input type="text" name="oldUrl" value="{{entity.oldUrl}}"/>
+                </td>
+                <td>
+                    <input type="text" name="newUrl" value="{{entity.newUrl}}"/>
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-primary" value="Сохранить"/>
+                </td>
+            </form>
+            <form action="{{ path('manager_redirect_delete',{'id':entity.id}) }}" method="post">
+                <td>
+                    <button class="btn btn-danger">{{icon('remove')}}</button>
+                </td>
+            </form>
+        </tr>
+        {% endfor %}
+        <tr>
+            <form action="{{ path('manager_redirect_create') }}" method="post">
+                <td>
+                    <input type="text" name="oldUrl"/>
+                </td>
+                <td>
+                    <input type="text" name="newUrl"/>
+                </td>
+                <td>
+                    <button class="btn btn-primary">Добавить {{icon('plus')}}</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+    {% endblock %}
