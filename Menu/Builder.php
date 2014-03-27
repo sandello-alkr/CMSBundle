@@ -6,109 +6,18 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Builder extends ContainerAware
 {
-    public function mainMenu(FactoryInterface $factory, array $options)
-    {
-        $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $menu = $factory->createItem('root');
-        if($file['twig']['globals']['header']['navbar']['main'])
-            $menu->addChild('Главная', array('route' => 'index'));
-        if($file['twig']['globals']['header']['navbar']['reviews'])
-            $menu->addChild('Отзывы', array('route' => 'review'));
-        // $mainCategory = $em->getRepository('CMSBundle:Category')->find(1);
-        /*$mainPages = $em->createQueryBuilder('p')
-                ->from('CMSBundle:Page','p')
-                ->select('p')
-                ->join('p.category','c')
-                ->where('p.parent IS NULL')
-                ->andWhere('p.enabled = 1')
-                ->andWhere('c.id = 1 OR c.id = 3')
-                ->getQuery()
-                ->getResult();*/
-
-        $repo = $em->getRepository('CMSBundle:Page');
-        $menu = $repo->find(1);
-        // get some data
-        $qb = $this->createQueryBuilder('m')
-            ->andWhere('m.path LIKE :path')
-            ->andWhere('m.id != :id')
-            ->addOrderBy('m.path', 'ASC')
-            ->addOrderBy('m.sort', 'ASC')
-            ->setParameter('path', $menu->getPath().'%')
-            ->setParameter('id', $menu->getId())
-        ;
-        // here is the data
-        $results = $qb->getQuery()->execute();
-        $menu->buildTree(new ArrayObject($results));
-
-        /*foreach ($mainPages as $page) {
-            $menu->addChild($page->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
-            if(count($children = $repo->getChildren($page,true))>0)
-            {
-                foreach ($children as $child) {
-                    $menu[$page->getMenuTitle()]->addChild($child->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
-                    if(count($children1 = $repo->getChildren($child,true))>0)
-                    {
-                        foreach ($children1 as $child1) {
-                            $menu[$page->getMenuTitle()][$child->getMenuTitle()]->addChild($child1->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));
-                        }
-                    }
-                }
-            }
-        }*/
-
-        return $menu;
-    }
-
-    public function leftMenu(FactoryInterface $factory, array $options)
-    {
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $menu = $factory->createItem('root');
-        $mainPages = $em->createQueryBuilder('p')
-                ->from('CMSBundle:Page','p')
-                ->select('p')
-                ->join('p.category','c')
-                ->where('p.parent IS NULL')
-                ->andWhere('p.enabled = 1')
-                ->andWhere('c.id = 4')
-                ->getQuery()
-                ->getResult();
-        if(count($mainPages) == 0)
-            $mainPages = $em->createQueryBuilder('p')
-                ->from('CMSBundle:Page','p')
-                ->select('p')
-                ->join('p.category','c')
-                ->where('p.parent IS NULL')
-                ->andWhere('p.enabled = 1')
-                ->andWhere('c.id = 1')
-                ->getQuery()
-                ->getResult();
-        $repo = $em->getRepository('CMSBundle:Page');
-        foreach ($mainPages as $page) {
-            $menu->addChild($page->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
-            if(count($children = $repo->getChildren($page,true))>0)
-            {
-                foreach ($children as $child) {
-                    $menu[$page->getMenuTitle()]->addChild($child->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child->getUrl())));
-                    if(count($children1 = $repo->getChildren($child,true))>0)
-                    {
-                        foreach ($children1 as $child1) {
-                            $menu[$page->getMenuTitle()][$child->getMenuTitle()]->addChild($child1->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$child1->getUrl())));
-                        }
-                    }
-                }
-            }
-        }
-
-        return $menu;
-    }
-
     public function breadcrumbs(FactoryInterface $factory, array $options)
     {
+        $twig = $this->container->get('twig');
+        $globals = $twig->getGlobals();
+
         $em = $this->container->get('doctrine.orm.entity_manager');
         $menu = $factory->createItem('root');
         $request = $this->container->get('request');
-        $current = $em->getRepository('CMSBundle:Page')->findOneByPath($request->get('url'));
+        if($globals['url_by_path'])
+            $current = $em->getRepository('CMSBundle:Page')->findOneByPath($request->get('url'));
+        else
+            $current = $em->getRepository('CMSBundle:Page')->findOneByUrl($request->get('url'));
         $path = array('0'=>$current);
         while($parent = $current->getParent())
         {
@@ -128,12 +37,15 @@ class Builder extends ContainerAware
 
     public function footerMenu(FactoryInterface $factory, array $options)
     {
+        $twig = $this->container->get('twig');
+        $globals = $twig->getGlobals();
+
         $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
         $em = $this->container->get('doctrine.orm.entity_manager');
         $menu = $factory->createItem('root');
         $mainCategory = $em->getRepository('CMSBundle:Category')->find(2);
         foreach ($em->getRepository('CMSBundle:Page')->findBy(array('parent'=>null,'enabled'=>1,'category'=>$mainCategory)) as $page) {
-            $menu->addChild($page->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getUrl())));
+            $menu->addChild($page->getMenuTitle(), array('route' => 'page_show','routeParameters' => array('url'=>$page->getPath())));
         }
         if($file['twig']['globals']['footer']['faq'])
             $menu->addChild('FAQ', array('route' => 'faq'));

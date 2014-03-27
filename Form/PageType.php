@@ -32,7 +32,7 @@ class PageType extends AbstractType
             ->add('menuTitle',null,array('label'=>'Заголовок меню'))
             ->add('keywords',null,array('label'=>'Ключевые слова'))
             ->add('description',null,array('label'=>'Описание'))
-            ->add('url',null,array('label'=>''))
+            ->add('url',null,array('label'=>'','required'=>false))
             ;
 
         $parents = $this->parents;

@@ -564,7 +564,11 @@ class Page
 
     public function getPath()
     {
-        return $this->path;
+        $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
+        if($file['twig']['globals']['url_by_path'])
+            return $this->path;
+        else
+            return $this->url;
     }
 
     /**

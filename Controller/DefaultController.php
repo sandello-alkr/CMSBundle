@@ -19,13 +19,8 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('CMSBundle:Page')->findBy(array('parent'=>null));
-        $posts = $em->getRepository('CMSBundle:Post')->findAll();
 
-        return array(
-            'news'          =>  $posts,
-            'categories'    => $categories,
-            );
+        return array();
     }
 
     /**
@@ -53,7 +48,13 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($url);
+        $twig = $this->container->get('twig');
+        $globals = $twig->getGlobals();
+
+        if($globals['url_by_path'])
+            $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($url);
+        else
+            $entity = $em->getRepository('CMSBundle:Page')->findOneByUrl($url);
 
         if (!$entity || !$entity->getEnabled()) {
             throw $this->createNotFoundException('Unable to find Page entity.');
