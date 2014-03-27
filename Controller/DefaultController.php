@@ -52,7 +52,11 @@ class DefaultController extends Controller
         $globals = $twig->getGlobals();
 
         if($globals['url_by_path'])
+        {
             $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($url);
+            if(is_null($entity))
+                $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($em->getRepository('CMSBundle:Page')->find(7)->getPath().$url);
+        }
         else
             $entity = $em->getRepository('CMSBundle:Page')->findOneByUrl($url);
 

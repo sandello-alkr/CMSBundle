@@ -15,7 +15,11 @@ class Builder extends ContainerAware
         $menu = $factory->createItem('root');
         $request = $this->container->get('request');
         if($globals['url_by_path'])
+        {
             $current = $em->getRepository('CMSBundle:Page')->findOneByPath($request->get('url'));
+            if(is_null($current))
+                return $menu;
+        }
         else
             $current = $em->getRepository('CMSBundle:Page')->findOneByUrl($request->get('url'));
         $path = array('0'=>$current);
