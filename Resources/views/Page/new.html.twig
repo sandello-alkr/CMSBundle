@@ -14,7 +14,8 @@
     </div>
 <script type="text/javascript">
 $('#alkr_cmsbundle_page_title').blur(function(){
-	$('#alkr_cmsbundle_page_url').val($(this).val().replace(/ /g,'-').replace(/[^-а-яА-Я0-9\w]/g,'').toLowerCase())
+    if($('#alkr_cmsbundle_page_url').val()!='')
+    	$('#alkr_cmsbundle_page_url').val($(this).val().replace(/ /g,'-').replace(/[^-а-яА-Я0-9\w]/g,'').toLowerCase())
 })
 $('#alkr_cmsbundle_page_parent').change(function(){
     if($(this).val()!='')
