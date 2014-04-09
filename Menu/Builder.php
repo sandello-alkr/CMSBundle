@@ -32,7 +32,7 @@ class Builder extends ContainerAware
             return $menu;
         for($i=count($path)-1;$i>-1;$i--)
         {
-            $menu->addChild($path[$i]->getTitle(),array('route'=>'page_show','routeParameters'=>array('url'=>$path[$i]->getPath())));
+            $menu->addChild($path[$i]->getMenuTitle(),array('route'=>'page_show','routeParameters'=>array('url'=>$path[$i]->getPath())));
         }
         // $menu->addChild('Главная', array('route' => 'index'));
 
