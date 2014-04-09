@@ -32,6 +32,7 @@ class PageType extends AbstractType
             ->add('menuTitle',null,array('label'=>'Заголовок меню'))
             ->add('keywords',null,array('label'=>'Ключевые слова'))
             ->add('description',null,array('label'=>'Описание'))
+            ->add('prior',null,array('label'=>'Порядок'))
             ->add('url',null,array('label'=>'','required'=>false))
             ;
 

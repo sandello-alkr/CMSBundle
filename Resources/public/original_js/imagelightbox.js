@@ -395,7 +395,6 @@
 
 
 		//	WITH ACTIVITY INDICATION
-
 		var selectorA = 'a[data-imagelightbox="a"]';
 		var instanceA = $( selectorA ).imageLightbox(
 		{

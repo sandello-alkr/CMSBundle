@@ -42,6 +42,12 @@ class Page
     private $id;
 
     /**
+     * @var integer
+     * @ORM\Column(name="prior", type="integer")
+     */
+    private $prior;
+
+    /**
      * @var string
      * @Gedmo\Slug(fields={"title"})
      * @Gedmo\TreePathSource
@@ -85,6 +91,7 @@ class Page
 
     /**
      * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+     * @ORM\OrderBy({"prior" = "ASC"})
      */
     private $children;
 
@@ -164,6 +171,7 @@ class Page
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lastmod = new \DateTime();
+        $this->prior = 0;
     }
 
     /**
@@ -557,6 +565,11 @@ class Page
         return $this->metaTitle;
     }
 
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
     public function setPath($path)
     {
         $this->path = $path;
@@ -567,12 +580,12 @@ class Page
         $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
         if($file['twig']['globals']['url_by_path'])
         {
-            $parent = $this;
-            while($parent = $parent->getParent())
-            {
-                if($parent->getId() == 7)
-                    $this->path = str_replace($parent->getPath(), 'replace', $this->path);
-            }
+            // $parent = $this;
+            // while($parent = $parent->getParent())
+            // {
+            //     if($parent->getId() == 10)
+            //         $this->path = str_replace($parent->getPath(), 'replace', $this->path);
+            // }
             return $this->path;
         }
         else
@@ -603,5 +616,28 @@ class Page
             return $this->menuTitle;
         else
             return $this->title;
+    }
+
+    /**
+     * Set prior
+     *
+     * @param integer $prior
+     * @return Page
+     */
+    public function setPrior($prior)
+    {
+        $this->prior = $prior;
+        return $this;
+    }
+
+    /**
+     * Get prior
+     *
+     * @return integer 
+     */
+    public function getPrior()
+    {
+        if($this->prior)
+            return $this->prior;
     }
 }

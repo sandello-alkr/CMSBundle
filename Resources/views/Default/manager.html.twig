@@ -31,7 +31,7 @@
     <a href="{{ path('page_new') }}"><button class="btn btn-primary">{{'Создать страницу'|trans}}</button></a>
 
     <ul>
-    {% for page in repo.children(null,true) %}
+    {% for page in repo.children(null,true,'prior') %}
     	{{ _self.display_tree(repo,page) }}
 	{% endfor %}
     </ul>
@@ -40,7 +40,7 @@
         <li{% if not page.enabled %} class="muted"{% endif %}>{{ page.title }} <a href="{{ path('page_edit',{'id':page.id}) }}">{{ icon('pencil') }}</a>
         {% if repo.children(page,true)|default() %}
         	<ul>
-            {% for child in repo.children(page,true) %}
+            {% for child in repo.children(page,true,'prior') %}
                 {{ _self.display_tree(repo,child) }}
             {% endfor %}
         	</ul>

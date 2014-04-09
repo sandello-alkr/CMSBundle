@@ -18,7 +18,8 @@
     <link href='http://fonts.googleapis.com/css?family=Marmelad&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen">
     {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css'
-                   '@CMSBundle/Resources/public/css/*' %}
+                   '@CMSBundle/Resources/public/css/*'
+                   '@CMSBundle/Resources/public/original_css/*' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
 
@@ -49,6 +50,7 @@
 
     {% javascripts debug=false filter='uglifyjs2'
         '@CMSBundle/Resources/public/js/*'
+        '@CMSBundle/Resources/public/original_js/*'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
