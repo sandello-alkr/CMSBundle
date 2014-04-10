@@ -99,9 +99,11 @@ class BlockController extends Controller
      */
     public function leftMenuAction()
     {
+        $twig = $this->container->get('twig');
+        $globals = $twig->getGlobals();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        $pages = $repo->childrenHierarchy($repo->find(2),false,array('childSort'=>array('field'=>'prior')),true);
+        $pages = $repo->childrenHierarchy($repo->find($globals['left_menu_parent']),false,array('childSort'=>array('field'=>'prior')),true);
 
         return array('pages'=>$pages);
     }
@@ -111,9 +113,11 @@ class BlockController extends Controller
      */
     public function mainMenuAction()
     {
+        $twig = $this->container->get('twig');
+        $globals = $twig->getGlobals();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        $main = $repo->find(7);
+        $main = $repo->find($globals['top_menu_parent']);
         $pages = $repo->childrenHierarchy($main,false,array('childSort'=>array('field'=>'prior')),false);
 
         return array('pages'=>$pages,'cut_path'=>$main->getPath());

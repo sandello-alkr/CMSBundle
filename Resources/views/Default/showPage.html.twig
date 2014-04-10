@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{entity.title}}</h1>
     <div class="inner">
-        {{ knp_menu_render('CMSBundle:Builder:breadcrumbs',{'style':'breadcrumbs','currentAsLink':false}) }}
+        {% include 'CMSBundle:Block:breadcrumbs.html.twig' with {'entity': entity} %}
         {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %}
         {% if children|length > 0 %}
         <div class="children">

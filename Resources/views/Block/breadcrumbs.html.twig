@@ -1,0 +1,21 @@
+<ul class="breadcrumb">
+    <li class="first">
+        <a href="{{ path('index') }}">{{'Главная'|trans}}</a>
+    </li>
+    {{_self.display_parent(entity,true)}}
+</ul>
+
+{% macro display_parent(page,current = false) %}
+    {% if page.parent is not null %}
+    {{ _self.display_parent(page.parent) }}
+    {% endif %}
+    {% if page.id != top_menu_parent %}
+    <li{% if current %} class="current last"{% endif %}>
+        {% if current %}
+        <span>{{page.menuTitle}}</span>
+        {% else %}
+        <a href="{{ path('page_show',{'url':page.path}) }}">{{page.menuTitle}}</a>
+        {% endif %}
+    </li>
+    {% endif %}
+{% endmacro %}
