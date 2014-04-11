@@ -3,6 +3,7 @@
 namespace alkr\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Post
@@ -30,7 +31,7 @@ class Post
 
     /**
      * @var string
-     *
+     * @Gedmo\Slug(fields={"title"},updatable=false)
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;

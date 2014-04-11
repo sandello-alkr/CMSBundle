@@ -49,7 +49,7 @@ class Page
 
     /**
      * @var string
-     * @Gedmo\Slug(fields={"title"})
+     * @Gedmo\Slug(fields={"title"},updatable=false)
      * @Gedmo\TreePathSource
      * @ORM\Column(name="url", type="string", length=100)
      */
