@@ -167,20 +167,14 @@ class DefaultController extends Controller
         $email = $this->container->getParameter('mailer_user');
         $message = \Swift_Message::newInstance()
             ->setSubject('Новое сообщение')
-            ->setFrom(array($email->getValue()=>$request->get('name')))
-            ->setTo($email->getValue())
+            ->setFrom(array($email=>$request->get('name')))
+            ->setTo($email)
             ->setBody(
                 '<p>'.$request->get('message').'</p><p>Контакты: '.$request->get('email').' '.$request->get('contacts').'</p>','text/html'
             );
-        $transport = \Swift_SmtpTransport::newInstance($transport->getValue(), 465,'ssl')
-            ->setUsername($email->getValue())
-            ->setPassword($password->getValue());
-        $mailer = \Swift_Mailer::newInstance($transport);
-        $mailer->send($message);
+        $this->get('mailer')->send($message);
 
         $this->get('session')->getFlashBag()->add('alert-success', 'Сообщение отправлено.');
-        /** var array of Acme\UserBundle\Entity\User limited to 10 results */
-        // $users = $finder->find('bob', 10);
 
         return $this->redirect($request->headers->get('referer'));
     }
