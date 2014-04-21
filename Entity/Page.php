@@ -171,7 +171,7 @@ class Page
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lastmod = new \DateTime();
-        $this->prior = 0;
+        $this->prior = 1;
     }
 
     /**
