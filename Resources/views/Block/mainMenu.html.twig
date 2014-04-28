@@ -5,7 +5,7 @@
 </ul>
 
 {% macro display_tree(page,loop,cut_path) %}
-    <li>{% if app.request.uri != page.path %}
+    <li>{% if app.request.get('url')|trim('/') != page.path|replace({(cut_path):''})|trim('/') %}
             {% if url_by_path %}
                 <a href="{{ path('page_show',{'url':page.path|replace({(cut_path):''}) }) }}">{{ page.title }}</a>
             {% else %}

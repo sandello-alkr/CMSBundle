@@ -69,13 +69,19 @@
 	<div class="clearfix"></div>
 </div>
 <script type="text/javascript">
-$('.sidebar_toggle').click(function(){
-	// $(this).addClass('hidden-sm').addClass('hidden-xs')
-	if($('.sidebar').hasClass('hidden-xs'))
-	{
-		
-	}
-	$('.sidebar').toggleClass('hidden-sm').toggleClass('hidden-xs')
+$('.sidebar.left>.nav>li').click(function(){
+  menu = $(this).find(".menu_level_1")
+  $('.sidebar.left .menu_level_1').stop().animate({
+        left: "-"+(menu[0].offsetWidth+16)+'px'
+    }, 500);
+  if(menu[0].offsetLeft<0)
+    menu.stop().animate({
+        left: "0"
+    }, 500);
+  else
+    menu.animate({
+        left: "-"+(menu[0].offsetWidth+16)+'px'
+    }, 500);
 })
 </script>
 {% endblock %}

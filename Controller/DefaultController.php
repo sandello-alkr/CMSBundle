@@ -143,6 +143,19 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/news/",name="news")
+     * @Template()
+     */
+    public function showAllPostsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $news = $em->getRepository('CMSBundle:Post')->findAll();
+
+        return array('news'=>$news);
+    }
+
+    /**
      * @Route("/faq/",name="faq")
      * @Template()
      */

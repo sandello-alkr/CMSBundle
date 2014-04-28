@@ -111,7 +111,7 @@ class BlockController extends Controller
     /**
      * @Template()
      */
-    public function mainMenuAction()
+    public function mainMenuAction($url = null)
     {
         $twig = $this->container->get('twig');
         $globals = $twig->getGlobals();
@@ -120,6 +120,6 @@ class BlockController extends Controller
         $main = $repo->find($globals['top_menu_parent']);
         $pages = $repo->childrenHierarchy($main,false,array('childSort'=>array('field'=>'prior')),false);
 
-        return array('pages'=>$pages,'cut_path'=>$main->getPath());
+        return array('pages'=>$pages,'cut_path'=>$main->getPath(),$url=>$url);
     }
 }

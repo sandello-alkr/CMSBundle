@@ -404,16 +404,25 @@
 			onLoadEnd:		function() { captionOn(); navigationUpdate( selectorA ); activityIndicatorOff(); },
 		});
 
+		var selectorB = 'a[data-imagelightbox="b"]';
+		var instanceB = $( selectorB ).imageLightbox(
+		{
+			onStart:	 function() { overlayOn(); navigationOn( instanceB, selectorB ); },
+			onEnd:		 function() { captionOff(); overlayOff(); navigationOff(); activityIndicatorOff(); },
+			onLoadStart:	function() { captionOff(); activityIndicatorOn(); },
+			onLoadEnd:		function() { captionOn(); navigationUpdate( selectorB ); activityIndicatorOff(); },
+		});
+
 
 		//	WITH OVERLAY & ACTIVITY INDICATION
 
-		$( 'a[data-imagelightbox="b"]' ).imageLightbox(
+		/*$( 'a[data-imagelightbox="b"]' ).imageLightbox(
 		{
 			onStart: 	 function() { overlayOn(); },
 			onEnd:	 	 function() { overlayOff(); activityIndicatorOff(); },
 			onLoadStart: function() { activityIndicatorOn(); },
 			onLoadEnd:	 function() { activityIndicatorOff(); }
-		});
+		});*/
 
 
 		//	WITH "CLOSE" BUTTON & ACTIVITY INDICATION

@@ -1,4 +1,4 @@
-{% extends 'CMSBundle:Base:base.html.twig' %}
+{% extends "CMSBundle:Templates:"~template|default(base_template) %}
 
 {% block body %}
     <h1 class="title">{{'Login'|trans}}</h1>

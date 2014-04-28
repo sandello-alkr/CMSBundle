@@ -1,0 +1,9 @@
+{% extends 'CMSBundle:Templates:'~entity.view|default(base_template) %}
+{% block body %}
+    <h1>{{'Новости'|trans}}</h1>
+    <div class="inner">
+        {# {% include 'CMSBundle:Block:breadcrumbs.html.twig' with {'entity': entity} %} #}
+        {# {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %} #}
+        {{ render(controller('CMSBundle:Block:news', { 'max': 30, 'type': 'news', 'class': 'news' })) }}
+    </div>
+{% endblock %}

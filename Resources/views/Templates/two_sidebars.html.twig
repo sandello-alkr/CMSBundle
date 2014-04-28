@@ -112,14 +112,18 @@
 </div>
 <script type="text/javascript">
 $('.sidebar.left>.nav>li').click(function(){
-	if($(".menu_level_1")[0].offsetLeft<0)
-		$(".menu_level_1").animate({
-		    left: "0"
-		}, 500);
-	else
-		$(".menu_level_1").animate({
-		    left: "-"+$('.menu_level_1')[0].offsetWidth+'px'
-		}, 500);
+  menu = $(this).find(".menu_level_1")
+  $('.sidebar.left .menu_level_1').stop().animate({
+        left: "-"+(menu[0].offsetWidth+16)+'px'
+    }, 500);
+  if(menu[0].offsetLeft<0)
+    menu.stop().animate({
+        left: "0"
+    }, 500);
+  else
+    menu.animate({
+        left: "-"+(menu[0].offsetWidth+16)+'px'
+    }, 500);
 })
 </script>
 {% endblock %}

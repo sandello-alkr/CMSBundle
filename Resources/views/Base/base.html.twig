@@ -17,7 +17,7 @@
 
     <link href='http://fonts.googleapis.com/css?family=Marmelad&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen">
-    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css'
+    {% stylesheets  debug=true '@FOSCommentBundle/Resources/assets/css/comments.css'
                    '@CMSBundle/Resources/public/css/*'
                    '@CMSBundle/Resources/public/original_css/*' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
