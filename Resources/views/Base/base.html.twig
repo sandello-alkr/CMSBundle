@@ -8,16 +8,17 @@
     {% block metadescription %}{% endblock %}
     <!-- Bootstrap -->
     {% block style %}
-    {% stylesheets filter="compass" debug=true
-        "@CMSBundle/Resources/assets/css/two_sidebars.sass"
+    {% stylesheets filter="compass" debug=false
+        "@CMSBundle/Resources/assets/css/*"
+        "@CMSBundle/Resources/assets/templates/two_sidebars.scss"
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
     {% endblock %}
 
     <link href='http://fonts.googleapis.com/css?family=Marmelad&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen">
-    {% stylesheets  debug=true '@FOSCommentBundle/Resources/assets/css/comments.css'
+    {# <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen"> #}
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css'
                    '@CMSBundle/Resources/public/css/*'
                    '@CMSBundle/Resources/public/original_css/*' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />

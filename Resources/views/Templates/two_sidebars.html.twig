@@ -5,7 +5,6 @@
 		<div class="sidebar left">
 			{% block sidebar %}
 			{% if sidebar.menu %}
-			{#{{ knp_menu_render('CMSBundle:Builder:leftMenu',{'currentAsLink':false}) }}#}
 			{{ render(controller('CMSBundle:Block:leftMenu')) }}
 			{% endif %}
 			{% if sidebar.search %}

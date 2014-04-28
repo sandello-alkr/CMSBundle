@@ -1,8 +1,9 @@
 {% extends 'CMSBundle:Base:base.html.twig' %}
 
 {% block style %}
-    {% stylesheets filter="compass" debug=true
-        "@CMSBundle/Resources/assets/css/full_width.sass"
+    {% stylesheets filter="compass" debug=false
+        "@CMSBundle/Resources/assets/css/*"
+        "@CMSBundle/Resources/assets/templates/full_width.scss"
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}

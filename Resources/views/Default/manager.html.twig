@@ -4,8 +4,9 @@
 {% endblock %}
 
 {% block style %}
-{% stylesheets filter="compass" debug=true
-        "@CMSBundle/Resources/assets/css/one_sidebar.sass"
+{% stylesheets filter="compass" debug=false
+        "@CMSBundle/Resources/assets/css/*"
+        "@CMSBundle/Resources/assets/templates/one_sidebar.scss"
 %}
     <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
