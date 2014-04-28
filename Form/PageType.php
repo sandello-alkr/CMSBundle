@@ -24,28 +24,29 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
+        $parents = $this->parents;
         $builder
             ->add('title',null,array('label' => 'Заголовок'))
+            ->add('parent',null,array('choices'=>$parents,'label'=>'Родитель','property'=>'indent'))
+            ->add('prior',null,array('label'=>'Порядок'))
+            ->add('enabled',null,array('required'=>false,'label'=>'Включена'))
             ->add('annotation',null,array('label'=>'Аннотация'))
             ->add('content','ckeditor',array('label'=>'Содержание'))
             ->add('metaTitle',null,array('label'=>'Заголовок браузера'))
             ->add('menuTitle',null,array('label'=>'Заголовок меню'))
             ->add('keywords',null,array('label'=>'Ключевые слова'))
             ->add('description',null,array('label'=>'Описание'))
-            ->add('prior',null,array('label'=>'Порядок'))
             ->add('url',null,array('label'=>'','required'=>false))
             ;
 
-        $parents = $this->parents;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($parents) {
+        /*$builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($parents) {
             $product = $event->getData();
             $form = $event->getForm();
             if (!$product || null === $product->getId() || is_object($product->getParent()))
-                $form->add('parent',null,array('choices'=>$parents,'label'=>'Родитель','property'=>'indent','required'=>true));
-        });
+                $form->add('parent',null,array('choices'=>$parents,'label'=>'Родитель','property'=>'indent'));
+        });*/
 
-        $builder->add('enabled',null,array('required'=>false,'label'=>'Включена'));
         if($file['twig']['globals']['modules']['views'])
             $builder->add('view','choice',array('label'=>'Шаблон','choices'=>array('two_sidebars.html.twig'=>'two_sidebars')));
         if($file['twig']['globals']['modules']['feedback'])

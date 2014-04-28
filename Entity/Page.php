@@ -51,7 +51,7 @@ class Page
      * @var string
      * @Gedmo\Slug(fields={"title"},updatable=false)
      * @Gedmo\TreePathSource
-     * @ORM\Column(name="url", type="string", length=100)
+     * @ORM\Column(name="url", type="string")
      */
     private $url;
 
@@ -132,14 +132,14 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=120)
+     * @ORM\Column(name="title", type="string")
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="metaTitle", type="string", length=70, nullable=true)
+     * @ORM\Column(name="metaTitle", type="string", nullable=true)
      */
     private $metaTitle;
 
@@ -169,6 +169,7 @@ class Page
      */
     public function __construct()
     {
+        $this->enabled = true;
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lastmod = new \DateTime();
         $this->prior = 1;
