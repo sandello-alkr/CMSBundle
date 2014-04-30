@@ -641,4 +641,14 @@ class Page
         if($this->prior)
             return $this->prior;
     }
+
+        public function getNextPrior()
+    {
+        $next = 0;
+        foreach ($this->children as $page) {
+            if($page->getPrior() > $next)
+                $next = $page->getPrior();
+        }
+        return $next+1;
+    }
 }
