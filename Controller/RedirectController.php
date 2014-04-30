@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use alkr\CMSBundle\Entity\Redirect;
-use alkr\CMSBundle\Form\RedirectType;
 
 /**
  * Redirect controller.
