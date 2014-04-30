@@ -25,7 +25,7 @@ class PageType extends AbstractType
         $parents = $this->parents;
         $builder
             ->add('title',null,array('label' => 'Заголовок'))
-            ->add('parent','extended_entity',array('choices'=>$parents,'label'=>'Родитель','property'=>'indent','class'=>'alkr\CMSBundle\Entity\Page','option_attributes'=>array('data-next'=>'nextPrior')))
+            ->add('parent','extended_entity',array('choices'=>$parents,'label'=>'Родитель','property'=>'indent','class'=>'alkr\CMSBundle\Entity\Page','option_attributes'=>array('data-next'=>'nextPrior'),'required'=>false))
             ->add('prior',null,array('label'=>'Порядок'))
             ->add('enabled',null,array('required'=>false,'label'=>'Включена'))
             ->add('annotation',null,array('label'=>'Аннотация'))
