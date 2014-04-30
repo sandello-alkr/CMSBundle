@@ -4,7 +4,6 @@ namespace alkr\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
  * Page
@@ -234,7 +233,6 @@ class Page
     /**
      * Add children
      *
-     * @param \alkr\CMSBundle\Entity\Page $children
      * @return Page
      */
     /*public function addChildren(\alkr\CMSBundle\Entity\Page $children)
