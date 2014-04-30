@@ -38,6 +38,9 @@ class Transliterator extends \Gedmo\Sluggable\Util\Urlizer
         return self::postProcessText($text, $separator);
     }
 
+    /**
+     * @param string $separator
+     */
     private static function postProcessText($text, $separator)
     {
         $text = strtolower($text);

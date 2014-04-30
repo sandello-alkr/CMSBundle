@@ -49,7 +49,7 @@ class Redirect
      * Set newUrl
      *
      * @param string $newUrl
-     * @return Banner
+     * @return Redirect
      */
     public function setNewUrl($newUrl)
     {
@@ -72,7 +72,7 @@ class Redirect
      * Set oldUrl
      *
      * @param string $oldUrl
-     * @return Banner
+     * @return Redirect
      */
     public function setOldUrl($oldUrl)
     {
