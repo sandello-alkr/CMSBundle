@@ -17,8 +17,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
         return array();
     }
 
@@ -158,7 +156,7 @@ class DefaultController extends Controller
      * @Route("/faq/",name="faq")
      * @Template()
      */
-    public function faqAction(Request $request)
+    public function faqAction()
     {
         $em = $this->getDoctrine()->getManager();
         $faq = $em->getRepository('CMSBundle:FAQ')->findAll();
@@ -173,9 +171,6 @@ class DefaultController extends Controller
      */
     public function sendAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $transport = $this->container->getParameter('mailer_transport');
-        $password = $this->container->getParameter('mailer_password');
         $email = $this->container->getParameter('mailer_user');
         $message = \Swift_Message::newInstance()
             ->setSubject('Новое сообщение')
@@ -195,7 +190,7 @@ class DefaultController extends Controller
      * @Route("/manager/",name="manager_index")
      * @Template()
      */
-    public function managerAction(Request $request)
+    public function managerAction()
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
@@ -211,9 +206,7 @@ class DefaultController extends Controller
      */
     public function sitemapAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        return array(
-            );
+        return array();
     }
 
     /**

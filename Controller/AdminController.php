@@ -137,10 +137,10 @@ class AdminController extends Controller
             $application->setAutoExit(false); 
 
             // The input interface should contain the command name, and whatever arguments the command needs to run      
-            $input = new ArrayInput(array("assetic:dump"));
+            // $input = new ArrayInput(array("assetic:dump"));
 
             // Run the command
-            $output = new ConsoleOutput();
+            // $output = new ConsoleOutput();
         }
         preg_match_all('/@(\S+):\s+(.+);/', $txt_file, $array, PREG_SET_ORDER);
         $variables = array();

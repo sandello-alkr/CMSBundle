@@ -171,7 +171,7 @@ class PageController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        $request = $request->get('alkr_cmsbundle_page');
+        // $request = $request->get('alkr_cmsbundle_page');
 
         // $entity->setContent($request['content']);
         if ($editForm->isValid()) {
