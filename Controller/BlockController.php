@@ -66,7 +66,7 @@ class BlockController extends Controller
      * @Route("/gallery/image",name="gallery_image")
      * @Template()
      */
-    public function galleryImageAction(Request $request)
+    public function galleryImageAction()
     {
         $em = $this->getDoctrine()->getManager();
         $image = $em->createQueryBuilder('p')
@@ -105,7 +105,7 @@ class BlockController extends Controller
         $repo = $em->getRepository('CMSBundle:Page');
         $pages = $repo->childrenHierarchy($repo->find($globals['left_menu_parent']),false,array('childSort'=>array('field'=>'prior')),true);
 
-        return array('pages'=>$pages);
+        return array('pages'=>$pages,$url=>$url);
     }
 
     /**

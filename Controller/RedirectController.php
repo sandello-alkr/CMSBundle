@@ -87,7 +87,7 @@ class RedirectController extends Controller
      * @Route("/{id}/delete", name="manager_redirect_delete")
      * @Method("POST")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('CMSBundle:Redirect')->find($id);
