@@ -97,7 +97,7 @@ class BlockController extends Controller
     /**
      * @Template()
      */
-    public function leftMenuAction()
+    public function leftMenuAction($url = null)
     {
         $twig = $this->container->get('twig');
         $globals = $twig->getGlobals();
