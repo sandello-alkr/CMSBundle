@@ -75,14 +75,18 @@ $('.sidebar.left>.nav>li').click(function(){
   $('.sidebar.left .menu_level_1').stop().animate({
         left: "-"+(menu[0].offsetWidth+16)+'px'
     }, 500);
-  if(menu[0].offsetLeft<0)
+  if(menu[0].offsetLeft<0){
+    $(this).parent().parent().parent().css('min-height',(menu.offset().top*1+menu.height()*1)+'px')
     menu.stop().animate({
         left: "0"
     }, 500);
-  else
+  }
+  else{
+    $(this).parent().parent().parent().css('min-height','none')
     menu.animate({
         left: "-"+(menu[0].offsetWidth+16)+'px'
     }, 500);
+  }
 })
 </script>
 {% endblock %}
