@@ -20,7 +20,6 @@
 $('#alkr_cmsbundle_page_parent').change(function(){
     $('#alkr_cmsbundle_page_prior').val($(this).find('option:selected').data('next'))
 })
-$('#alkr_cmsbundle_page_parent').change()
 $('form').submit(function(){
     $('#alkr_cmsbundle_page_category').attr('disabled',false)
 })
