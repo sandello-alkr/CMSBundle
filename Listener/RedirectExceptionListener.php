@@ -14,6 +14,8 @@ class RedirectExceptionListener
      */
     protected $em;
 
+    protected $router;
+
     function __construct(EntityManager $em, $router)
     {
         $this->router = $router;

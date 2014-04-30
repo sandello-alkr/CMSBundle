@@ -143,7 +143,6 @@ class AdminController extends Controller
 
             // Run the command
             $output = new ConsoleOutput();
-            $retval = $application->run($input, $output);
         }
         preg_match_all('/@(\S+):\s+(.+);/', $txt_file, $array, PREG_SET_ORDER);
         $variables = array();

@@ -45,29 +45,6 @@ class Banner
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     * @return Banner
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Set title
      *
      * @param string $title
