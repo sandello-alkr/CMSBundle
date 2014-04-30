@@ -27,7 +27,7 @@
 // 	   $('#alkr_cmsbundle_page_url').val($(this).val().replace(/ /g,'-').replace(/[^-а-яА-Я0-9\w]/g,'').toLowerCase())
 // })
 $('#alkr_cmsbundle_page_parent').change(function(){
-    $('#alkr_cmsbundle_page_prior').value($(this).find('option:selected').data('next'))
+    $('#alkr_cmsbundle_page_prior').val($(this).find('option:selected').data('next'))
 })
 $('#alkr_cmsbundle_page_parent').change()
 $('form').submit(function(){

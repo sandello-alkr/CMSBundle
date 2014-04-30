@@ -213,11 +213,11 @@ class DefaultController extends Controller
      * @Route("/sitemap.{_format}", name="sample_sitemaps_sitemap", Requirements={"_format" = "xml"})
      * @Template("CMSBundle::sitemap.xml.twig")
      */
-    public function sitemapGenerationAction()
+    public function sitemapGenerationAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $urls = array();
-        $hostname = $this->getRequest()->getHost();
+        $hostname = $request->getHost();
 
         // add some urls homepage
         $urls[] = array('loc' => $this->get('router')->generate('index'), 'changefreq' => 'weekly', 'priority' => '1.0');
