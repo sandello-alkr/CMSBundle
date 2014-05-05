@@ -50,6 +50,7 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->getPreview()->setPagePreview($entity)->upload();
             $addPhoto = $entity->getPhotos();
             if($addPhoto)
             foreach ($addPhoto as $photo) {
@@ -176,6 +177,7 @@ class PageController extends Controller
         // $entity->setContent($request['content']);
         if ($editForm->isValid()) {
             $entity->setLastmod(new \DateTime('now'));
+            $entity->getPreview()->setPagePreview($entity)->upload();
             $addPhoto = $entity->getPhotos()->getInsertDiff();
             foreach ($addPhoto as $photo) {
                 $photo->setPage($entity);
