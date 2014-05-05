@@ -85,7 +85,7 @@ class DefaultController extends Controller
         }
 
         $return['children'] = array();
-        foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'asc',false) as $child) {
+        foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'prior',false) as $child) {
             if($child->getEnabled())
                 $return['children'][] = $child;
         }

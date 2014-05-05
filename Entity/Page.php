@@ -95,6 +95,12 @@ class Page
     private $children;
 
     /**
+     * @ORM\OneToOne(targetEntity="alkr\CMSBundle\Entity\Photo", mappedBy="page_preview", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="preview", referencedColumnName="id")
+     */
+    private $preview;
+
+    /**
      * @ORM\OneToMany(targetEntity="alkr\CMSBundle\Entity\Photo", mappedBy="page", cascade={"remove","persist"})
      * @var ArrayCollection $photos
      */
@@ -648,5 +654,29 @@ class Page
                 $next = $page->getPrior();
         }
         return $next+1;
+    }
+
+    /**
+     * Set preview
+     *
+     * @param \alkr\CMSBundle\Entity\Photo $preview
+     *
+     * @return Page
+     */
+    public function setPreview(\alkr\CMSBundle\Entity\Photo $preview = null)
+    {
+        $this->preview = $preview;
+
+        return $this;
+    }
+
+    /**
+     * Get preview
+     *
+     * @return \alkr\CMSBundle\Entity\Photo 
+     */
+    public function getPreview()
+    {
+        return $this->preview;
     }
 }

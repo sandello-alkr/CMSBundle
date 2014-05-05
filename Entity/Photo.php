@@ -133,6 +133,11 @@ class Photo
     private $description;
 
     /**
+     * @ORM\OneToOne(targetEntity="Page", inversedBy="preview")
+     */
+    private $page_preview;
+
+    /**
      * @ORM\OneToOne(targetEntity="Banner", inversedBy="photo")
      */
     private $banner;
@@ -360,5 +365,29 @@ class Photo
     public function getBanner()
     {
         return $this->banner;
+    }
+
+    /**
+     * Set page_preview
+     *
+     * @param \alkr\CMSBundle\Entity\Page $pagePreview
+     *
+     * @return Photo
+     */
+    public function setPagePreview(\alkr\CMSBundle\Entity\Page $pagePreview = null)
+    {
+        $this->page_preview = $pagePreview;
+
+        return $this;
+    }
+
+    /**
+     * Get page_preview
+     *
+     * @return \alkr\CMSBundle\Entity\Page 
+     */
+    public function getPagePreview()
+    {
+        return $this->page_preview;
     }
 }
