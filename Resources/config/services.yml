@@ -1,0 +1,29 @@
+services:
+    cms_bundle.extended_entity.widget:
+        class: alkr\CMSBundle\Form\Extension\ExtendedEntityType
+        arguments: [@property_accessor]
+        tags:
+            - { name: form.type, alias: extended_entity }
+
+    cms_bundle.image_type_extension:
+        class: alkr\CMSBundle\Form\Extension\ImageTypeExtension
+        tags:
+            - { name: form.type_extension, alias: file }
+
+    cms_bundle.twig.config_expose_extension:
+        class: alkr\CMSBundle\Twig\ConfigExposeExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+
+    page.listener:
+        class: alkr\CMSBundle\Listener\PageListener
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+            - { name: doctrine.event_listener, event: postFlush, method: postFlush }
+
+    exception.listener:
+        class: alkr\CMSBundle\Listener\RedirectExceptionListener
+        arguments: [@doctrine.orm.entity_manager,@router]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: checkRedirect }
