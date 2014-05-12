@@ -4,6 +4,7 @@ namespace alkr\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use alkr\CMSBundle\Lib\Globals;
 
 /**
  * Page
@@ -582,17 +583,8 @@ class Page
 
     public function getPath()
     {
-        $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
-        if($file['twig']['globals']['url_by_path'])
-        {
-            // $parent = $this;
-            // while($parent = $parent->getParent())
-            // {
-            //     if($parent->getId() == 10)
-            //         $this->path = str_replace($parent->getPath(), 'replace', $this->path);
-            // }
+        if(Globals::getUrlByPath())
             return $this->path;
-        }
         else
             return $this->url;
     }

@@ -95,6 +95,7 @@ class Photo
             if(file_exists($this->getAbsolutePath()))
                 unlink($file = $this->getAbsolutePath());
         }
+        return $this;
     }
 
     /**

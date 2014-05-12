@@ -50,7 +50,10 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->getPreview()->setPagePreview($entity)->upload();
+            if(is_object($entity->getPreview()->file))
+                $entity->getPreview()->setPagePreview($entity)->upload();
+            else
+                $entity->setPreview(null);
             $addPhoto = $entity->getPhotos();
             if($addPhoto)
             foreach ($addPhoto as $photo) {
@@ -177,7 +180,10 @@ class PageController extends Controller
         // $entity->setContent($request['content']);
         if ($editForm->isValid()) {
             $entity->setLastmod(new \DateTime('now'));
-            $entity->getPreview()->setPagePreview($entity)->upload();
+            if(is_object($entity->getPreview()->file))
+                $entity->getPreview()->setPagePreview($entity)->upload();
+            elseif($entity->getPreview()->getId() == null)
+                $entity->setPreview(null);
             $addPhoto = $entity->getPhotos()->getInsertDiff();
             foreach ($addPhoto as $photo) {
                 $photo->setPage($entity);
@@ -220,7 +226,12 @@ class PageController extends Controller
                 throw $this->createNotFoundException('Unable to find Page entity.');
             }
 
+            $preview = $entity->getPreview()->setPagePreview(null)->remove();
+            $entity->setPreview(null);
+
             $em->remove($entity);
+            $em->flush();
+            $em->remove($preview);
             $em->flush();
         }
 
