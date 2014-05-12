@@ -5,6 +5,7 @@ namespace alkr\CMSBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use alkr\CMSBundle\Lib\Globals;
 
 class PageType extends AbstractType
 {
@@ -21,7 +22,7 @@ class PageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
+        $params = Globals::getParams();
         $parents = $this->parents;
         $builder
             ->add('title',null,array('label' => 'Заголовок'))
@@ -38,21 +39,20 @@ class PageType extends AbstractType
             ->add('url',null,array('label'=>'','required'=>false))
             ;
 
-
         /*$builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($parents) {
             $product = $event->getData();
             $form = $event->getForm();
             if (!$product || null === $product->getId() || is_object($product->getParent()))
                 $form->add('parent',null,array('choices'=>$parents,'label'=>'Родитель','property'=>'indent'));
         });*/
-
-        if($file['twig']['globals']['modules']['views'])
+        
+        if($params['modules']['views'])
             $builder->add('view','choice',array('label'=>'Шаблон','choices'=>array('two_sidebars.html.twig'=>'two_sidebars')));
-        if($file['twig']['globals']['modules']['feedback'])
+        if($params['modules']['feedback'])
             $builder->add('feedback',null,array('label'=>'Форма обратной связи'));
-        if($file['twig']['globals']['modules']['map'])
+        if($params['modules']['map'])
             $builder->add('map',null,array('label'=>'Карта'));
-        if($file['twig']['globals']['modules']['gallery'])
+        if($params['modules']['gallery'])
             $builder->add(
                 'photos',
                 'bootstrap_collection',
