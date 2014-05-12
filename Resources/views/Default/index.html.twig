@@ -1,20 +1,5 @@
-{% extends "CMSBundle:Templates:"~template|default(base_template) %}
-{% block header %}
-	{% include 'CMSBundle:Base:header.html.twig' %}
-	{% if header.slider %}
-		{{ render(controller('CMSBundle:Block:slider', { 'id': 'header'})) }}
-	{% endif %}
-	<div class="container">
-		{% for key, type in app.session.flashbag %}
-		{% for flash in type %}
-			<div class="alert {{key}} fade in">
-				{{ flash }}
-				<button type="button" class="close" data-dismiss="alert">×</button>
-			</div>
-		{% endfor %}
-		{% endfor %}
-	</div>
-{% endblock %}
+{% extends "CMSBundle:Templates:"~template|default(cms.base_template) %}
+
 {% block body %}
 <h1>Клининговая компания &laquo;Преображение&raquo; - это химчистка мебели, ковров, уборка помещений.</h1>
 <div class="inner">

@@ -1,4 +1,4 @@
-{% extends 'CMSBundle:Templates:'~entity.view|default(base_template) %}
+{% extends 'CMSBundle:Templates:'~entity.view|default(cms.base_template) %}
 {% block title %}{% if entity.metaTitle %}{{entity.metaTitle}} - {% endif %}{% if entity.title %}{{entity.title}} - {% endif %}{% endblock %}
 {% block metakeywords %}{% if entity.keywords %}<meta name="keywords" content="{{entity.keywords}}">{% endif %}{% endblock %}
 {% block metadescription %}{% if entity.description %}<meta name="description" content="{{entity.description}}">{% endif %}{% endblock %}
@@ -7,19 +7,33 @@
     <div class="inner">
         {% include 'CMSBundle:Block:breadcrumbs.html.twig' with {'entity': entity} %}
         {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %}
-        {% if children|length > 0 %}
+        {% if cms.children_type != 'none' and children|length > 0 %}
+        {% if cms.children_type == 'preview' %}
         <div class="children">
+        {% else %}
+        <ul class="children">
+        {% endif %}
             {% for child in children %}
-            {% if loop.index % 2 == 1 %}<div class="row">{% endif %}
+            {% if cms.children_type == 'preview' and loop.index % 2 == 1 %}<div class="row">{% endif %}
+                {% if cms.children_type == 'preview' %}
                 <div class="child col-sm-6 text-center">
                     <a href="{{ path('page_show',{'url':child.path}) }}">
+                        {% if child.preview|length > 0 %}<div class="thumbnail"><img src="{{child.preview|apply_filter('gallery_thumb')}}"/></div>{% endif %}
                         <div class="title">{{child.title}}</div>
-                        {% if child.photos|length > 0 %}<div class="thumbnail"><img src="{{child.photos[0]| apply_filter('gallery_thumb')}}"/></div>{% endif %}
                     </a>
                 </div>
-            {% if loop.index % 2 == 0 or loop.last %}</div>{% endif %}
+                {% else %}
+                <li>
+                    <a href="{{ path('page_show',{'url':child.path}) }}">{{child.title}}</a>
+                </li>
+                {% endif %}
+            {% if cms.children_type == 'preview' and (loop.index % 2 == 0 or loop.last) %}</div>{% endif %}
             {% endfor %}
+        {% if cms.children_type == 'preview' %}
         </div>
+        {% else %}
+        </ul>
+        {% endif %}
         {% endif %}
         {{ entity.content|raw }}
         {% if entity.photos|length > 0 %}
@@ -27,14 +41,13 @@
         {% if loop.index % 4 == 1 %}
         <!-- <div class="row"> -->
         {% endif %} 
-        <div class="col-lg-3 col-md-4 col-xs-6 col-xxs-12"><a href="{{ photo }}" class="thumbnail" data-imagelightbox="a"><img src="{{ photo | apply_filter('gallery_thumb') }}" alt="{{ photo.description|default('picture'~photo.id) }}"/></a></div>
+        <div class="col-lg-3 col-md-4 col-xs-6 col-xxs-12"><a href="{{ photo }}" class="thumbnail" data-imagelightbox="a" title="{{ photo.description|default('picture'~photo.id) }}"><img src="{{ photo | apply_filter('gallery_thumb') }}" alt="{{ photo.description|default('picture'~photo.id) }}"/></a></div>
         {% if loop.index % 4 == 0 or loop.last%}
         <!-- </div> -->
         {% endif %}
         {% endfor %}
         {% endif %}
         {% if map is defined %}
-        <div class="clearfix"></div>
         <script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
         <script type="text/javascript">
         ymaps.ready(init);
@@ -90,7 +103,7 @@
         {% if form is defined %}
         {{ form(form,{'style':'horizontal'}) }}
         {% endif %}
-        {% if main.comments %}
+        {% if cms.modules.comments %}
         <br/>
         {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
         {% endif %}

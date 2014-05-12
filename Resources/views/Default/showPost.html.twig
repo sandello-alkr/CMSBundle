@@ -1,4 +1,4 @@
-{% extends "CMSBundle:Templates:"~template|default(base_template) %}
+{% extends "CMSBundle:Templates:"~template|default(cms.base_template) %}
 
 {% block title %}{{entity.title}}{% endblock %}
 {#{% block metakeywords %}{% if entity.keywords %}<meta name="keywords" content="{{entity.keywords}}">{% endif %}{% endblock %}
@@ -7,7 +7,7 @@
     <h1>{{entity.title}}</h1>
     <h3>{{entity.date|date('d.m.Y')}}</h3>
     {{ entity.content|raw }}
-    {% if main.comments %}
+    {% if cms.modules.comments %}
     <br/>
     {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
     {% endif %}

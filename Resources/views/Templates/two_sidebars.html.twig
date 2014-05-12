@@ -2,12 +2,13 @@
 
 {% block content %}
 <div class="container my_container">
+	<div class="row">
 		<div class="sidebar left">
 			{% block sidebar %}
-			{% if sidebar.menu %}
-			{{ render(controller('CMSBundle:Block:leftMenu')) }}
+			{% if cms.left_sidebar.menu %}
+            {{ render(controller('CMSBundle:Block:leftMenu',{'url':app.request.pathInfo|default(null)})) }}
 			{% endif %}
-			{% if sidebar.search %}
+			{% if cms.left_sidebar.search %}
 			<h4>Поиск</h4>
 			<form action="{{ path('search') }}" role="search">
 				<div class="form-group">
@@ -16,15 +17,15 @@
 				<button type="submit" class="btn btn-default">{{'Искать'|trans}}</button>
 			</form>
 			{% endif %}
-			{% if sidebar.posts %}
+			{% if cms.left_sidebar.posts %}
 			<h4>{{'Новости'|trans}}</h4>
 			{{ render(controller('CMSBundle:Block:news', { 'max': 3, 'type': 'news', 'class': 'vertical news' })) }}
 			{% endif %}
-			{% if sidebar.banner %}
+			{% if cms.left_sidebar.banner %}
 			<h4>{{'Баннеры'|trans}}</h4>
 			{{ render(controller('CMSBundle:Block:banners', { 'max': 3, 'carousel':'true','slides':1 })) }}
 			{% endif %}
-			{% if sidebar.gallery %}
+			{% if cms.left_sidebar.gallery %}
 			<h4>{{'Галерея'|trans}}</h4>
 			<div id="gallery">
 				<a class="thumbnail">
@@ -62,10 +63,10 @@
 			<a href="{{ path('page_show',{'url':'сотрудничество'})}}"><h4><span class="i coop"></span>&nbsp;{{'правый сайдбар2'|trans}}</h4></a>
 			<a href="{{ path('page_show',{'url':'клиенты'})}}"><h4><span class="client i"></span>&nbsp;{{'правый сайдбар3'|trans}}</h4></a>
 			{% block sidebar2 %}
-			{% if sidebar2.menu %}
-			{{ knp_menu_render('CMSBundle:Builder:mainMenu',{'currentAsLink':false}) }}
+			{% if cms.right_sidebar.menu %}
+            {{ render(controller('CMSBundle:Block:leftMenu',{'url':app.request.pathInfo|default(null)})) }}
 			{% endif %}
-			{% if sidebar2.search %}
+			{% if cms.right_sidebar.search %}
 			<h4>{{'Поиск'|trans}}</h4>
 			<form action="{{ path('search') }}" role="search">
 				<div class="form-group">
@@ -74,13 +75,13 @@
 				<button type="submit" class="btn btn-default">{{'Искать'|trans}}</button>
 			</form>
 			{% endif %}
-			{% if sidebar2.posts %}
+			{% if cms.right_sidebar.posts %}
 			{{ render(controller('CMSBundle:Block:news', { 'max': 3, 'type': 'news', 'class': 'vertical news' })) }}
 			{% endif %}
-			{% if sidebar2.banner %}
+			{% if cms.right_sidebar.banner %}
 			{{ render(controller('CMSBundle:Block:banners', { 'max': 3, 'offset': 0, 'class': 'vertical news', 'type': 'gallery' })) }}
 			{% endif %}
-			{% if sidebar2.gallery %}
+			{% if cms.right_sidebar.gallery %}
 			<div id="gallery">
 				<a class="thumbnail">
 					<img src=""/>
@@ -108,6 +109,7 @@
 			{% endif %}
 			{% endblock %}
 		</div>
+	</div>
 </div>
 <script type="text/javascript">
 $('.sidebar.left>.nav>li').click(function(){

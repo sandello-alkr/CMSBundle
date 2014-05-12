@@ -43,16 +43,13 @@ class DefaultController extends Controller
      */
     public function showPageAction($url)
     {
+        $params = $this->container->getParameter('cms');
         $em = $this->getDoctrine()->getManager();
-
-        $twig = $this->container->get('twig');
-        $globals = $twig->getGlobals();
-
-        if($globals['url_by_path'])
+        if($params['url_by_path'])
         {
             $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($url);
             if(is_null($entity))
-                $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($em->getRepository('CMSBundle:Page')->find(7)->getPath().$url);
+                $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($em->getRepository('CMSBundle:Page')->find($params['top_menu_parent'])->getPath().$url);
         }
         else
             $entity = $em->getRepository('CMSBundle:Page')->findOneByUrl($url);
@@ -83,7 +80,7 @@ class DefaultController extends Controller
                 );
             $return['map'] = true;
         }
-
+        
         $return['children'] = array();
         foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'prior',false) as $child) {
             if($child->getEnabled())

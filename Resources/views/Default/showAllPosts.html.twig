@@ -1,4 +1,4 @@
-{% extends 'CMSBundle:Templates:'~entity.view|default(base_template) %}
+{% extends 'CMSBundle:Templates:'~entity.view|default(cms.base_template) %}
 {% block body %}
     <h1>{{'Новости'|trans}}</h1>
     <div class="inner">

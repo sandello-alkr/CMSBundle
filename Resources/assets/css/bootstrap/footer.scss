@@ -1,0 +1,49 @@
+$footerHeight: 50px;
+
+html, body {
+	height: 100%;
+	// The html and body elements cannot have any padding or margin.
+}
+
+#wrap {
+	min-height: 100%;
+	height: auto;
+	// Negative indent footer by its height
+	margin: {
+		top: 0;
+		right: auto;
+		bottom: -$footerHeight;
+	};
+	// Pad bottom by footer height
+	padding: 0 0 $footerHeight;
+}
+
+#footer {
+	height: $footerHeight;
+	line-height: $footerHeight;
+	padding: 0;
+	.left {
+		float: left;
+	}
+	.right {
+		float: right;
+	}
+}
+
+@media screen and (max-width: $screen-md-min - 1) {
+	#footer {
+		line-height: 21px;
+		.left {
+			float: none;
+		}
+		.right {
+			float: none;
+		}
+	}
+}
+
+.navbar-static-bottom {
+	@include make-row();
+	margin-bottom: 0;
+	border: none;
+}

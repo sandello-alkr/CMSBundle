@@ -1,24 +1,24 @@
 <div id="footer">
-        {% if header.navbar.narrow %}<div class="container">{% endif %}
-            <div class="navbar {% if header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %}{% if not header.navbar.narrow %} navbar-static-bottom{% endif %}" role="navigation">
-                {% if not header.navbar.narrow %}<div class="container">{% endif %}
-                {% if footer.menu %}
-                <div class="navbar-footer">
-                    <button type="button" class="navbar-toggle"
-                    data-toggle="collapse" data-target=".navbar-ex2-collapse">
-                    <span class="sr-only">{{'Toggle navigation'|trans}}</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                {#<a class="navbar-brand" href="{{ path('index')}}">Wide-web</a>#}
-                </div>
-                <div class="navbar-collapse collapse navbar-ex2-collapse">
-                    {{ knp_menu_render('CMSBundle:Builder:footerMenu',{'style':'navbar'}) }}
-                </div><!--/.nav-collapse -->
-                {% endif %}
-                <div class="left">Copyright &copy; {{'копирайт с какого года'|trans}}-{{date()|date('Y')}} &mdash; {{'Название компании'|trans}}</div>
-                <div class="right">{{'Разработка сайта'|trans}} &mdash; <a href="http://wide-web.spb.ru" target="_blank">{{'Компания'|trans}} &laquo;Wide-Web&raquo;</a></div>
-            </div>
-        </div>
+    {% if cms.header.navbar.narrow %}<div class="container">{% endif %}
+    <div class="navbar {% if cms.header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %} navbar-static-bottom mint-fon" role="navigation">
+        {% if not cms.header.navbar.narrow %}<div class="container">{% endif %}
+        {% if cms.footer.menu %}
+        <div class="navbar-footer mint-fon">
+            <button type="button" class="navbar-toggle"
+            data-toggle="collapse" data-target=".navbar-ex2-collapse">
+            <span class="sr-only">{{'Toggle navigation'|trans}}</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        {#<a class="navbar-brand" href="{{ path('index')}}">Wide-web</a>#}
     </div>
+    <div class="navbar-collapse collapse navbar-ex2-collapse">
+        {{ knp_menu_render('CMSBundle:Builder:footerMenu',{'style':'navbar'}) }}
+    </div><!--/.nav-collapse -->
+    {% endif %}
+    <div class="left">Copyright &copy; {{'копирайт с какого года'|trans}}-{{date()|date('Y')}} &mdash; {{'Название компании'|trans}}</div>
+    <div class="right">{{'Сайт работает на технологии'|trans}} <a href="http://space-pencil.ru" target="_blank"><img src="/space.png"/></a>&nbsp;<a href="http://space-pencil.ru" target="_blank">Космический&nbsp;карандаш</a></div>
+</div>
+</div>
+</div>

@@ -2,10 +2,9 @@
 @import "bootstrap/variables";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins";
 
-// Reset and dependencies
+// Reset
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/normalize";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/print";
-@import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/glyphicons";
 
 // Core CSS
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/scaffolding";
@@ -18,10 +17,11 @@
 
 // Components
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/component-animations";
+@import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/glyphicons";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/dropdowns";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/button-groups";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/input-groups";
-@import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/navs";
+@import "bootstrap/navs";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/navbar";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/breadcrumbs";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/pagination";
@@ -35,7 +35,6 @@
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/media";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/list-group";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/panels";
-@import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/responsive-embed";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/wells";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/close";
 
@@ -48,3 +47,5 @@
 // Utility classes
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/utilities";
 @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/responsive-utilities";
+
+@import "bootstrap/custom";

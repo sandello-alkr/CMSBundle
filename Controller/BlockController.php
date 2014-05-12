@@ -97,13 +97,11 @@ class BlockController extends Controller
      */
     public function leftMenuAction($url = null)
     {
-        $twig = $this->container->get('twig');
-        $globals = $twig->getGlobals();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        $pages = $repo->childrenHierarchy($repo->find($globals['left_menu_parent']),false,array('childSort'=>array('field'=>'prior')),true);
+        $pages = $repo->getChildren($repo->find($this->container->getParameter('left_menu_parent')),true,'prior');
 
-        return array('pages'=>$pages,$url=>$url);
+        return array('pages'=>$pages,'repo'=>$repo);
     }
 
     /**
@@ -111,13 +109,10 @@ class BlockController extends Controller
      */
     public function mainMenuAction($url = null)
     {
-        $twig = $this->container->get('twig');
-        $globals = $twig->getGlobals();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        $main = $repo->find($globals['top_menu_parent']);
-        $pages = $repo->childrenHierarchy($main,false,array('childSort'=>array('field'=>'prior')),false);
+        $pages = $repo->getChildren($repo->find($this->container->getParameter('top_menu_parent')),true,'prior');
 
-        return array('pages'=>$pages,'cut_path'=>$main->getPath(),$url=>$url);
+        return array('pages'=>$pages,'repo'=>$repo);
     }
 }

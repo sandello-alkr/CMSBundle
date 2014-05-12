@@ -1,4 +1,10 @@
 services:
+    twig.extension.routing:
+        class: alkr\CMSBundle\Twig\AlkrRoutingExtension
+        arguments: [@router,@doctrine.orm.entity_manager,%top_menu_parent%]
+        tags:
+            - { name: twig.extension }
+
     cms_bundle.extended_entity.widget:
         class: alkr\CMSBundle\Form\Extension\ExtendedEntityType
         arguments: [@property_accessor]

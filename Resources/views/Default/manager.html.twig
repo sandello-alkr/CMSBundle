@@ -3,24 +3,15 @@
 {% block header %}
 {% endblock %}
 
-{% block style %}
-{% stylesheets filter="compass" debug=false
-        "@CMSBundle/Resources/assets/css/*"
-        "@CMSBundle/Resources/assets/templates/one_sidebar.scss"
-%}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
-{% endblock %}
-
 {% block sidebar %}
 	<ul class="nav">
 		<li><a href="{{ path('manager_index') }}">{{'Меню'|trans}}</a>
 		    <ul class="menu_level_1 nav">
-		    	{% if sidebar.posts or sidebar2.posts or modules.posts %}<li><a href="{{ path('manager_post') }}">{{'Управление новостями'|trans}}</a></li>{% endif %}
-		    	{% if sidebar.banner or sidebar2.banner %}<li><a href="{{ path('manager_banner') }}">{{'Управление баннерами'|trans}}</a></li>{% endif %}
-		    	{% if header.slider %}<li><a href="{{ path('manager_slide') }}">{{'Управление слайдами'|trans}}</a></li>{% endif %}
-		    	{% if footer.faq %}<li><a href="{{ path('manager_faq') }}">{{'Вопросы и ответы'|trans}}</a></li>{% endif %}
-                {% if modules.redirects %}<li><a href="{{ path('manager_redirect') }}">{{'Карта перенаправлений'|trans}}</a></li>{% endif %}
+		    	{% if cms.modules.posts %}<li><a href="{{ path('manager_post') }}">{{'Управление новостями'|trans}}</a></li>{% endif %}
+		    	{% if cms.left_sidebar.banner or cms.right_sidebar.banner %}<li><a href="{{ path('manager_banner') }}">{{'Управление баннерами'|trans}}</a></li>{% endif %}
+		    	{% if cms.header.slider %}<li><a href="{{ path('manager_slide') }}">{{'Управление слайдами'|trans}}</a></li>{% endif %}
+		    	{% if cms.footer.faq %}<li><a href="{{ path('manager_faq') }}">{{'Вопросы и ответы'|trans}}</a></li>{% endif %}
+                {% if cms.modules.redirects %}<li><a href="{{ path('manager_redirect') }}">{{'Карта перенаправлений'|trans}}</a></li>{% endif %}
 		    	<li><a href="{{ path('index') }}">{{'В общедоступную часть'|trans}}</a></li>
 		    </ul>
 		</li>

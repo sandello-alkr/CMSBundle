@@ -1,21 +1,43 @@
-<div id="header" class="slider">
-    <div class="container">
-        <div id="element1">
-            <a href="{{ path('index')}}"><img src="/bundles/cms/img/logo.png"></a>
-        </div>
-        <div id="element2">
-            <p>{{'Слоган'|trans}}</p>
-            <a href="{{ path('page_show',{'url':'заказ'}) }}"><button type="button" class="btn btn-primary btn-lg">{{'Текст на кнопке'|trans}}</button></a>
-        </div>
-        <div id="element3">
-        </div>
-        <div id="element4">
-            <img class="hidden-sm hidden-xs" alt="" src="/bundles/cms/img/frames.png">
-        </div>
+{% if cms.header.menu == 'over' %}
+{% if cms.header.navbar.narrow and not cms.header.navbar.fixed %}
+<div class="container">
+{% endif %}
+    <div class="navbar header {% if cms.header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %}{% if not cms.header.navbar.narrow %} navbar-static-top{% endif %}{% if cms.header.navbar.fixed %} navbar-fixed-top{% endif %}" role="navigation">
+    {% if cms.header.navbar.fixed or not cms.header.navbar.narrow %}<div class="container">{% endif %}
+    {% include "CMSBundle:Base:navbar.html.twig" %}
+    <p class="telephone"><span></span>{{'header.phone'|trans}}</p>  
+    <p class="e-mail" ><span></span>{{'header.email'|trans}}</p>
     </div>
-    {% if header.menu %}
-    <div id="menu">
-        {{ knp_menu_render('CMSBundle:Builder:mainMenu',{'style':'pills'}) }}
-    </div>
-    {% endif %}
 </div>
+{% endif %}
+<div class="back">
+    <div id="header" class="slider{% if hide_pic is defined %} hide_pic{% endif %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <a href="{{ path('index')}}"><img src="/bundles/extendcms/img/logo.png" alt="logo"></a>
+                </div>
+                <div class="col-md-8">
+                    {% if cms.header.menu == 'on' %}
+                    {% include "CMSBundle:Base:navbar.html.twig" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if hide_pic is not defined %}
+        <img class="slide-img hidden-xs" src="/bundles/extendcms/img/background.jpg" alt="фоновая картинка"/>
+        {% endif %}
+    </div>
+</div>
+{% if cms.header.menu == 'under' %}
+{% if cms.header.navbar.narrow and not cms.header.navbar.fixed %}
+<div class="container">
+{% endif %}
+    <div class="navbar header {% if cms.header.navbar.inverse %}navbar-inverse{% else %}navbar-default{% endif %}{% if not cms.header.navbar.narrow %} navbar-static-top{% endif %}{% if cms.header.navbar.fixed %} navbar-fixed-top{% endif %}" role="navigation">
+    {% if cms.header.navbar.fixed or not cms.header.navbar.narrow %}<div class="container">{% endif %}
+    {% include "CMSBundle:Base:navbar.html.twig" %}
+    <p class="telephone"><span></span>{{'header.phone'|trans}}</p>  
+    <p class="e-mail" ><span></span>{{'header.email'|trans}}</p>
+    </div>
+</div>
+{% endif %}
