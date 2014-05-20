@@ -63,6 +63,13 @@ class Page
     private $enabled;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="showChildren", type="string", length=7)
+     */
+    private $showChildren;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="feedback", type="boolean", nullable=true)
@@ -175,10 +182,13 @@ class Page
      */
     public function __construct()
     {
+        $params = Globals::getParams();
+
         $this->enabled = true;
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lastmod = new \DateTime();
         $this->prior = 1;
+        $this->showChildren = $params['children_type'];
     }
 
     /**
@@ -670,5 +680,29 @@ class Page
     public function getPreview()
     {
         return $this->preview;
+    }
+
+    /**
+     * Set showChildren
+     *
+     * @param string $showChildren
+     *
+     * @return Page
+     */
+    public function setShowChildren($showChildren)
+    {
+        $this->showChildren = $showChildren;
+
+        return $this;
+    }
+
+    /**
+     * Get showChildren
+     *
+     * @return string 
+     */
+    public function getShowChildren()
+    {
+        return $this->showChildren;
     }
 }

@@ -16,7 +16,7 @@ class ConfigExposeExtension extends \Twig_Extension
     public function getGlobals()
     {
         return array(
-            'cms' => $this->container->parameters['cms']
+            'cms' => $this->container->getParameter('cms')
         );
     }
     
