@@ -31,6 +31,7 @@ class PageType extends AbstractType
             ->add('enabled',null,array('required'=>false,'label'=>'Включена'))
             ->add('annotation',null,array('label'=>'Аннотация'))
             ->add('content','ckeditor',array('label'=>'Содержание'))
+            ->add('showChildren','choice',array('label'=>'Дочерние страницы','choices'=>array('list'=>'списком','preview'=>'с фотографиями','none'=>'не выводить')))
             ->add('preview', new PhotoPureType(),array('label'=>'Превью для родительской страницы'))
             ->add('metaTitle',null,array('label'=>'Заголовок браузера'))
             ->add('menuTitle',null,array('label'=>'Заголовок меню'))

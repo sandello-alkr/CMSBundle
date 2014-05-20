@@ -7,19 +7,33 @@
     <div class="inner">
         {% include 'CMSBundle:Block:breadcrumbs.html.twig' with {'entity': entity} %}
         {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %}
-        {% if children|length > 0 %}
+        {% if entity.showChildren|default(cms.children_type) != 'none' and children|length > 0 %}
+        {% if entity.showChildren|default(cms.children_type) == 'preview' %}
         <div class="children">
+        {% else %}
+        <ul class="children">
+        {% endif %}
             {% for child in children %}
-            {% if loop.index % 2 == 1 %}<div class="row">{% endif %}
+            {% if entity.showChildren|default(cms.children_type) == 'preview' and loop.index % 2 == 1 %}<div class="row">{% endif %}
+                {% if entity.showChildren|default(cms.children_type) == 'preview' %}
                 <div class="child col-sm-6 text-center">
                     <a href="{{ path('page_show',{'url':child.path}) }}">
+                        {% if child.preview|length > 0 %}<div class="thumbnail"><img src="{{child.preview|apply_filter('gallery_thumb')}}"/></div>{% endif %}
                         <div class="title">{{child.title}}</div>
-                        {% if child.photos|length > 0 %}<div class="thumbnail"><img src="{{child.photos[0]| apply_filter('gallery_thumb')}}"/></div>{% endif %}
                     </a>
                 </div>
-            {% if loop.index % 2 == 0 or loop.last %}</div>{% endif %}
+                {% else %}
+                <li>
+                    <a href="{{ path('page_show',{'url':child.path}) }}">{{child.title}}</a>
+                </li>
+                {% endif %}
+            {% if entity.showChildren|default(cms.children_type) == 'preview' and (loop.index % 2 == 0 or loop.last) %}</div>{% endif %}
             {% endfor %}
+        {% if entity.showChildren|default(cms.children_type) == 'preview' %}
         </div>
+        {% else %}
+        </ul>
+        {% endif %}
         {% endif %}
         {{ entity.content|raw }}
         {% if entity.photos|length > 0 %}
