@@ -196,6 +196,16 @@ class PageController extends Controller
                 $photo->remove();
                 $em->remove($photo);
             }
+            $addMapItem = $entity->getMapItems()->getInsertDiff();
+            foreach ($addMapItem as $mapItem) {
+                $mapItem->setPage($entity);
+                $em->persist($mapItem);
+            }
+            $delMapItem = $entity->getMapItems()->getDeleteDiff();
+            foreach ($delMapItem as $mapItem) {
+                $entity->removeMapItem($mapItem);
+                $em->remove($mapItem);
+            }
             $em->flush();
 
             return $this->redirect($this->generateUrl('manager_index'));

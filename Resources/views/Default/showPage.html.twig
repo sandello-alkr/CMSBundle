@@ -1,4 +1,4 @@
-{% extends 'CMSBundle:Templates:'~entity.view|default(cms.base_template) %}
+{% extends 'CMSBundle:Templates:'~entity.view|default(cms.base_template)~".html.twig" %}
 {% block title %}{% if entity.metaTitle %}{{entity.metaTitle}} - {% endif %}{% if entity.title %}{{entity.title}} - {% endif %}{% endblock %}
 {% block metakeywords %}{% if entity.keywords %}<meta name="keywords" content="{{entity.keywords}}">{% endif %}{% endblock %}
 {% block metadescription %}{% if entity.description %}<meta name="description" content="{{entity.description}}">{% endif %}{% endblock %}
@@ -7,15 +7,15 @@
     <div class="inner">
         {% include 'CMSBundle:Block:breadcrumbs.html.twig' with {'entity': entity} %}
         {% if entity.annotation %}<div class="page_annotation">{{ entity.annotation }}</div>{% endif %}
-        {% if entity.showChildren|default(cms.children_type) != 'none' and children|length > 0 %}
-        {% if entity.showChildren|default(cms.children_type) == 'preview' %}
+        {% if cms.children_type != 'none' and children|length > 0 %}
+        {% if cms.children_type == 'preview' %}
         <div class="children">
         {% else %}
         <ul class="children">
         {% endif %}
             {% for child in children %}
-            {% if entity.showChildren|default(cms.children_type) == 'preview' and loop.index % 2 == 1 %}<div class="row">{% endif %}
-                {% if entity.showChildren|default(cms.children_type) == 'preview' %}
+            {% if cms.children_type == 'preview' and loop.index % 2 == 1 %}<div class="row">{% endif %}
+                {% if cms.children_type == 'preview' %}
                 <div class="child col-sm-6 text-center">
                     <a href="{{ path('page_show',{'url':child.path}) }}">
                         {% if child.preview|length > 0 %}<div class="thumbnail"><img src="{{child.preview|apply_filter('gallery_thumb')}}"/></div>{% endif %}
@@ -27,9 +27,9 @@
                     <a href="{{ path('page_show',{'url':child.path}) }}">{{child.title}}</a>
                 </li>
                 {% endif %}
-            {% if entity.showChildren|default(cms.children_type) == 'preview' and (loop.index % 2 == 0 or loop.last) %}</div>{% endif %}
+            {% if cms.children_type == 'preview' and (loop.index % 2 == 0 or loop.last) %}</div>{% endif %}
             {% endfor %}
-        {% if entity.showChildren|default(cms.children_type) == 'preview' %}
+        {% if cms.children_type == 'preview' %}
         </div>
         {% else %}
         </ul>
@@ -54,12 +54,23 @@
 
         function init() {
             var myMap = new ymaps.Map('map', {
-                center: [55.753994, 37.622093],
-                zoom: 9,
+                center: [{{ entity.mapCenter.lng|default('55.753994') }}, {{ entity.mapCenter.lat|default('37.622093') }}],
+                zoom: 13,
                 behaviors: ['default']
             });
 
-            ymaps.geocode('{{settings.address}}', {
+            {% for metka in entity.mapItems %}
+                     var myPlacemark{{metka.id}} = new ymaps.Placemark([{{metka.lng}},{{metka.lat}}], {
+                     iconContent: '{{metka.baloon}}',
+                     balloonContent: '{{metka.text|raw}}'
+                     }, {
+                        preset: 'twirl#violetStretchyIcon'
+                     });
+                     myMap.geoObjects.add(myPlacemark{{metka.id}});
+            {% endfor %}
+
+            {% if entity.mapItems|length == 0 %}
+            ymaps.geocode('{{"Брест, Беларусь, 224014"|trans}}', {
                 /**
                  * Опции запроса
                  * @see http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/geocode.xml
@@ -87,15 +98,16 @@
                      */
                     
                      var myPlacemark = new ymaps.Placemark(coords, {
-                     iconContent: '{{settings.baloon}}',
-                     balloonContent: '{{settings.baloon_text}}'
+                     iconContent: '{{"baloon"|trans}}',
+                     balloonContent: '<h2>{{"baloon_text"|trans}}</h2>'
                      }, {
-                     preset: 'twirl#violetStretchyIcon'
+                        preset: 'twirl#violetStretchyIcon'
                      });
-
                      myMap.geoObjects.add(myPlacemark);
+                     
                      myMap.container.fitToViewport();
                 });
+            {% endif %}
         }
         </script>
         <div id="map"></div>

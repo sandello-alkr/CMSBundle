@@ -1,0 +1,13 @@
+// @import "../css/bootstrap/variables";
+// @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins";
+
+@import "../../../../../../../../src/alkr/ExtendCMSBundle/Resources/assets/css/bootstrap/variables";
+@import "../../../../../../../twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins";
+
+@media screen and (max-width: $screen-sm-max) {
+	.sidebar.left {
+		.menu_level_1 {
+			display: none;
+		}
+	}
+}

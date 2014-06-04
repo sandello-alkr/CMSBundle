@@ -1,7 +1,9 @@
 .my_container {
 	> div {
-		margin-left: -$grid-gutter-width;
-		margin-right: -$grid-gutter-width;
+		@media screen and (min-width: $screen-md-min - 1) {
+			margin-left: -$grid-gutter-width;
+			margin-right: -$grid-gutter-width;
+		}
 		@media screen and (max-width: $screen-md-min - 1) {
 			.inner {
 				padding: $grid-gutter-width / 2;

@@ -99,7 +99,7 @@ class BlockController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        $pages = $repo->getChildren($repo->find($this->container->getParameter('left_menu_parent')),true,'prior');
+        $pages = $repo->findById($this->container->getParameter('left_menu_parent'));//$repo->getChildren($repo->find($this->container->getParameter('left_menu_parent')),true,'prior','asc',true);
 
         return array('pages'=>$pages,'repo'=>$repo);
     }

@@ -1,15 +1,16 @@
 {% extends 'CMSBundle:Base:base.html.twig' %}
 
 {% block style %}
-    {% stylesheets debug=false
-        "@CMSBundle/Resources/assets/css/*"
-        "@BraincraftedBootstrapBundle/Resources/sass/form.scss"
-        "@CMSBundle/Resources/assets/templates/one_sidebar.scss"
-        "@CMSBundle/Resources/public/css/*"
-        "@CMSBundle/Resources/public/original_css/*"
-    %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
+	{% stylesheets
+		"@CMSBundle/Resources/assets/css/*"
+		"@BraincraftedBootstrapBundle/Resources/sass/form.scss"
+		"@CMSBundle/Resources/assets/templates/one_sidebar.scss"
+		"css/compiled/*"
+		"@CMSBundle/Resources/public/css/*"
+		"@CMSBundle/Resources/public/original_css/*"
+	%}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
 {% endblock %}
 
 {% block content %}

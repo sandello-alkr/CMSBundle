@@ -7,9 +7,9 @@
 {% macro display_tree(page,repo) %}
 	<li>
 		{% if app.request.uri != page.path and page.lvl != 1 and app.request.get('url')|trim('/') != page.path|trim('/') %}
-			<a href="{{ path('page_show',{'url':page.path}) }}">{{ page.title }}</a>
+			<a href="{{ path('page_show',{'url':page.path}) }}">{{ page.menuTitle }}</a>
 		{% else %}
-			<span{% if page.lvl != 1 %} class="current"{% endif %}>{{ page.title }}</span>
+			<span{% if page.lvl != 1 %} class="current"{% endif %}>{{ page.menuTitle }}</span>
 		{% endif %}
 		{% set children = repo.children(page,true,'prior') %}
 		{% if children|length > 0 %}

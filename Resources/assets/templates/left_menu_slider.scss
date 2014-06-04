@@ -1,0 +1,26 @@
+// @import "../css/bootstrap/variables";
+// @import "../../../../../../vendor/twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins";
+
+@import "../../../../../../../../src/alkr/ExtendCMSBundle/Resources/assets/css/bootstrap/variables";
+@import "../../../../../../../twbs/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins";
+
+@media screen and (max-width: $screen-sm-max) {
+	.sidebar.left {
+		z-index: 2;
+		.menu_level_1 {
+			z-index: 2;
+			position: absolute;
+			left: -600px;
+			width: 300px;
+			// overflow-y: auto
+		}
+	}
+	.sidebar.right {
+		h4 {
+			margin-bottom: 14px;
+		}
+	}
+	.breadcrumb {
+		display: none;
+	}
+}

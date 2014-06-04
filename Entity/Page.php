@@ -12,6 +12,8 @@ use alkr\CMSBundle\Lib\Globals;
  * @Gedmo\Tree(type="materializedPath")
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
 class Page
 {   
@@ -63,13 +65,6 @@ class Page
     private $enabled;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="showChildren", type="string", length=7)
-     */
-    private $showChildren;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="feedback", type="boolean", nullable=true)
@@ -82,6 +77,12 @@ class Page
      * @ORM\Column(name="map", type="boolean", nullable=true)
      */
     private $map;
+
+    /**
+     * @ORM\OneToMany(targetEntity="alkr\CMSBundle\Entity\MapItem", mappedBy="page", cascade={"remove","persist"})
+     * @var ArrayCollection $mapItems
+     */
+    private $mapItems;
 
     /**
      * @Gedmo\TreeLevel
@@ -176,19 +177,16 @@ class Page
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-    
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $params = Globals::getParams();
-
         $this->enabled = true;
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lastmod = new \DateTime();
         $this->prior = 1;
-        $this->showChildren = $params['children_type'];
     }
 
     /**
@@ -683,26 +681,70 @@ class Page
     }
 
     /**
-     * Set showChildren
+     * Set lvl
      *
-     * @param string $showChildren
+     * @param integer $lvl
      *
      * @return Page
      */
-    public function setShowChildren($showChildren)
+    public function setLvl($lvl)
     {
-        $this->showChildren = $showChildren;
+        $this->lvl = $lvl;
 
         return $this;
     }
 
     /**
-     * Get showChildren
+     * Add mapItems
      *
-     * @return string 
+     * @param \alkr\CMSBundle\Entity\MapItem $mapItems
+     *
+     * @return Page
      */
-    public function getShowChildren()
+    public function addMapItem(\alkr\CMSBundle\Entity\MapItem $mapItems)
     {
-        return $this->showChildren;
+        $this->mapItems[] = $mapItems;
+
+        return $this;
+    }
+
+    /**
+     * Remove mapItems
+     *
+     * @param \alkr\CMSBundle\Entity\MapItem $mapItems
+     */
+    public function removeMapItem(\alkr\CMSBundle\Entity\MapItem $mapItems)
+    {
+        $this->mapItems->removeElement($mapItems);
+    }
+
+    /**
+     * Get mapItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMapItems()
+    {
+        return $this->mapItems;
+    }
+
+    public function getMapCenter()
+    {
+        if(count($this->mapItems) == 0)
+            return array('lat'=>null,'lng'=>null);
+        $array = array('lat'=>0,'lng'=>0);
+        foreach ($this->mapItems as $mapItem) {
+            $array['lat'] += $mapItem->getLat();
+            $array['lng'] += $mapItem->getLng();
+        }
+        $array['lat']/=count($this->mapItems);
+        $array['lng']/=count($this->mapItems);          
+        return $array;
+    }
+
+    public function getClass()
+    {
+        preg_match('/.+\\\\(.+)/', get_class($this), $name);
+        return mb_strtolower($name[1]);
     }
 }

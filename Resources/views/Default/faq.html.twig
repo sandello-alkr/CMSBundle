@@ -1,4 +1,4 @@
-{% extends 'CMSBundle:Templates:'~template|default(cms.base_template) %}
+{% extends 'CMSBundle:Templates:'~template|default(cms.base_template)~".html.twig" %}
 {% block title %}{{'FAQ'|trans}}{% endblock %}
 {% block body %}
     <h1>{{'FAQ'|trans}}</h1>

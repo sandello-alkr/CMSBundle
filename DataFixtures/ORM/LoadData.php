@@ -20,6 +20,7 @@ class LoadData implements FixtureInterface
             $leftMenuRoot->setTitle('Корень')
                 ->setEnabled(true)
                 ->setContent('')
+                ->setPrior(1)
                 ;
             $manager->persist($leftMenuRoot);
 
@@ -28,6 +29,7 @@ class LoadData implements FixtureInterface
                 ->setEnabled(true)
                 ->setContent('')
                 ->setParent($leftMenuRoot)
+                ->setPrior(1)
                 ;
             $manager->persist($child);
 
@@ -36,6 +38,7 @@ class LoadData implements FixtureInterface
                 ->setEnabled(true)
                 ->setContent('')
                 ->setParent($leftMenuRoot)
+                ->setPrior(1)
                 ;
             $manager->persist($child);
 
@@ -44,6 +47,7 @@ class LoadData implements FixtureInterface
                 ->setEnabled(true)
                 ->setContent('')
                 ->setParent($child)
+                ->setPrior(1)
                 ;
             $manager->persist($grandchild);
         // }
@@ -52,6 +56,7 @@ class LoadData implements FixtureInterface
         $leftMenuRoot->setTitle('Страницы для шапки')
             ->setEnabled(true)
             ->setContent('')
+            ->setPrior(1)
             ;
         $manager->persist($leftMenuRoot);
 

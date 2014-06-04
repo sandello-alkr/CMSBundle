@@ -30,9 +30,11 @@ class RedirectExceptionListener
         $exception = $event->getException();
         if ($exception instanceof NotFoundHttpException) {
             preg_match('/(.+[\wа-я]+)(\/?)$/u', $event->getRequest()->get('url'), $url);
-            $redirect = $this->em->getRepository('CMSBundle:Redirect')->findOneByOldUrl($url[1]);
-            if (!is_null($redirect)) {
-                $event->setResponse(new RedirectResponse($this->router->generate('page_show',array('url'=>$redirect->getNewUrl()),true)));
+            if(count($url>1)) {
+                $redirect = $this->em->getRepository('CMSBundle:Redirect')->findOneByOldUrl($url[1]);
+                if (!is_null($redirect)) {
+                    $event->setResponse(new RedirectResponse($this->router->generate('page_show',array('url'=>$redirect->getNewUrl()),true)));
+                }
             }
         }
     }

@@ -73,16 +73,11 @@ class DefaultController extends Controller
 
         if($entity->getMap())
         {
-            $return['settings'] = array(
-                'address' => $this->container->getParameter('address'),
-                'baloon' => $this->container->getParameter('baloon'),
-                'baloon_text' => $this->container->getParameter('baloon_text'),
-                );
             $return['map'] = true;
         }
         
         $return['children'] = array();
-        foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true,'prior','asc') as $child) {
+        foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'prior',false) as $child) {
             if($child->getEnabled())
                 $return['children'][] = $child;
         }
@@ -116,20 +111,22 @@ class DefaultController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $finder = $this->container->get('fos_elastica.finder.pages.page');
+        if($request->get('q',false))
+        {
+            $finder = $this->container->get('fos_elastica.finder.pages.page');
 
-        $boolQuery = new \Elastica\Query\Bool();
-        $boolQuery->addShould(new \Elastica\Query\Fuzzy('title', $request->get('q')));
-        $boolQuery->addShould(new \Elastica\Query\Fuzzy('content', $request->get('q')));
-        $boolQuery->addShould(new \Elastica\Query\Fuzzy('annotation', $request->get('q')));
+            $boolQuery = new \Elastica\Query\Bool();
+            $boolQuery->addShould(new \Elastica\Query\Fuzzy('title', $request->get('q')));
+            $boolQuery->addShould(new \Elastica\Query\Fuzzy('content', $request->get('q')));
+            $boolQuery->addShould(new \Elastica\Query\Fuzzy('annotation', $request->get('q')));
 
-        $term = new \Elastica\Filter\Term(array('enabled'=>true));
-        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $term);
+            $term = new \Elastica\Filter\Term(array('enabled'=>true));
+            $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $term);
 
-        $pages = $finder->find($filteredQuery);
-
-        /** var array of Acme\UserBundle\Entity\User limited to 10 results */
-        // $users = $finder->find('bob', 10);
+            $pages = $finder->find($filteredQuery);
+        }
+        else
+            $pages = array();
 
         return array(
             'pages'    => $pages,

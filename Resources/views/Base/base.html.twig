@@ -2,89 +2,89 @@
 <html>
 <head>
 
-    <title>{% block title %}{{'title'|trans}}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block metakeywords %}{% endblock %}
-    {% block metadescription %}{% endblock %}
-    <!-- Bootstrap -->
-    {% block style %}
-    {% stylesheets debug=false
-        "@CMSBundle/Resources/assets/css/*"
-        "@BraincraftedBootstrapBundle/Resources/sass/form.scss"
-        "@CMSBundle/Resources/assets/templates/two_sidebars.scss"
-        "@CMSBundle/Resources/public/css/*"
-        "@CMSBundle/Resources/public/original_css/*"
-        "@FOSCommentBundle/Resources/assets/css/comments.css"
-    %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-    {% endblock %}
+	<title>{% block title %}{{'title'|trans}}{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	{% block metakeywords %}{% endblock %}
+	{% block metadescription %}{% endblock %}
+	<!-- Bootstrap -->
+	{% block style %}
+	{% stylesheets
+		"@CMSBundle/Resources/assets/css/*"
+		"@BraincraftedBootstrapBundle/Resources/sass/form.scss"
+		"@CMSBundle/Resources/assets/templates/two_sidebars.scss"
+		"css/compiled/*"
+		"@CMSBundle/Resources/public/css/*"
+		"@CMSBundle/Resources/public/original_css/*"
+	%}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+	{% endblock %}
 
-    <link href='http://fonts.googleapis.com/css?family=Marmelad&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    {# <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen"> #}
+	<link href='http://fonts.googleapis.com/css?family=Marmelad&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+	{# <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" media="screen"> #}
 
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
-    <meta name="msapplication-square70x70logo" content="/mstile-70x70.png" />
-    <meta name="msapplication-square150x150logo" content="/mstile-150x150.png" />
-    <meta name="msapplication-wide310x150logo" content="/mstile-310x150.png" />
-    <meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
-    {#<link href="{{ asset('/bundles/cms/css/style.css') }}" rel="stylesheet" media="screen">#}
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+	<meta name="msapplication-square70x70logo" content="/mstile-70x70.png" />
+	<meta name="msapplication-square150x150logo" content="/mstile-150x150.png" />
+	<meta name="msapplication-wide310x150logo" content="/mstile-310x150.png" />
+	<meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
+	{#<link href="{{ asset('/bundles/cms/css/style.css') }}" rel="stylesheet" media="screen">#}
 
-    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
-    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+	<!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+	{% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
 
-    {% if cms.header.navbar.fixed %}
-    <style type="text/css">
-    body {margin-top:50px;}
-    </style>
-    {% endif %}
+	{% if cms.header.navbar.fixed %}
+	<style type="text/css">
+	body {margin-top:50px;}
+	</style>
+	{% endif %}
 
 </head>
 
 <body>
-    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <!-- Include all JavaScripts, compiled by Assetic -->
-    <script src="{{ asset('/js/bootstrap.js') }}"></script>
+	<!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
 
-    {% javascripts debug=false
-        '@CMSBundle/Resources/public/js/*'
-        '@CMSBundle/Resources/public/original_js/*'
-    %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    
-    <div id="wrap">
-        {% block header %}
-        {% include 'CMSBundle:Base:header.html.twig' %}
-        {% endblock %}
-        <div class="container">
-            {% for key, type in app.session.flashbag %}
-            {% for flash in type %}
-                <div class="alert {{key}} fade in">
-                    {{ flash }}
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                </div>
-            {% endfor %}
-            {% endfor %}
-        </div>
-        {% block content %}
-        <div class="container">
-            {% block body %}
-            {% endblock %}
-        </div>
-        {% endblock %}
-    </div>
-    {% include 'CMSBundle:Base:footer.html.twig' %}
-    <script type="text/javascript">
-    // $('.carousel').carousel();
-    // $.each($('.carousel-inner'),function(){
-    //     if($(this).find('.item').length>1)
-    //     {
-    //         $(this).parent().parent().addClass('slide').find('.carousel-control').show()
-    //     }
-    // })
-    </script>
+	
+	<div id="wrap">
+		{% block header %}
+		{% include 'CMSBundle:Base:header.html.twig' %}
+		{% endblock %}
+		<div class="container">
+			{% for key, type in app.session.flashbag %}
+			{% for flash in type %}
+				<div class="alert {{key}} fade in">
+					{{ flash }}
+					<button type="button" class="close" data-dismiss="alert">×</button>
+				</div>
+			{% endfor %}
+			{% endfor %}
+		</div>
+		{% block content %}
+		<div class="container">
+			{% block body %}
+			{% endblock %}
+		</div>
+		{% endblock %}
+	</div>
+	{% include 'CMSBundle:Base:footer.html.twig' %}
+	<script type="text/javascript">
+	// $('.carousel').carousel();
+	// $.each($('.carousel-inner'),function(){
+	//     if($(this).find('.item').length>1)
+	//     {
+	//         $(this).parent().parent().addClass('slide').find('.carousel-control').show()
+	//     }
+	// })
+	</script>
+	<!-- Include all JavaScripts, compiled by Assetic -->
+	<script type="text/javascript" src="{{ asset('/js/bootstrap.js') }}"></script>
+	{% javascripts debug=false
+		'@CMSBundle/Resources/public/js/*'
+		'@CMSBundle/Resources/public/original_js/*'
+	%}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
 </body>
 </html>

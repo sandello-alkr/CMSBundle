@@ -3,6 +3,7 @@
 
     {% if image_url is not null %}
         <a href="{{ asset(image_url) }}" data-imagelightbox="a"><img src="{{ asset(image_url) | apply_filter('gallery_thumb') }}" alt="{{ photo.description|default(asset(image_url)) }}"/></a>
+        {# <img src="{{ asset(image_url) }}" style="max-width:100%; max-height:100px;"/> #}
     {% endif %}
     {{ block('form_widget') }}
 

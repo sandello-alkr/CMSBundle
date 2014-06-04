@@ -9,22 +9,11 @@
   @include make-xs-column(12);
   @include make-sm-column(12);
   @include make-md-column(8);
-  @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+  @media (min-width: $screen-md-min) {
     float: right;
   }
-  .services-section {
-    @include make-row();
-    li {
-      @include make-xs-column(6);
-      @include make-sm-column(4);
-      @media (min-width: $screen-sm-min) {
-        &:nth-of-type(3n-2) {clear: left;}}
-      @media (max-width: $screen-xs-max) {
-        &:nth-of-type(2n-1) {clear: left;}}
-      @media (max-width: 430px) {
-        @include make-xs-column(12);
-      }
-    }
+  @media (max-width: $screen-md-min) {
+    padding: 0;
   }
 }
 
@@ -32,4 +21,7 @@
   @include make-xs-column(12);
   @include make-sm-column(12);
   @include make-md-column(4);
+  @media (max-width: $screen-md-min) {
+    padding: 0;
+  }
 }

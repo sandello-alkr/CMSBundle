@@ -1,4 +1,4 @@
-{% extends 'CMSBundle:Templates:'~entity.view|default(cms.base_template) %}
+{% extends 'CMSBundle:Templates:'~envity.view|default(cms.base_template)~".html.twig" %}
 {% block body %}
     <h1>{{'Новости'|trans}}</h1>
     <div class="inner">

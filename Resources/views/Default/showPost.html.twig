@@ -1,4 +1,4 @@
-{% extends "CMSBundle:Templates:"~template|default(cms.base_template) %}
+{% extends "CMSBundle:Templates:"~template|default(cms.base_template)~".html.twig" %}
 
 {% block title %}{{entity.title}}{% endblock %}
 {#{% block metakeywords %}{% if entity.keywords %}<meta name="keywords" content="{{entity.keywords}}">{% endif %}{% endblock %}

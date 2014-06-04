@@ -22,15 +22,23 @@
 
 
 <script type="text/javascript">
-// $('#alkr_cmsbundle_page_title').blur(function(){
-//     if($('#alkr_cmsbundle_page_url').val()=='')
-// 	   $('#alkr_cmsbundle_page_url').val($(this).val().replace(/ /g,'-').replace(/[^-а-яА-Я0-9\w]/g,'').toLowerCase())
-// })
+$(document).on('blur','#alkr_cmsbundle_page_mapItems [id$="address"]',function(){
+    form = $(this).parent().parent().parent()
+    data = $(this).val()
+    $.ajax({
+        type: "GET",
+        url: "http://geocode-maps.yandex.ru/1.x/?format=json&geocode="+data,
+        async: false,
+        dataType: 'json',
+        success: function(data){
+            pos = data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.match(/(.+) (.+)/)
+            form.find('[id$="lat"]').val(pos[1])
+            form.find('[id$="lng"]').val(pos[2])
+        }
+    });
+})
 $('#alkr_cmsbundle_page_parent').change(function(){
     $('#alkr_cmsbundle_page_prior').val($(this).find('option:selected').data('next'))
-})
-$('form').submit(function(){
-    $('#alkr_cmsbundle_page_category').attr('disabled',false)
 })
 CKEDITOR.config.protectedSource.push( /<script[\s\S]*?script>/g );
 CKEDITOR.config.allowedContent = true;

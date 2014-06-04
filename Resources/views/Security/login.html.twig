@@ -1,4 +1,4 @@
-{% extends "CMSBundle:Templates:"~template|default(cms.base_template) %}
+{% extends "CMSBundle:Templates:"~template|default(cms.base_template)~".html.twig" %}
 
 {% block body %}
     <h1 class="title">{{'Login'|trans}}</h1>
@@ -18,12 +18,8 @@
             <input type="password" id="password" name="_password" />
         </div>
 
-        <button type="submit" class="sf-button">
-            <span class="border-l">
-                <span class="border-r">
-                    <span class="btn-bg">{{'Login'|trans}}</span>
-                </span>
-            </span>
+        <button type="submit" class="btn-bg btn btn-primary">
+            {{'Login'|trans}}
         </button>
     </form>
 {% endblock %}

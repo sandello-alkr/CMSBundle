@@ -225,7 +225,7 @@
 {% endblock choice_widget_options %}
 
 {# uncomment to have custom checkbox_row #}
-{#{% block checkbox_row %}
+{% block checkbox_row %}
 {% spaceless %}
     {% set style = style|default(bootstrap_get_style()) %}
     {% set col_size = col_size|default(bootstrap_get_col_size()) %}
@@ -282,7 +282,7 @@
 
     {% if style == 'inline' %}&nbsp;{% endif %}
 {% endspaceless %}
-{% endblock checkbox_row %}#}
+{% endblock checkbox_row %}
 
 {% block radio_row %}
 {% spaceless %}
