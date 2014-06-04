@@ -101,9 +101,9 @@ class BlockController extends Controller
         $globals = $twig->getGlobals();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        $pages = $repo->childrenHierarchy($repo->find($globals['left_menu_parent']),false,array('childSort'=>array('field'=>'prior')),true);
+        $pages = $repo->findById($globals['left_menu_parent']);
 
-        return array('pages'=>$pages,$url=>$url);
+        return array('pages'=>$pages,'repo'=>$repo);
     }
 
     /**
