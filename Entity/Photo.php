@@ -52,12 +52,10 @@ class Photo
         }
 
         if ($this->filePath) {
-            unlink($file = $this->getAbsolutePath());
+            unlink($this->getAbsolutePath());
         }
 
         $name = substr($this->file->getClientOriginalName(), 0, strrpos($this->file->getClientOriginalName(), '.')).mb_strtolower(substr($this->file->getClientOriginalName(), strrpos($this->file->getClientOriginalName(), '.')));
-        print_r ($name);
-        // die();
         $this->filePath = substr(md5($name.time()), 0, 16).$name;
         $this->file->move($this->getUploadRootDir(), $this->filePath);
 
@@ -93,7 +91,7 @@ class Photo
     {
         if ($this->filePath) {
             if(file_exists($this->getAbsolutePath()))
-                unlink($file = $this->getAbsolutePath());
+                unlink($this->getAbsolutePath());
         }
         return $this;
     }

@@ -265,7 +265,7 @@ class PageController extends Controller
         ;
     }
 
-    public function hierarchyPages()
+    private function hierarchyPages()
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');

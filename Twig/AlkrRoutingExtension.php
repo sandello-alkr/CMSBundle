@@ -1,9 +1,6 @@
 <?php
 namespace alkr\CMSBundle\Twig;
  
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
- 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bridge\Twig\Extension\RoutingExtension;
 use Doctrine\ORM\EntityManager;

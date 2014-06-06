@@ -8,8 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
  * Admin controller.
@@ -23,33 +21,33 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
-        if($request->getMethod() == 'POST')
-        {
-            // print_r ($request);
-            foreach ($file['twig']['globals'] as $place => $vars) {
-                foreach ($vars as $name => $val) {
-                    if(count($val)>1)
-                    {
-                        foreach ($val as $name1 => $val1) {
-                            if($request->get($place.'_'.$name.'_'.$name1,false))
-                                $file['twig']['globals'][$place][$name][$name1] = true;
-                            else
-                                $file['twig']['globals'][$place][$name][$name1] = false;
-                        }
-                    }
-                    else
-                    {
-                        if($request->get($place.'_'.$name,false))
-                            $file['twig']['globals'][$place][$name] = true;
-                        else
-                            $file['twig']['globals'][$place][$name] = false;
-                    }
-                }
-            }
-            yaml_emit_file(__DIR__.'/../../../../../../app/config/globals.yml',$file);
+        // $file = yaml_parse_file(__DIR__.'/../../../../../../app/config/globals.yml');
+        // if($request->getMethod() == 'POST')
+        // {
+        //     // print_r ($request);
+        //     foreach ($file['twig']['globals'] as $place => $vars) {
+        //         foreach ($vars as $name => $val) {
+        //             if(count($val)>1)
+        //             {
+        //                 foreach ($val as $name1 => $val1) {
+        //                     if($request->get($place.'_'.$name.'_'.$name1,false))
+        //                         $file['twig']['globals'][$place][$name][$name1] = true;
+        //                     else
+        //                         $file['twig']['globals'][$place][$name][$name1] = false;
+        //                 }
+        //             }
+        //             else
+        //             {
+        //                 if($request->get($place.'_'.$name,false))
+        //                     $file['twig']['globals'][$place][$name] = true;
+        //                 else
+        //                     $file['twig']['globals'][$place][$name] = false;
+        //             }
+        //         }
+        //     }
+        //     yaml_emit_file(__DIR__.'/../../../../../../app/config/globals.yml',$file);
             
-        }
+        // }
 
         // $form = $this->createForm(new BannerType(), $entity, array(
         //     'action' => $this->generateUrl('manager_banner_update', array('id' => $entity->getId())),
