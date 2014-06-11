@@ -14,7 +14,7 @@ use alkr\CMSBundle\Form\AnswerType;
 /**
  * Review controller.
  *
- * @Route("/отзывы")
+ * @Route("/reviews")
  */
 class ReviewController extends Controller
 {
@@ -250,7 +250,7 @@ class ReviewController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('review_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Удалить'))
+            ->add('submit', 'submit', array('label' => 'Удалить','attr'=>array('type'=>'danger')))
             ->getForm()
         ;
     }

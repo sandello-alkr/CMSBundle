@@ -33,3 +33,9 @@ services:
         arguments: [@doctrine.orm.entity_manager,@router]
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: checkRedirect }
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+           - { name: twig.extension }
+

@@ -104,6 +104,7 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('views')->defaultValue(false)->end()
                         ->booleanNode('dropdown_menu')->defaultValue(false)->end()
                         ->booleanNode('comments')->defaultValue(false)->end()
+                        ->booleanNode('faq')->defaultValue(false)->end()
                     ->end()
                 ->end()
             ->end()

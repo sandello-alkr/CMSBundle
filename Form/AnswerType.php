@@ -19,7 +19,7 @@ class AnswerType extends AbstractType
             // ->add('email')
             // ->add('review')
             ->add('answer',null,array('label'=>'Ответ'))
-            ->add('enabled',null,array('required'=>false,'label'=>'Включен'))
+            ->add('enabled',null,array('required'=>false,'label'=>'Включен','attr'=>array('align_with_widget' => true)))
         ;
     }
     

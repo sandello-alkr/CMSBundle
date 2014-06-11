@@ -236,13 +236,17 @@ class PageController extends Controller
                 throw $this->createNotFoundException('Unable to find Page entity.');
             }
 
-            $preview = $entity->getPreview()->setPagePreview(null)->remove();
-            $entity->setPreview(null);
+            $preview = $entity->getPreview();
+            if(is_object($preview)) {
+                $preview->setPagePreview(null)->remove();
+                $entity->setPreview(null);
+                $em->remove($preview);
+                $em->flush();
+            }
 
             $em->remove($entity);
             $em->flush();
-            $em->remove($preview);
-            $em->flush();
+            
         }
 
         return $this->redirect($this->generateUrl('manager_index'));
