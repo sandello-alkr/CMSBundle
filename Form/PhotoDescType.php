@@ -17,6 +17,7 @@ class PhotoDescType extends AbstractType
         $builder
             ->add('file', 'file', array('image_path' => 'webPath','required'=>false,'label'=>'Файл'))
             ->add('description',null,array('label'=>'Подпись'))
+            ->add('prior',null,array('label'=>'Порядок'))
         ;
     }
     

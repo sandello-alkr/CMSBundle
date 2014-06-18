@@ -111,6 +111,7 @@ class Page
 
     /**
      * @ORM\OneToMany(targetEntity="alkr\CMSBundle\Entity\Photo", mappedBy="page", cascade={"remove","persist"})
+     * @ORM\OrderBy({"prior" = "ASC"})
      * @var ArrayCollection $photos
      */
     private $photos;
