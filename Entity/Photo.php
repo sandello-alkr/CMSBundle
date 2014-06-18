@@ -172,6 +172,7 @@ class Photo
     public function __construct()
     {
         $this->filePath = '';
+        $this->prior = 1;
     }
     
     /**
