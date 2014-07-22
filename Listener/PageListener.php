@@ -20,6 +20,19 @@ class PageListener {
                     $this->children[] = $child;
                 }
             }
+            if ($eventArgs->hasChangedField('url')) {
+                $em = $eventArgs->getObjectManager();
+
+                $returnValue = preg_replace('/(glavnaia\/|glavnaia)(.+)/', '$2', $entity->getUrl(), -1, $count);
+                if($count > 0)
+                    $entity->setUrl($returnValue);
+
+                foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true) as $child) {
+                    $returnValue = preg_replace('/(.+)\/([^\/]+)/', '$2', $child->getUrl(), -1, $count);
+                    $child->setUrl($returnValue);
+                    $this->children[] = $child;
+                }
+            }
         }
     }
 

@@ -1,7 +1,7 @@
 services:
     twig.extension.routing:
         class: alkr\CMSBundle\Twig\AlkrRoutingExtension
-        arguments: [@router,@doctrine.orm.entity_manager,%top_menu_parent%]
+        arguments: [@router,@doctrine.orm.entity_manager,%excludes%]
         tags:
             - { name: twig.extension }
 

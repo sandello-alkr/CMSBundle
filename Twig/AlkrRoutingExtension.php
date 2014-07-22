@@ -11,13 +11,33 @@ class AlkrRoutingExtension extends RoutingExtension
      * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
-    protected $top_menu_parent;
+    protected $excludes;
+    protected $replace;
 
-    function __construct(UrlGeneratorInterface $generator, EntityManager $em, $top_menu_parent)
+    function __construct(UrlGeneratorInterface $generator, EntityManager $em, $excludes)
     {
-        $this->top_menu_parent = $top_menu_parent;
+        $this->excludes = $excludes;
         $this->em = $em;
+        if(!isset($this->replace))
+            $this->getReplaces();
         parent::__construct($generator);
+    }
+
+    public function getReplaces()
+    {
+        $cut_paths = $this->em->createQueryBuilder('p')
+            ->select('p.url')
+            ->from('CMSBundle:Page','p')
+            ->where('p.id IN (:ids)')
+            ->setParameter('ids',$this->excludes)
+            ->getQuery()
+            ->getResult();
+
+        $replace = array();
+        foreach ($cut_paths as $value) {
+            $replace[] = $value['url'].'/';
+        }
+        $this->replace = $replace;
     }
 
     /**
@@ -28,7 +48,6 @@ class AlkrRoutingExtension extends RoutingExtension
      */
     public function getPath($name, $parameters = array(), $relative = false)
     {
-        $cut_path = $this->em->getRepository('CMSBundle:Page')->find($this->top_menu_parent);
-        return str_replace(urlencode($cut_path->getUrl()).'/', '', parent::getPath($name, $parameters, $relative));
+        return str_replace($this->replace, '', parent::getPath($name, $parameters, $relative));
     }
 }

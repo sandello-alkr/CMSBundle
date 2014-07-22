@@ -1,5 +1,5 @@
 {% extends 'CMSBundle:Templates:'~entity.view|default(cms.base_template)~".html.twig" %}
-{% block title %}{% if entity.metaTitle %}{{entity.metaTitle}} - {% endif %}{% if entity.title %}{{entity.title}} - {% endif %}{% endblock %}
+{% block title %}{% if entity.metaTitle %}{{entity.metaTitle}}{% else %}{{entity.title}}{% endif %}{% endblock %}
 {% block metakeywords %}{% if entity.keywords %}<meta name="keywords" content="{{entity.keywords}}">{% endif %}{% endblock %}
 {% block metadescription %}{% if entity.description %}<meta name="description" content="{{entity.description}}">{% endif %}{% endblock %}
 {% block body %}

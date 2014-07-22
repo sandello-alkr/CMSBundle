@@ -9,9 +9,9 @@ use alkr\CMSBundle\Lib\Globals;
 /**
  * Page
  *
- * @Gedmo\Tree(type="materializedPath")
+ * @Gedmo\Tree(type="nested")
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
@@ -29,12 +29,6 @@ class Page
     }
 
     /**
-     * @Gedmo\TreePath(separator="/",appendId=false)
-     * @ORM\Column(name="path", type="string", length=3000, nullable=true)
-     */
-    private $path;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -44,6 +38,30 @@ class Page
     private $id;
 
     /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(name="root", type="integer", nullable=true)
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private $lvl;
+
+    /**
      * @var integer
      * @ORM\Column(name="prior", type="integer")
      */
@@ -51,8 +69,12 @@ class Page
 
     /**
      * @var string
-     * @Gedmo\Slug(fields={"title"},updatable=false)
-     * @Gedmo\TreePathSource
+     * @Gedmo\Slug(handlers={
+     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\TreeSlugHandler", options={
+     *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
+     *          @Gedmo\SlugHandlerOption(name="separator", value="/")
+     *      })
+     * }, separator="-", updatable=true, fields={"title"}, unique=true)
      * @ORM\Column(name="url", type="string")
      */
     private $url;
@@ -83,12 +105,6 @@ class Page
      * @var ArrayCollection $mapItems
      */
     private $mapItems;
-
-    /**
-     * @Gedmo\TreeLevel
-     * @ORM\Column(name="lvl", type="integer", nullable=true)
-     */
-    private $lvl;
 
     /**
      * @Gedmo\TreeParent

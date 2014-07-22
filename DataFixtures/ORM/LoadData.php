@@ -16,10 +16,19 @@ class LoadData implements FixtureInterface
 
         // if($file['twig']['globals']['sidebar']['menu'])
         // {
+            $root = new Page();
+            $root->setTitle('Главная')
+                ->setEnabled(true)
+                ->setContent('')
+                ->setPrior(1)
+                ;
+            $manager->persist($root);
+
             $leftMenuRoot = new Page();
             $leftMenuRoot->setTitle('Корень')
                 ->setEnabled(true)
                 ->setContent('')
+                ->setParent($root)
                 ->setPrior(1)
                 ;
             $manager->persist($leftMenuRoot);
@@ -56,6 +65,7 @@ class LoadData implements FixtureInterface
         $leftMenuRoot->setTitle('Страницы для шапки')
             ->setEnabled(true)
             ->setContent('')
+            ->setParent($root)
             ->setPrior(1)
             ;
         $manager->persist($leftMenuRoot);
