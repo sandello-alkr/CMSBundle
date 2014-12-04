@@ -45,14 +45,14 @@ class DefaultController extends Controller
     {
         $params = $this->container->getParameter('cms');
         $em = $this->getDoctrine()->getManager();
-        if($params['url_by_path'])
-        {
+        if ($params['url_by_path']) {
             $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($url);
-            if(is_null($entity))
+            if (is_null($entity)) {
                 $entity = $em->getRepository('CMSBundle:Page')->findOneByPath($em->getRepository('CMSBundle:Page')->find($params['top_menu_parent'])->getPath().$url);
-        }
-        else
+            }
+        } else {
             $entity = $em->getRepository('CMSBundle:Page')->findOneByUrl($url);
+        }
 
         if (!$entity || !$entity->getEnabled()) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -60,8 +60,7 @@ class DefaultController extends Controller
 
         $return = array('entity'=>$entity);
 
-        if($entity->getFeedback())
-        {
+        if ($entity->getFeedback()) {
             $form = $this->createForm(new FeedbackType(), null, array(
                 'action' => $this->generateUrl('send_message'),
                 'method' => 'POST',
@@ -71,18 +70,11 @@ class DefaultController extends Controller
             $return['form'] = $form->createView();
         }
 
-        if($entity->getMap())
-        {
+        if ($entity->getMap()) {
             $return['map'] = true;
         }
         
-        $return['children'] = array();
-        foreach ($em->getRepository('CMSBundle:Page')->getChildren($entity,true,null,'prior',false) as $child) {
-            if($child->getEnabled())
-                $return['children'][] = $child;
-        }
-
-        // $return['repo'] = $em->getRepository('CMSBundle:Page');
+        $return['children'] = $em->getRepository('CMSBundle:Page')->findBy(array('parent'=>$entity,'enabled'=>true), array('prior'=>'ASC'));
 
         return $return;
     }
@@ -111,8 +103,7 @@ class DefaultController extends Controller
      */
     public function searchAction(Request $request)
     {
-        if($request->get('q',false))
-        {
+        if ($request->get('q', false)) {
             $finder = $this->container->get('fos_elastica.finder.pages.page');
 
             $boolQuery = new \Elastica\Query\Bool();
@@ -124,9 +115,9 @@ class DefaultController extends Controller
             $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $term);
 
             $pages = $finder->find($filteredQuery);
-        }
-        else
+        } else {
             $pages = array();
+        }
 
         return array(
             'pages'    => $pages,
@@ -171,7 +162,8 @@ class DefaultController extends Controller
             ->setFrom(array($email=>$request->get('name')))
             ->setTo($email)
             ->setBody(
-                '<p>'.$request->get('message').'</p><p>Контакты: '.$request->get('email').' '.$request->get('contacts').'</p>','text/html'
+                '<p>'.$request->get('message').'</p><p>Контакты: '.$request->get('email').' '.$request->get('contacts').'</p>',
+                'text/html'
             );
         $this->get('mailer')->send($message);
 
