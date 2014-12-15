@@ -273,6 +273,23 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('CMSBundle:Page');
-        return $repo->getChildren();
+
+        $children = $repo->getChildren(null, true, 'prior');
+        $parent = $repo->findBy(array('parent'=>null), array('prior'=>'ASC'));
+        $result = array();
+        foreach ($parent as $page) {
+            $result[] = $page;
+            $this->child($page, $repo, $result);
+        }
+
+        return $result;
+    }
+
+    public function child($parent, $repo, &$result)
+    {
+        foreach ($repo->findBy(array('parent' => $parent->getId()), array('prior' => 'ASC')) as $child) {
+            $result[] = $child;
+            $this->child($child, $repo, $result);
+        }
     }
 }
