@@ -74,7 +74,7 @@ class Page
      *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
      *          @Gedmo\SlugHandlerOption(name="separator", value="/")
      *      })
-     * }, separator="-", updatable=true, fields={"title"}, unique=true)
+     * }, separator="-", updatable=false, fields={"title"}, unique=true)
      * @ORM\Column(name="url", type="string")
      */
     private $url;
